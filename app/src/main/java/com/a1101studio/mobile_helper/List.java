@@ -20,13 +20,15 @@ public class List extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
         String[] strings={"1","2","3"};//тут пишешь что надо
-        final ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strings);
+        ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strings);
+        String[] strings1={"1","2","3"};
+        final ArrayAdapter arrayAdapter1=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strings1);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder alertDialog=new AlertDialog.Builder(List.this);
-                alertDialog.setSingleChoiceItems(arrayAdapter,0, new DialogInterface.OnClickListener() {
+                alertDialog.setSingleChoiceItems(arrayAdapter1,0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

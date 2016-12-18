@@ -4,8 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:padding="10dp"
-        android:background="@drawable/etborder"
+
         android:id="@+id/ll_top_list"
         android:orientation="horizontal"
         android:layout_width="match_parent"

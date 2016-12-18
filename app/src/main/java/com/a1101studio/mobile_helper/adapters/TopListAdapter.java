@@ -2,6 +2,7 @@ package com.a1101studio.mobile_helper.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
@@ -9,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +48,14 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
         
         TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
-
+        ImageView ibPhoto=(ImageView) rowView.findViewById(R.id.ibPhoto);
+        ibPhoto.setEnabled(true);
+        ibPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Take photo,say shesse",Toast.LENGTH_SHORT).show();
+            }
+        });
         etSeatNubmer.setText(topListModels.get(position).getSeatNumber());
 
         

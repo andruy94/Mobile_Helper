@@ -1,10 +1,25 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by andruy94 on 12/18/2016.
  */
 
 public class CheckListItem {
+
+    public static  CheckListItem[] CreateCheckListitem(String[] title,ArrayList<String[]> desc){
+        CheckListItem[] checkListItems=new CheckListItem[title.length];//оглавления
+        for(int i=0;i<checkListItems.length;i++){
+            CheckListItem[] innerCheckListItems=new CheckListItem[desc.get(i).length];
+            for(int j=0;j<innerCheckListItems.length;j++){
+                innerCheckListItems[j]=new CheckListItem(desc.get(i)[j],false);
+            }
+            checkListItems[i]=new CheckListItem(title[i],false,innerCheckListItems);
+        }
+        return checkListItems;
+
+    }
 
     private String description;
     private boolean isChecked;

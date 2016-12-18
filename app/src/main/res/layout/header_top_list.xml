@@ -10,23 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <TextView
 
             android:background="@drawable/etborder"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="#000000"
-            android:text=""
+            android:text="Номер опоры, пролёта"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/etSeatNumber"
             android:layout_weight="1" />
         <TextView
+
             android:textAlignment="center"
             android:layout_gravity="center"
             android:background="@drawable/etborder"
-        android:textSize="20sp"
-        android:text=""
+        android:textSize="15sp"
+        android:text="Змеченые неисправности"
             android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/tvDefect"

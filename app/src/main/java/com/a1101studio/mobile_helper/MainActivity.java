@@ -91,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         listView.addFooterView(rowView);
+        View viewHeader =  ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header_top_list, null, false);
+        listView.addHeaderView(viewHeader);
 
     }
 

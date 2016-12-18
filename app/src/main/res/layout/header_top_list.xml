@@ -34,9 +34,9 @@
         android:layout_height="40dp"
         android:id="@+id/tvDefect"
         android:layout_weight="1" />
-        <ImageView
+        <ImageButton
             android:clickable="true"
-
+            android:background="@drawable/etborder"
             android:layout_weight="1.5"
             android:layout_width="match_parent"
             android:layout_height="40dp"

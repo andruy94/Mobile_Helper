@@ -84,13 +84,12 @@
                 android:inputType="textPassword"
                 android:ems="10"
                 android:id="@+id/editText7" />
-
-            <ListView
-                android:id="@+id/lv1"
-                android:scrollbars="vertical"
+            
+            <Button
+                android:id="@+id/btnShowList"
+                android:text="@string/show_list"
                 android:layout_width="match_parent"
-                android:layout_height="236dp"
-                android:headerDividersEnabled="false" />
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:orientation="horizontal"

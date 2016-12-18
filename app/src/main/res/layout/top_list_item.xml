@@ -33,7 +33,8 @@
         android:id="@+id/tvDefect"
         android:layout_weight="1" />
 
-        <ImageView
+        <ImageButton
+            android:background="@drawable/etborder"
             android:clickable="true"
 
             android:layout_weight="1.5"

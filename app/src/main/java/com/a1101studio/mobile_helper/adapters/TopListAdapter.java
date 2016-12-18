@@ -48,14 +48,9 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
         
         TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
-        ImageView ibPhoto=(ImageView) rowView.findViewById(R.id.ibPhoto);
+        ImageButton ibPhoto=(ImageButton) rowView.findViewById(R.id.ibPhoto);
         ibPhoto.setEnabled(true);
-        ibPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,"Take photo,say shesse",Toast.LENGTH_SHORT).show();
-            }
-        });
+        ibPhoto.setOnClickListener(v -> Toast.makeText(context,"Take photo,say shesse",Toast.LENGTH_SHORT).show());
         etSeatNubmer.setText(topListModels.get(position).getSeatNumber());
 
         

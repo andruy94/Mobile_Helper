@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
 /**
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WorkData.getInstance().setCheckListItemList(null);
+        
 
     }
 }

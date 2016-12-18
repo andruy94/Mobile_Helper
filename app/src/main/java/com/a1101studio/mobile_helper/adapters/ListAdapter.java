@@ -12,34 +12,36 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.R;
+import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.singleton.WorkData;
 
 /**
  * Created by andruy94 on 12/18/2016.
  */
 
-public class ListAdapter extends ArrayAdapter<String> {
-    private int checkBoxCount=3;
+public class ListAdapter extends ArrayAdapter<CheckListItem> {
+   // private int checkBoxCount=3;
     private final Context context;
 
-    private final String[] values;
-    public ListAdapter(Context context,  String[] values) {
-        super(context, R.layout.list_item, values);
+    private final CheckListItem[] checkListItem;
+    public ListAdapter(Context context,  CheckListItem[] checkListItem) {
+        super(context, R.layout.list_item, checkListItem);
         this.context=context;
-        this.values=values;
+        this.checkListItem=WorkData.getInstance().getCheckListItemList();//checkListItem;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final CheckBox[] checkBoxes=new CheckBox[checkBoxCount];
-        for(int i=0;i<checkBoxes.length;i++){
+        final CheckBox[] checkBoxes=new CheckBox[checkListItem[position].getCheckListItems().length];
+        for(int i=0;i<checkListItem[position].getCheckListItems().length;i++){
             checkBoxes[i] = new CheckBox(context);
-            checkBoxes[i].setText("ololol"+i);
+            checkBoxes[i].setText(checkListItem[position].getCheckListItems()[i].getDescription());
         }
 
         final LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.list_item, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.text1);
-        textView.setText(values[position]);
+        textView.setText(checkListItem[position].getDescription());
         final boolean[] flag = {true};
         textView.setOnClickListener(v -> {
             ((CheckBox) rowView.findViewById(R.id.chbHeader)).setChecked(true);

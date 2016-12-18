@@ -5,6 +5,7 @@ package com.a1101studio.mobile_helper.models;
  */
 
 public class CheckListItem {
+
     private String description;
     private boolean isChecked;
     private CheckListItem[] checkListItems;
@@ -13,6 +14,12 @@ public class CheckListItem {
         this.description = description;
         this.isChecked = isChecked;
         this.checkListItems = checkListItems;
+    }
+
+    public CheckListItem(String description, boolean isChecked) {
+        this.description = description;
+        this.isChecked = isChecked;
+        this.checkListItems = null;
     }
 
     public boolean isChecked() {

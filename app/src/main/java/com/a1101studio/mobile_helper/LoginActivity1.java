@@ -44,7 +44,7 @@ public class LoginActivity1 extends AppCompatActivity {
         };
 
         aut.setOnClickListener(oclaut);
-        ArrayList<TopListModel> topListModel=new ArrayList<TopListModel>(0);
+        ArrayList<TopListModel> topListModel= new ArrayList<>();
 
         WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
         init();
@@ -59,7 +59,7 @@ public class LoginActivity1 extends AppCompatActivity {
         ).subscribe(aut::setEnabled);
     }
 
-    void init(){
+    void  init(){
         Resources res = getResources();
         String[] title=res.getStringArray(R.array.title);//оглавление
         ArrayList<String[]> descs=new ArrayList<String[]>();
@@ -77,5 +77,12 @@ public class LoginActivity1 extends AppCompatActivity {
         ArrayList<CheckListItem[]> checkListItems2=new ArrayList<>();
         checkListItems2.add(checkListItems);
         WorkData.getInstance().setCheckListItemList(checkListItems2);//пишем всё в озу
+    }
+
+    static CheckListItem[] addCheckListItem(String[] title, ArrayList<String[]> descs){
+
+        CheckListItem[] checkListItems=CheckListItem.CreateCheckListitem(title,descs);
+
+        return checkListItems;
     }
 }

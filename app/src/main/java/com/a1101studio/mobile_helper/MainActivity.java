@@ -60,12 +60,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        Resources res = getResources();
+        String[] title=res.getStringArray(R.array.title);//оглавление
+        ArrayList<String[]> descs=new ArrayList<String[]>();
+        String[] descs1=res.getStringArray(R.array.Des_1_1);
+        String[] descs2=res.getStringArray(R.array.Des_1_2);
+        String[] descs3=res.getStringArray(R.array.Des_1_3);
+        String[] descs4=res.getStringArray(R.array.Des_1_4);
+
+        descs.add(descs1);
+        descs.add(descs2);
+        descs.add(descs3);
+        descs.add(descs4);
+
+
 
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, List.class);
-                intent.putExtra("k",/*WorkData.getInstance().getTopListModels().size()-1*/0);
+                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(title,descs));
+                intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
+
                 etSeatNubmer.setText("");
                 tvDefect.setText("");
                 startActivity(intent);}

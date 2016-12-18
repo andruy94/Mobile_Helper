@@ -38,6 +38,6 @@ public class List extends AppCompatActivity {
         button.setOnClickListener(v->{
             finish();
         });
-        listView.addFooterView(button);
+        listView.addHeaderView(button);
     }
 }

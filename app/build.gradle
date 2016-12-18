@@ -17,6 +17,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    defaultConfig {
+
+        jackOptions {
+            enabled true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -25,7 +36,12 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.android.support:design:24.2.1'
+    compile 'io.reactivex:rxandroid:1.2.1'
+// Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.jakewharton.rxbinding:rxbinding-design:0.4.0'
+    testCompile 'junit:junit:4.12'
 }

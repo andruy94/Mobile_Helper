@@ -16,6 +16,7 @@ import android.widget.Toast;
  */
 
 public class ListAdapter extends ArrayAdapter<String> {
+    private int checkBoxCount=3;
     private final Context context;
 
     private final String[] values;
@@ -26,6 +27,11 @@ public class ListAdapter extends ArrayAdapter<String> {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final CheckBox[] checkBoxes=new CheckBox[checkBoxCount];
+        for(int i=0;i<checkBoxes.length;i++){
+            checkBoxes[i] = new CheckBox(context);
+            checkBoxes[i].setText("ololol"+i);
+        }
 
         final LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -33,29 +39,19 @@ public class ListAdapter extends ArrayAdapter<String> {
         TextView textView = (TextView) rowView.findViewById(R.id.text1);
         textView.setText(values[position]);
         final boolean[] flag = {true};
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((CheckBox) rowView.findViewById(R.id.chbHeader)).setChecked(true);
-                if(flag[0]) {
-                    LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
-                    // View child=inflater.inflate(R.layout.inner_item,linearLayout);
-                    View child = new CheckBox(context);
-                    ((CheckBox) child).setText("ololol");
-                    linearLayout.addView(child);
-                    View child1 = new CheckBox(context);
-                    ((CheckBox) child1).setText("ololol");
-                    linearLayout.addView(child1);
-                    View child2 = new CheckBox(context);
-                    ((CheckBox) child2).setText("ololol");
-                    linearLayout.addView(child2);
-                    flag[0] =!flag[0];
-                }else {
-                    Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
-                    LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
-                    linearLayout.removeAllViews();
-                    flag[0] =!flag[0];
-                }
+        textView.setOnClickListener(v -> {
+            ((CheckBox) rowView.findViewById(R.id.chbHeader)).setChecked(true);
+            if(flag[0]) {
+                LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
+                // View child=inflater.inflate(R.layout.inner_item,linearLayout);
+                for(CheckBox checkBox:checkBoxes)
+                    linearLayout.addView(checkBox);
+                flag[0] =!flag[0];
+            }else {
+                Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
+                LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
+                linearLayout.removeAllViews();
+                flag[0] =!flag[0];
             }
         });
 

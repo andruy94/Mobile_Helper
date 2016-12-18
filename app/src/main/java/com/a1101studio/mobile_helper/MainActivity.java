@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.a1101studio.mobile_helper.singleton.WorkData;
+
 /**
  * Created by andruy94 on 12/18/2016.
  */
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        WorkData.getInstance().setCheckListItemList(null);
 
     }
 }

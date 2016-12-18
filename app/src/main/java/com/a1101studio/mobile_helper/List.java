@@ -16,7 +16,7 @@ public class List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
-        String[] strings={"1","2","3"};//тут пишешь что надо
+        String[] strings={"ads","asdas","asdasdasd"};//тут пишешь что надо
         ListAdapter listAdapter=new ListAdapter(this,strings);
         listView.setAdapter(listAdapter);
     }

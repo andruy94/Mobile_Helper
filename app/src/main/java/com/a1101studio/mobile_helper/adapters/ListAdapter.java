@@ -1,4 +1,4 @@
-package com.a1101studio.mobile_helper;
+package com.a1101studio.mobile_helper.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a1101studio.mobile_helper.R;
+
 /**
  * Created by andruy94 on 12/18/2016.
  */
@@ -21,7 +23,7 @@ public class ListAdapter extends ArrayAdapter<String> {
 
     private final String[] values;
     public ListAdapter(Context context,  String[] values) {
-        super(context,R.layout.list_item, values);
+        super(context, R.layout.list_item, values);
         this.context=context;
         this.values=values;
     }

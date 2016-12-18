@@ -48,7 +48,6 @@ public class ListAdapter extends ArrayAdapter<String> {
                     linearLayout.addView(checkBox);
                 flag[0] =!flag[0];
             }else {
-                Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
                 LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
                 linearLayout.removeAllViews();
                 flag[0] =!flag[0];

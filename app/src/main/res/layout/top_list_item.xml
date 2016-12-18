@@ -4,24 +4,32 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:padding="10dp"
+        android:background="@drawable/etborder"
+        android:id="@+id/ll_top_list"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <EditText
             android:background="@drawable/etborder"
-            android:text="TextView"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text=""
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text1"
+            android:layout_height="40dp"
+            android:id="@+id/etSeatNumber"
             android:layout_weight="1" />
+        <TextView
+            android:layout_gravity="center"
+            android:background="@drawable/etborder"
+        android:textSize="20sp"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/tvDefect"
+        android:layout_weight="1" />
 
-        <TextView
-            android:background="@drawable/etborder"
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text2"
-            android:layout_weight="1" />
+
     </LinearLayout>
 </LinearLayout>

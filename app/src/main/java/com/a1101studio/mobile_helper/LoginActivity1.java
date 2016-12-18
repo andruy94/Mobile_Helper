@@ -2,6 +2,7 @@ package com.a1101studio.mobile_helper;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.jakewharton.rxbinding.widget.RxTextView;
+
+import java.util.ArrayList;
 
 import rx.Observable;
 
@@ -39,6 +44,10 @@ public class LoginActivity1 extends AppCompatActivity {
         };
 
         aut.setOnClickListener(oclaut);
+        ArrayList<TopListModel> topListModel=new ArrayList<TopListModel>(0);
+
+        WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
+        init();
 
     }
 
@@ -48,5 +57,25 @@ public class LoginActivity1 extends AppCompatActivity {
                 RxTextView.textChanges(password),
                 (login,password)->login.length()>0 && password.length()>0
         ).subscribe(aut::setEnabled);
+    }
+
+    void init(){
+        Resources res = getResources();
+        String[] title=res.getStringArray(R.array.title);//оглавление
+        ArrayList<String[]> descs=new ArrayList<String[]>();
+        String[] descs1=res.getStringArray(R.array.Des_1_1);
+        String[] descs2=res.getStringArray(R.array.Des_1_2);
+        String[] descs3=res.getStringArray(R.array.Des_1_3);
+        String[] descs4=res.getStringArray(R.array.Des_1_4);
+
+        descs.add(descs1);
+        descs.add(descs2);
+        descs.add(descs3);
+        descs.add(descs4);
+
+        CheckListItem[] checkListItems=CheckListItem.CreateCheckListitem(title,descs);
+        ArrayList<CheckListItem[]> checkListItems2=new ArrayList<>();
+        checkListItems2.add(checkListItems);
+        WorkData.getInstance().setCheckListItemList(checkListItems2);//пишем всё в озу
     }
 }

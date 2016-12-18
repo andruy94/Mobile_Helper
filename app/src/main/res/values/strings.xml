@@ -16,6 +16,11 @@
     </string>
     <string name="auth_error">Не правильный логин или пароль</string>
     <string name="Confirm">ОК</string>
+    <string name="confirm">Подтвердить</string>
+    <string name="send">Отправить Отчёт</string>
+    <string name="sending_is_ok">Данные отпралены!</string>
+    <string name="cancel">Закрыть</string>
+    <string name="fill">Заполните поле</string>
     <array name="Des_1_1">
         <item>Поперечные трещины шириной раскрытия менее 0,3 мм","Поперечные трещины шириной раскрытия от 0,3 до 0,6 мм</item>
         <item> Поперечные трещины шириной раскрытия от 0,3 до 0,6 мм</item>

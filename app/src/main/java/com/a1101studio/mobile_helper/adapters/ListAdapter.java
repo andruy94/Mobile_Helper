@@ -24,10 +24,10 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
     private final Context context;
 
     private final CheckListItem[] checkListItem;
-    public ListAdapter(Context context,  CheckListItem[] checkListItem) {
+    public ListAdapter(Context context, CheckListItem[] checkListItem, int k) {
         super(context, R.layout.list_item, checkListItem);
         this.context=context;
-        this.checkListItem=WorkData.getInstance().getCheckListItemList();//checkListItem;
+        this.checkListItem=WorkData.getInstance().getCheckListItemList().get(k);//checkListItem;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

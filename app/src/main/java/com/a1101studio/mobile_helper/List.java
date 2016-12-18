@@ -1,9 +1,11 @@
 package com.a1101studio.mobile_helper;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.a1101studio.mobile_helper.adapters.ListAdapter;
@@ -24,26 +26,18 @@ public class List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
+        Intent intent=getIntent();
+        int k=intent.getIntExtra("k",0);
 
 
-        Resources res = getResources();
-        String[] title=res.getStringArray(R.array.title);//оглавление
-        ArrayList<String[]> descs=new ArrayList<String[]>();
-        String[] descs1=res.getStringArray(R.array.Des_1_1);
-        String[] descs2=res.getStringArray(R.array.Des_1_2);
-        String[] descs3=res.getStringArray(R.array.Des_1_3);
-        String[] descs4=res.getStringArray(R.array.Des_1_4);
 
-        descs.add(descs1);
-        descs.add(descs2);
-        descs.add(descs3);
-        descs.add(descs4);
-
-        CheckListItem[] checkListItems=CheckListItem.CreateCheckListitem(title,descs);
-
-        WorkData.getInstance().setCheckListItemList(checkListItems);//пишем всё в озу
-
-        ListAdapter listAdapter=new ListAdapter(this,checkListItems);
+        ListAdapter listAdapter=new ListAdapter(this,WorkData.getInstance().getCheckListItemList().get(k),k);
         listView.setAdapter(listAdapter);
+        Button button=new Button(this);
+        button.setText(R.string.confirm);
+        button.setOnClickListener(v->{
+            finish();
+        });
+        listView.addFooterView(button);
     }
 }

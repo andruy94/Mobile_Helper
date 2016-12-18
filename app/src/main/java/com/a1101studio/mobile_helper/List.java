@@ -25,19 +25,8 @@ public class List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
-        String[] strings={"1","2","3"};//тут пишешь что надо
+        String[] strings={"1","2","3","4","5","6"};//тут пишешь что надо
         ListAdapter listAdapter=new ListAdapter(this,strings);
-        String[] strings1={"1","2","3"};//тут выпадающий список
         listView.setAdapter(listAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(List.this,"asd",Toast.LENGTH_LONG).show();
-                LinearLayout linearLayout=(LinearLayout) findViewById(R.id.ll_second_list);
-                View child=getLayoutInflater().inflate(R.layout.inner_item,linearLayout);
-
-                linearLayout.addView(child);
-            }
-        });
     }
 }

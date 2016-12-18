@@ -7,7 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.R.layout.simple_list_item_1;
 
 public class List extends AppCompatActivity {
     private ListView listView;
@@ -20,20 +26,17 @@ public class List extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
         String[] strings={"1","2","3"};//тут пишешь что надо
-        ArrayAdapter arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strings);
+        ListAdapter listAdapter=new ListAdapter(this,strings);
         String[] strings1={"1","2","3"};//тут выпадающий список
-        final ArrayAdapter arrayAdapter1=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strings1);
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlertDialog.Builder alertDialog=new AlertDialog.Builder(List.this);
-                alertDialog.setSingleChoiceItems(arrayAdapter1,-1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).setTitle("ADSASD").show();
+                Toast.makeText(List.this,"asd",Toast.LENGTH_LONG).show();
+                LinearLayout linearLayout=(LinearLayout) findViewById(R.id.ll_second_list);
+                View child=getLayoutInflater().inflate(R.layout.inner_item,linearLayout);
+
+                linearLayout.addView(child);
             }
         });
     }

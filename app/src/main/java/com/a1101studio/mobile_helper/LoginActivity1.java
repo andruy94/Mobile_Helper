@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import rx.Observable;
@@ -28,7 +29,8 @@ public class LoginActivity1 extends AppCompatActivity {
         loginAndPassword();
         View.OnClickListener oclaut = v -> {
             if(login.getText().toString().trim().equals("1") && password.getText().toString().trim().equals("1")) {
-                Intent intent = new Intent(LoginActivity1.this, List.class);
+                Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
+                WorkData.getInstance();
                 startActivity(intent);
             }else{
                 AlertDialog.Builder alert=new AlertDialog.Builder(LoginActivity1.this);

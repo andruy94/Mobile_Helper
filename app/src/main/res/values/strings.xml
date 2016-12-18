@@ -16,4 +16,5 @@
     </string>
     <string name="auth_error">Не правильный логин или пароль</string>
     <string name="Confirm">ОК</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class ListAdapter extends ArrayAdapter<String> {
     private final Context context;
-    boolean flag=true;
+
     private final String[] values;
     public ListAdapter(Context context,  String[] values) {
         super(context,R.layout.list_item, values);
@@ -32,12 +32,12 @@ public class ListAdapter extends ArrayAdapter<String> {
         final View rowView = inflater.inflate(R.layout.list_item, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.text1);
         textView.setText(values[position]);
-
+        final boolean[] flag = {true};
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((CheckBox) rowView.findViewById(R.id.chbHeader)).setChecked(true);
-                if(flag) {
+                if(flag[0]) {
                     LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
                     // View child=inflater.inflate(R.layout.inner_item,linearLayout);
                     View child = new CheckBox(context);
@@ -49,12 +49,12 @@ public class ListAdapter extends ArrayAdapter<String> {
                     View child2 = new CheckBox(context);
                     ((CheckBox) child2).setText("ololol");
                     linearLayout.addView(child2);
-                    flag=!flag;
+                    flag[0] =!flag[0];
                 }else {
                     Toast.makeText(context, "asd", Toast.LENGTH_LONG).show();
                     LinearLayout linearLayout = (LinearLayout) rowView.findViewById(R.id.ll_second_list);
                     linearLayout.removeAllViews();
-                    flag=!flag;
+                    flag[0] =!flag[0];
                 }
             }
         });

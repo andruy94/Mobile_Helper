@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnShowListActivity=(Button) findViewById(R.id.btnShowList);
         btnShowListActivity.setOnClickListener(v->startActivity(new Intent(this,MainListActivity.class)));
+        Button btnSend=(Button) findViewById(R.id.btnSend);
+        btnSend.setOnClickListener(v->{
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage(R.string.sending_is_ok).setPositiveButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+        });
 
     }
 

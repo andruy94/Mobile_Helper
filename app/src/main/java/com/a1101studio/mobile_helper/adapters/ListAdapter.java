@@ -47,7 +47,7 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
             checkBoxes[i].setOnClickListener(v -> {
                 checkListItem[position].getCheckListItems()[k[0]].setChecked( !checkListItem[position].getCheckListItems()[k[0]].isChecked());
                 checkListItem[position].setChecked(checkListItem[position].getCheckListItems()[k[0]].isChecked());
-                titleCheckBox.setChecked(checkListItem[position].isChecked());
+                titleCheckBox.setChecked(true);
 
             });
 

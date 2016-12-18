@@ -47,12 +47,7 @@ public class MainListActivity extends AppCompatActivity {
 
         TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         listView.setAdapter(adapter);
-        Button button=new Button(this);
-        button.setText(R.string.send);
-        button.setOnClickListener(v->{
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainListActivity.this);
-            builder.setMessage(R.string.sending_is_ok).setPositiveButton(R.string.cancel, (dialog, which) -> dialog.cancel());
-        });
+
         //LinearLayout view=(LinearLayout) getLayoutInflater().inflate(R.layout.top_list_item,listView);
         View rowView =  ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.top_list_item, null, false);
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);

@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(v->{
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage(R.string.sending_is_ok).setPositiveButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+            builder.show();
         });
 
     }

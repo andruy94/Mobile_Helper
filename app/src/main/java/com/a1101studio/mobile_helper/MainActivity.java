@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -57,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
 
         TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
-
-
+        ImageView imageView=(ImageView) rowView.findViewById(R.id.ibPhoto);
+        imageView.setOnClickListener(v->new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) ->dialog.cancel()).show());
 
         Resources res = getResources();
         String[] title=res.getStringArray(R.array.title);//оглавление

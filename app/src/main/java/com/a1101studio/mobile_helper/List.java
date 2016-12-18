@@ -28,7 +28,7 @@ public class List extends AppCompatActivity {
 
         String[] title={"sa1212","asd2","asd2"};//оглавление
         ArrayList<String[]> descs=new ArrayList<String[]>();
-        String[] descs1={"eqw21","qe2","ewqw2"};//описание к первому оглавлению
+        String[] descs1={"eqw21","qe2","ewqw2","asdas"};//описание к первому оглавлению
         String[] descs2={"eqw21","qe2","ewqw2"};//описание к 2му оглавлению
         String[] descs3={"eqw21","qe2","ewqw2"};//описание к 3му оглавлению
 

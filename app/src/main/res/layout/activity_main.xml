@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText3" />
+                android:id="@+id/Predpriytie" />
 
             <TextView
                 android:text="Район(Участок)"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:ems="10"
-                android:id="@+id/editText4" />
+                android:id="@+id/Sector" />
 
             <TextView
                 android:text="Воздушная линия Uном"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText5" />
+                android:id="@+id/Unom" />
 
             <TextView
                 android:text="Наименование"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
-                android:id="@+id/editText6" />
+                android:id="@+id/Nazvanie" />
 
             <TextView
                 android:text="Вид осмотра:"
@@ -83,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
                 android:ems="10"
-                android:id="@+id/editText7" />
+                android:id="@+id/VID" />
 
             <Button
                 android:id="@+id/btnShowList"
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText8" />
+                    android:id="@+id/OT" />
 
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText9"
+                    android:id="@+id/DO"
                     android:layout_weight="1" />
             </LinearLayout>
 
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText10"
+                    android:id="@+id/Nameosmotr"
                     android:layout_weight="1" />
 
             </LinearLayout>
@@ -171,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:ems="10"
-                    android:id="@+id/editText11"
+                    android:id="@+id/Prinal"
                     android:layout_weight="1" />
             </LinearLayout>
             <Button

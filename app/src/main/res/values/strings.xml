@@ -74,6 +74,9 @@
         <item>Сколы бетона оголовника фундамента</item>
     </array>
     <string name="title_activity_main_list">MainListActivity</string>
+    <string name="n">Предпирятие:</string>
+    <string name="sector">Район(Участок):</string>
+    <string name="Unom">Воздушная линия Uном:</string>
 </resources>
 
 

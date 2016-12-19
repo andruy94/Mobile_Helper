@@ -1,36 +1,43 @@
 package com.a1101studio.mobile_helper;
 
-import android.content.DialogInterface;
+
 import android.content.Intent;
+
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
+
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ListViewCompat;
-import android.support.v7.widget.ThemedSpinnerAdapter;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.a1101studio.mobile_helper.adapters.TopListAdapter;
-import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.models.TopListModel;
-import com.a1101studio.mobile_helper.singleton.WorkData;
-import com.a1101studio.mobile_helper.utils.Helper;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import static android.R.attr.type;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,17 +47,92 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        EditText Pred;
+        EditText Sector;
+        EditText Unom;
+        EditText Name;
+        EditText VID;
+        EditText OT;
+        EditText Do;
+        EditText Names;
+        EditText Prinal;
+        Pred   = (EditText)findViewById(R.id.Predpriytie);
+        Sector   = (EditText)findViewById(R.id.Sector);
+        Unom   = (EditText)findViewById(R.id.Unom);
+        Name   = (EditText)findViewById(R.id.Nazvanie);
+        VID   = (EditText)findViewById(R.id.VID);
+        OT   = (EditText)findViewById(R.id.OT);
+        Do   = (EditText)findViewById(R.id.DO);
+        Names   = (EditText)findViewById(R.id.Nameosmotr);
+        Prinal   = (EditText)findViewById(R.id.Prinal);
         Button btnShowListActivity=(Button) findViewById(R.id.btnShowList);
         btnShowListActivity.setOnClickListener(v->startActivity(new Intent(this,MainListActivity.class)));
         Button btnSend=(Button) findViewById(R.id.btnSend);
-        btnSend.setOnClickListener(v->{
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setMessage(R.string.sending_is_ok).setPositiveButton(R.string.cancel, (dialog, which) -> dialog.cancel());
-            builder.show();
-        });
+        View.OnClickListener oclBtnOk = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File pdfFolder = new File(getExternalFilesDir(
+                        Environment.DIRECTORY_DOCUMENTS),"Sofon");
+                if (!pdfFolder.exists()) {
+                    pdfFolder.mkdir();
+
+                }
+
+                File myFile = new File(pdfFolder + ".pdf");
+                Document document = new Document(PageSize.A4);
+                try {
+                    OutputStream output = new FileOutputStream(myFile);
+                    Rectangle pagesize = new Rectangle(216f, 720f);
+                    document = new Document(pagesize, 36f, 72f, 108f, 180f);
+                    document = new Document(PageSize.A4);
+                    PdfWriter.getInstance(document, output);
+                    String path = "android.resource://" + getPackageName() + "/" + R.raw.times;
+                    Uri pathurl = Uri.parse(path);
+                    document.open();
+                  //  BaseFont bfComic = BaseFont.createFont(pathurl.toString(),"Cp1250",true);
+                    Font font = FontFactory.getFont(pathurl.toString(), "CP1251",  BaseFont.EMBEDDED);
+                    Chunk c3 = new Chunk("INVOICE",font );
+                    c3.setBackground(BaseColor.WHITE);
+                    String cp1251Str = new String((getString(R.string.n)  + Pred.getText().toString()).getBytes(), "cp1251");
+                    document.add(new Paragraph("\u041e\u0442\u043a\u0443\u0434\u0430 \u0442\u044b?",font));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph(getString(R.string.sector) + Sector.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph(getString(R.string.Unom) + Unom.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("Наименование:" + Name.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("Вид осмотра:" + VID.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("Осмотр проведен от опоры №" + OT.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("До опоры №" + Do.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("Осмотр выполнил:" + Names.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.add(new Paragraph("Листок осмотра принял:" + Prinal.getText().toString()));
+                    document.add( Chunk.NEWLINE );
+                    document.close();
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                    startActivity(intent);
+
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        btnSend.setOnClickListener(oclBtnOk);
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -3,7 +3,9 @@ package com.a1101studio.mobile_helper;
 
 import android.content.Intent;
 
+import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +31,9 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.qrcode.ByteArray;
+import com.itextpdf.text.pdf.qrcode.EncodeHintType;
+import com.itextpdf.text.pdf.qrcode.Encoder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnShowListActivity=(Button) findViewById(R.id.btnShowList);
         btnShowListActivity.setOnClickListener(v->startActivity(new Intent(this,MainListActivity.class)));
         Button btnSend=(Button) findViewById(R.id.btnSend);
+
         View.OnClickListener oclBtnOk = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-                File myFile = new File(pdfFolder + ".pdf");
+                File myFile = new File(pdfFolder+"n" + ".pdf");
                 Document document = new Document(PageSize.A4);
                 try {
                     OutputStream output = new FileOutputStream(myFile);
@@ -88,8 +94,9 @@ public class MainActivity extends AppCompatActivity {
                     document = new Document(pagesize, 36f, 72f, 108f, 180f);
                     document = new Document(PageSize.A4);
                     PdfWriter.getInstance(document, output);
-                    String path = "android.resource://" + getPackageName() + "/" + R.raw.ft;
+                    String path = "android.resource://" + getPackageName() + "/" + R.raw.fs;
                     Uri pathurl = Uri.parse(path);
+                    Log.e("TAG",pathurl.toString());
                     document.open();
 
                   //  BaseFont bfComic = BaseFont.createFont(pathurl.toString(),"Cp1250",true);
@@ -101,20 +108,21 @@ public class MainActivity extends AppCompatActivity {
                     Chunk c3 = new Chunk("INVOICE",font );
                     c3.setBackground(BaseColor.WHITE);*/
 
-                    Font font = FontFactory.getFont(path, "Cp1251", BaseFont.EMBEDDED);
 
+                    BaseFont font1 = BaseFont.createFont(path, "Cp1251",BaseFont.EMBEDDED);
+                    Font font=new Font(font1);
                     document.add(new Paragraph("\u041e\u0442\u043a\u0443\u0434\u0430 \u0442\u044b?",font));
                     document.add( Chunk.NEWLINE );
                     document.add(new Paragraph(getString(R.string.sector) + Sector.getText().toString(),font));
                     document.add( Chunk.NEWLINE );
                     document.add(new Paragraph(getString(R.string.Unom) + Unom.getText().toString()));
                     document.add( Chunk.NEWLINE );
-                    document.add(new Paragraph("Number12:" + Name.getText().toString()));
+                    document.add(new Paragraph("Number12:" + Name.getText().toString(),font));
                     document.add( Chunk.NEWLINE );
                     String str=getString(R.string.Unom);
                     String stid = new String(str.getBytes("UTF-8"),
                             "cp1251");
-                    document.add(new Paragraph(stid+ VID.getText().toString()));
+                    document.add(new Paragraph(stid+ VID.getText().toString(),font));
                     document.add( Chunk.NEWLINE );
                     document.add(new Paragraph("Осмотр проведен от опоры №" + OT.getText().toString()));
                     document.add( Chunk.NEWLINE );

@@ -4,12 +4,14 @@ package com.a1101studio.mobile_helper;
 import android.content.Intent;
 
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -86,23 +88,33 @@ public class MainActivity extends AppCompatActivity {
                     document = new Document(pagesize, 36f, 72f, 108f, 180f);
                     document = new Document(PageSize.A4);
                     PdfWriter.getInstance(document, output);
-                    String path = "android.resource://" + getPackageName() + "/" + R.raw.times;
+                    String path = "android.resource://" + getPackageName() + "/" + R.raw.ft;
                     Uri pathurl = Uri.parse(path);
                     document.open();
+
                   //  BaseFont bfComic = BaseFont.createFont(pathurl.toString(),"Cp1250",true);
-                    Font font = FontFactory.getFont(pathurl.toString(), "CP1251",  BaseFont.EMBEDDED);
+
+                   /*BaseFont bf = BaseFont.createFont("/system/fonts/Comic.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED); //подключаем файл шрифта, который поддерживает кириллицу
+                    Font font = new Font(bf);
+                    document.add(new Paragraph("буковки", font));*/
+                     /*Font font = FontFactory.getFont("/system/fonts/Comic.ttf", "CP1251",  BaseFont.EMBEDDED);
                     Chunk c3 = new Chunk("INVOICE",font );
-                    c3.setBackground(BaseColor.WHITE);
-                    String cp1251Str = new String((getString(R.string.n)  + Pred.getText().toString()).getBytes(), "cp1251");
+                    c3.setBackground(BaseColor.WHITE);*/
+
+                    Font font = FontFactory.getFont(path, "Cp1251", BaseFont.EMBEDDED);
+
                     document.add(new Paragraph("\u041e\u0442\u043a\u0443\u0434\u0430 \u0442\u044b?",font));
                     document.add( Chunk.NEWLINE );
-                    document.add(new Paragraph(getString(R.string.sector) + Sector.getText().toString()));
+                    document.add(new Paragraph(getString(R.string.sector) + Sector.getText().toString(),font));
                     document.add( Chunk.NEWLINE );
                     document.add(new Paragraph(getString(R.string.Unom) + Unom.getText().toString()));
                     document.add( Chunk.NEWLINE );
-                    document.add(new Paragraph("Наименование:" + Name.getText().toString()));
+                    document.add(new Paragraph("Number12:" + Name.getText().toString()));
                     document.add( Chunk.NEWLINE );
-                    document.add(new Paragraph("Вид осмотра:" + VID.getText().toString()));
+                    String str=getString(R.string.Unom);
+                    String stid = new String(str.getBytes("UTF-8"),
+                            "cp1251");
+                    document.add(new Paragraph(stid+ VID.getText().toString()));
                     document.add( Chunk.NEWLINE );
                     document.add(new Paragraph("Осмотр проведен от опоры №" + OT.getText().toString()));
                     document.add( Chunk.NEWLINE );
@@ -121,10 +133,11 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                    Log.e("TAG",e.toString());
                 } catch (DocumentException e) {
-                    e.printStackTrace();
+                    Log.e("TAG",e.toString());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e("TAG",e.toString());
                 }
 
             }

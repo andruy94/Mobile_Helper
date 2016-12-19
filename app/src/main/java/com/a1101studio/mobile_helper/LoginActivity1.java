@@ -3,24 +3,35 @@ package com.a1101studio.mobile_helper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import rx.Observable;
 
+import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
+
 
 public class LoginActivity1 extends AppCompatActivity {
+
     TextView password;
     TextView login;
     Button aut;
@@ -85,4 +96,6 @@ public class LoginActivity1 extends AppCompatActivity {
 
         return checkListItems;
     }
+
+
 }

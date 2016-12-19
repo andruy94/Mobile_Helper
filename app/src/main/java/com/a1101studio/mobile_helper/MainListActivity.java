@@ -2,6 +2,7 @@ package com.a1101studio.mobile_helper;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +27,12 @@ import com.a1101studio.mobile_helper.adapters.TopListAdapter;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+
+import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
+import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
 
 public class MainListActivity extends AppCompatActivity {
 
@@ -116,4 +123,35 @@ public class MainListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            final Bitmap imageBitmap = (Bitmap) extras.get("data");
+            Log.e("TAG","k="+data.getIntExtra("lol",0));
+            final String fileName = jakers;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    saveFileWithColision(imageBitmap,fileName);
+                }
+            }).start();
+        }
+    }
+    void saveFileWithColision(Bitmap bitmap, String nameImg){
+        File outputDir = getCacheDir();
+        try {
+            File namefile = new File(outputDir+"/"+nameImg);
+            if(namefile.exists())
+                namefile.delete();
+            Log.e("TAG",namefile.getPath());
+            FileOutputStream ostream = new FileOutputStream(namefile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
+            ostream.flush();
+            ostream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

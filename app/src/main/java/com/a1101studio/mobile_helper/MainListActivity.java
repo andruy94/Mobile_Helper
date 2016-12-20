@@ -55,7 +55,6 @@ public class MainListActivity extends AppCompatActivity {
         TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         listView.setAdapter(adapter);
 
-        //LinearLayout view=(LinearLayout) getLayoutInflater().inflate(R.layout.top_list_item,listView);
         View rowView =  ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.top_list_item, null, false);
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
 

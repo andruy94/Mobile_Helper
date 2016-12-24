@@ -19,6 +19,7 @@ public class HtmlHelper {
     }
 
     public String getHtmlString() {
+        HtmlString ="";
         HtmlString = HtmlString+ "<p>"+"Предприятие:"+SeatNames[0].toString()+"</p>";
         HtmlString = HtmlString+ "<p>"+"Район(участок):"+SeatNames[1].toString()+"</p>";
         HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
@@ -39,11 +40,8 @@ public class HtmlHelper {
         }
 
         Calendar c = Calendar.getInstance();
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int moynt = c.get(Calendar.MONTH);
-        int yar = c.get(Calendar.YEAR);
         HtmlString = HtmlString+ "<p>"+"Осмотр проведен от опоры №"+SeatNames[2].toString()+" до опоры №"+SeatNames[2].toString()+"</p>";
-        HtmlString = HtmlString+ "<p>"+day+"."+moynt+"."+yar+"</p>";
+        HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
         HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+SeatNames[0].toString()+"/________________/"+"</p>";
         HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+SeatNames[0].toString()+"/________________/"+"</p>";
         return HtmlString;

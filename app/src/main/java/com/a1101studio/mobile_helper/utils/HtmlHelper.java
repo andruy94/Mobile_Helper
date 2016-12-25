@@ -1,5 +1,7 @@
 package com.a1101studio.mobile_helper.utils;
 
+import com.a1101studio.mobile_helper.models.DocumentModel;
+
 import java.util.Calendar;
 
 /**
@@ -11,21 +13,22 @@ public class HtmlHelper {
     private String[] SeatNames;//номера опор/пролётов
     private String[] Defects;//набор дефекто соотвествующие опорам
     private String HtmlString;//набор дефекто соотвествующие опорам
+    private DocumentModel documentModel;
 
-    public HtmlHelper(String fileName, String[] seatNames, String[] defects) {
+    public HtmlHelper(String fileName, DocumentModel documentModel) {
         this.fileName = fileName;
-        SeatNames = seatNames;
-        Defects = defects;
+        SeatNames = documentModel.getSeatNames();
+        Defects = documentModel.getDefectNames();
+        this.documentModel=documentModel;
     }
 
     public String getHtmlString() {
-        HtmlString ="";
-        HtmlString = HtmlString+ "<p>"+"Предприятие:"+SeatNames[0].toString()+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Район(участок):"+SeatNames[1].toString()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Предприятие:"+documentModel.getCompanyName()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Район(участок):"+documentModel.getArea()+"</p>";
         HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
-        HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+SeatNames[2].toString()+"кВ наименование:"+SeatNames[2].toString()+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+SeatNames[2].toString()+"кВ наименование:"+SeatNames[2].toString()+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Вид осмотра:"+SeatNames[1].toString()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ наименование:"+documentModel.getElectricLine()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ наименование:"+documentModel.getElectricLine()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Вид осмотра:"+documentModel.getTypeOfInspection()+"</p>";
 
                 HtmlString = HtmlString+ "<table>\n" +
                         "        <tbody>\n" +
@@ -34,16 +37,19 @@ public class HtmlHelper {
                         "        <td style=\"text-align: center;\">Зачеченные неисправности</td></tr>";
         for (int x = 0; x < SeatNames.length; x = x + 2) {
 
-                HtmlString = HtmlString+ "<tr><td>"+SeatNames[x]+"</td>";
-                HtmlString = HtmlString+ "<td>"+SeatNames[x+1]+"</td></tr>";
+                HtmlString = HtmlString+ "<tr><td>"+documentModel.getSeatNames()[x]+"</td>";
+                HtmlString = HtmlString+ "<td>"+documentModel.getSeatNames()[x+1]+"</td></tr>";
 
         }
 
         Calendar c = Calendar.getInstance();
-        HtmlString = HtmlString+ "<p>"+"Осмотр проведен от опоры №"+SeatNames[2].toString()+" до опоры №"+SeatNames[2].toString()+"</p>";
-        HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+SeatNames[0].toString()+"/________________/"+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+SeatNames[0].toString()+"/________________/"+"</p>";
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int moynt = c.get(Calendar.MONTH);
+        int yar = c.get(Calendar.YEAR);
+        HtmlString = HtmlString+ "<p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
+        HtmlString = HtmlString+ "<p>"+day+"."+moynt+"."+yar+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+"wtf???"+"/________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectorName()+"/________________/"+"</p>";
         return HtmlString;
     }
 

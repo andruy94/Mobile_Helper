@@ -21,7 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
+import com.a1101studio.mobile_helper.utils.HtmlHelper;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     EditText Names;
     EditText Prinal;
     private ArrayList<TopListModel> topListModels;
+    DocumentModel documentModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,79 +81,61 @@ public class MainActivity extends AppCompatActivity {
         btnShowListActivity.setOnClickListener(v->startActivity(new Intent(this,MainListActivity.class)));
         Button btnSend=(Button) findViewById(R.id.btnSend);
 
+
+        documentModel = new DocumentModel(
+                Pred.getText().toString(),
+                Sector.getText().toString(),
+                Unom.getText().toString(),
+                Name.getText().toString(),
+                VID.getText().toString(),
+                OT.getText().toString(),
+                Do.getText().toString(),
+                Names.getText().toString(),
+                Prinal.getText().toString(),
+                new String[]{""},
+                new String[]{""}
+
+        );
+
         View.OnClickListener oclBtnOk = v -> createPDF();
         btnSend.setOnClickListener(oclBtnOk);
     }
 
     void createPDF(){
-        File pdfFolder = new File(getExternalFilesDir(
+        File htmlFolder = new File(getExternalFilesDir(
                 Environment.DIRECTORY_DOCUMENTS),"Sofon");
-        if (!pdfFolder.exists()) {
-            pdfFolder.mkdir();
+        if (!htmlFolder.exists()) {
+            htmlFolder.mkdir();
 
         }
+        try{
+        File myFile = new File(htmlFolder+"n" + ".html");
 
-        File myFile = new File(pdfFolder+"n" + ".pdf");
-        Document document = new Document(PageSize.A4);
-        try {
-            OutputStream output = new FileOutputStream(myFile);
-            Rectangle pagesize = new Rectangle(216f, 720f);
-            document = new Document(pagesize, 36f, 72f, 108f, 180f);
-            document = new Document(PageSize.A4);
-            PdfWriter.getInstance(document, output);
-            String path = "android.resource://" + getPackageName() + "/" + R.raw.fs;
-            Uri pathurl = Uri.parse(path);
-            Log.e("TAG",pathurl.toString());
-            document.open();
+            HtmlHelper htmlHelper=new HtmlHelper(myFile.getPath(),documentModel);
+            saveFile(htmlHelper.getHtmlString(),myFile);
 
-            //  BaseFont bfComic = BaseFont.createFont(pathurl.toString(),"Cp1250",true);
-
-                   /*BaseFont bf = BaseFont.createFont("/system/fonts/Comic.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED); //подключаем файл шрифта, который поддерживает кириллицу
-                    Font font = new Font(bf);
-                    document.add(new Paragraph("буковки", font));*/
-                     /*Font font = FontFactory.getFont("/system/fonts/Comic.ttf", "CP1251",  BaseFont.EMBEDDED);
-                    Chunk c3 = new Chunk("INVOICE",font );
-                    c3.setBackground(BaseColor.WHITE);*/
-
-
-            BaseFont font1 = BaseFont.createFont(BaseFont.COURIER, BaseFont.CP1250,BaseFont.EMBEDDED);
-            Font font=new Font(font1);
-            document.add(new Paragraph("\u041e\u0442\u043a\u0443\u0434\u0430 \u0442\u044b?",font));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph(getString(R.string.sector) + Sector.getText().toString(),font));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph(getString(R.string.Unom) + Unom.getText().toString()));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("Район (Учатсок):" + Name.getText().toString(),font));
-            document.add( Chunk.NEWLINE );
-            String str=getString(R.string.Unom);
-            String stid = new String(str.getBytes("UTF-8"),
-                    "cp1251");
-            document.add(new Paragraph(stid+ VID.getText().toString(),font));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("Осмотр проведен от опоры №" + OT.getText().toString()));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("До опоры №" + Do.getText().toString()));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("Осмотр выполнил:" + Names.getText().toString()));
-            document.add( Chunk.NEWLINE );
-            document.add(new Paragraph("Листок осмотра принял:" + Prinal.getText().toString()));
-            document.add( Chunk.NEWLINE );
-            document.close();
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+            intent.setDataAndType(Uri.fromFile(myFile), "application/html");
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
 
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             Log.e("TAG",e.toString());
-        } catch (DocumentException e) {
-            Log.e("TAG",e.toString());
-        } catch (IOException e) {
-            Log.e("TAG",e.toString());
         }
+    }
+
+    void saveFile(String s, File file) throws IOException{
+
+            if(file.exists())
+                file.delete();
+            Log.e("TAG",file.getPath());
+            FileOutputStream ostream = new FileOutputStream(file);
+            ostream.write(s.getBytes());
+            ostream.flush();
+            ostream.close();
+
     }
 
     /*void SendMail(String mailText) throws MessagingException {

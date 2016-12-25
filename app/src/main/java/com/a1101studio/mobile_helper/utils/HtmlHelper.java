@@ -27,7 +27,6 @@ public class HtmlHelper {
         HtmlString = HtmlString+ "<p>"+"Район(участок):"+documentModel.getArea()+"</p>";
         HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
         HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ наименование:"+documentModel.getElectricLine()+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ наименование:"+documentModel.getElectricLine()+"</p>";
         HtmlString = HtmlString+ "<p>"+"Вид осмотра:"+documentModel.getTypeOfInspection()+"</p>";
 
                 HtmlString = HtmlString+ "<table>\n" +
@@ -41,13 +40,9 @@ public class HtmlHelper {
                 HtmlString = HtmlString+ "<td>"+documentModel.getSeatNames()[x+1]+"</td></tr>";
 
         }
-
         Calendar c = Calendar.getInstance();
-        int day = c.get(Calendar.DAY_OF_MONTH);
-        int moynt = c.get(Calendar.MONTH);
-        int yar = c.get(Calendar.YEAR);
         HtmlString = HtmlString+ "<p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
-        HtmlString = HtmlString+ "<p>"+day+"."+moynt+"."+yar+"</p>";
+        HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
         HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+"wtf???"+"/________________/"+"</p>";
         HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectorName()+"/________________/"+"</p>";
         return HtmlString;

@@ -33,7 +33,7 @@ public class HtmlHelper {
                         "        <tbody>\n" +
                         "        <tr>\n" +
                         "        <td style=\"text-align: center;\">Номер опоры,пролета</td>\n" +
-                        "        <td style=\"text-align: center;\">Зачеченные неисправности</td></tr>";
+                        "        <td style=\"text-align: center;\">Замеченные неисправности</td></tr>";
         for (int x = 0; x < SeatNames.length; x = x + 2) {
 
                 HtmlString = HtmlString+ "<tr><td>"+documentModel.getSeatNames()[x]+"</td>";

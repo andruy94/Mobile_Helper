@@ -44,14 +44,17 @@ public class List extends AppCompatActivity {
             }
         });*/
         builder.setAdapter(listAdapter,null);
-        builder.setPositiveButton("OK", (dialog, which) -> dialog.cancel());
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
         builder.show();
         listView.setAdapter(listAdapter);
         Button button=new Button(this);
         button.setText(R.string.confirm);
-        button.setOnClickListener(v->{
-            finish();
-        });
+        button.setOnClickListener(v->finish());
 
 
         listView.addHeaderView(button);

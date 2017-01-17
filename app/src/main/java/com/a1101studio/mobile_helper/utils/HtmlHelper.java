@@ -34,10 +34,10 @@ public class HtmlHelper {
                         "        <tr>\n" +
                         "        <td style=\"text-align: center;\">Номер опоры,пролета</td>\n" +
                         "        <td style=\"text-align: center;\">Замеченные неисправности</td></tr>";
-        for (int x = 0; x < SeatNames.length; x = x + 2) {
+        for (int x = 0; x < SeatNames.length; x++/*x = x + 2*/) {//что это?????????
 
                 HtmlString = HtmlString+ "<tr><td>"+documentModel.getSeatNames()[x]+"</td>";
-                HtmlString = HtmlString+ "<td>"+documentModel.getSeatNames()[x+1]+"</td></tr>";
+                HtmlString = HtmlString+ "<td>"+documentModel.getSeatNames()[x]+"</td></tr>";
 
         }
         Calendar c = Calendar.getInstance();

@@ -23,6 +23,11 @@ public class HtmlHelper {
     }
 
     public String getHtmlString() {
+        HtmlString = HtmlString+ "<html>\n" +
+                "    <head>\n" +
+                "        <meta charset=\"utf-8\">\n" +
+                "        <title>Отчет</title>\n" +
+                "    </head>";
         HtmlString = HtmlString+ "<p>"+"Предприятие:"+documentModel.getCompanyName()+"</p>";
         HtmlString = HtmlString+ "<p>"+"Район(участок):"+documentModel.getArea()+"</p>";
         HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
@@ -34,16 +39,16 @@ public class HtmlHelper {
                         "        <tr>\n" +
                         "        <td style=\"text-align: center;\">Номер опоры,пролета</td>\n" +
                         "        <td style=\"text-align: center;\">Замеченные неисправности</td></tr>";
-        for (int x = 0; x < SeatNames.length; x++/*x = x + 2*/) {//что это?????????
+        for (int x = 0; x < SeatNames.length; x++) {
 
                 HtmlString = HtmlString+ "<tr><td>"+documentModel.getSeatNames()[x]+"</td>";
-                HtmlString = HtmlString+ "<td>"+documentModel.getSeatNames()[x]+"</td></tr>";
+                HtmlString = HtmlString+ "<td>"+documentModel.getDefectNames()[x]+"</td></tr>";
 
         }
         Calendar c = Calendar.getInstance();
         HtmlString = HtmlString+ "<p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
         HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+"wtf???"+"/________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+"/________________/"+"</p>";
         HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectorName()+"/________________/"+"</p>";
         return HtmlString;
     }

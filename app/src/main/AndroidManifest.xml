@@ -34,7 +34,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".TilesActivity"></activity>
+        <activity android:name=".TilesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainListActivity" />
+
+        </activity>
     </application>
 
 </manifest>

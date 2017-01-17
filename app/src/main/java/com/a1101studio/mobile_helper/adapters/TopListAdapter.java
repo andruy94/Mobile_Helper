@@ -25,6 +25,7 @@ import com.a1101studio.mobile_helper.List;
 import com.a1101studio.mobile_helper.LoginActivity1;
 import com.a1101studio.mobile_helper.MainActivity;
 import com.a1101studio.mobile_helper.R;
+import com.a1101studio.mobile_helper.TilesActivity;
 import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
@@ -68,8 +69,8 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
             if(!etSeatNubmer.getText().toString().trim().equals("")){
             topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
             topListModels.get(position).setDefect("...");
-            Intent intent=new Intent(context, List.class);
-
+                Intent intent=new Intent(context, TilesActivity.class);
+                intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
             context.startActivity(intent);}
             else {
                 Toast.makeText(context, R.string.fill,Toast.LENGTH_SHORT).show();

@@ -78,12 +78,12 @@ public class LoginActivity1 extends AppCompatActivity {
         String[] descs2=res.getStringArray(R.array.Des_1_2);
         String[] descs3=res.getStringArray(R.array.Des_1_3);
         String[] descs4=res.getStringArray(R.array.Des_1_4);
-
+        String[] descs5=res.getStringArray(R.array.Des_1_5);
         descs.add(descs1);
         descs.add(descs2);
         descs.add(descs3);
         descs.add(descs4);
-
+        descs.add(descs5);
         CheckListItem[] checkListItems=CheckListItem.CreateCheckListitem(title,descs);
         ArrayList<CheckListItem[]> checkListItems2=new ArrayList<>();
         checkListItems2.add(checkListItems);

@@ -32,6 +32,9 @@ public class TilesActivity extends AppCompatActivity {
         buttons[3]=(Button) findViewById(R.id.button4);
         buttons[4]=(Button) findViewById(R.id.button5);
         buttons[5]=(Button) findViewById(R.id.button6);
+        Button button=(Button) findViewById(R.id.btnExit);
+        button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        button.setOnClickListener(v->finish());
         for(int i=0;i< checkListItemsTop.length;i++){
             buttons[i].setVisibility(View.VISIBLE);
             if(checkListItemsTop[i].isChecked())
@@ -67,6 +70,7 @@ public class TilesActivity extends AppCompatActivity {
             checkListItemsTop[k].setChecked(true);
         });
         builder.setNegativeButton(R.string.cancel,(dialog, which) -> {dialog.cancel(); buttons[k].setBackgroundColor(Color.YELLOW);checkListItemsTop[k].setChecked(false);});
+        builder.setTitle(checkListItemsTop[k].getDescription());
         builder.show();
 
     }

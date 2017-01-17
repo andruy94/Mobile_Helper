@@ -108,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
                     String s= WorkData.getInstance().getCheckListItemList().get(i)[j].getCheckedItems();
                     if(!s.equals("")){
                         stringBuilder.append(s);
+                        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
+                        stringBuilder.append(".");
                     }
 
                 }

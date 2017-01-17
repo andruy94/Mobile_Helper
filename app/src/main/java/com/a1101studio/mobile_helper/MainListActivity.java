@@ -80,7 +80,7 @@ public class MainListActivity extends AppCompatActivity {
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
-                Intent intent=new Intent(this, List.class);
+                Intent intent=new Intent(this, TilesActivity.class);
                 WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(title,descs));//тут можешь мподпихивать данные нужные
                 intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 

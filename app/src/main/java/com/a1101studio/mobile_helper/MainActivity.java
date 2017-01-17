@@ -115,7 +115,10 @@ public class MainActivity extends AppCompatActivity {
             saveFile(htmlHelper.getHtmlString(),myFile);
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(Uri.fromFile(myFile), "application/html");
+           intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+            //intent.addCategory(Intent.CATEGORY_BROWSABLE);
+           // intent.setData(Uri.fromFile(myFile));
+            //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);
 

@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
+import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.HtmlHelper;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -82,20 +83,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnSend=(Button) findViewById(R.id.btnSend);
 
 
-        documentModel = new DocumentModel(
-                Pred.getText().toString(),
-                Sector.getText().toString(),
-                Unom.getText().toString(),
-                Name.getText().toString(),
-                VID.getText().toString(),
-                OT.getText().toString(),
-                Do.getText().toString(),
-                Names.getText().toString(),
-                Prinal.getText().toString(),
-                new String[]{""},
-                new String[]{""}
-
-        );
 
         View.OnClickListener oclBtnOk = v -> createPDF();
         btnSend.setOnClickListener(oclBtnOk);
@@ -110,6 +97,38 @@ public class MainActivity extends AppCompatActivity {
         }
         try{
         File myFile = new File(htmlFolder+"n" + ".html");
+
+            ArrayList<String> checkedItems=new ArrayList<>();
+            ArrayList<String> seatNames=new ArrayList<>();
+
+            for(int i=0;i< WorkData.getInstance().getTopListModels().size();i++) {//масиив верхних штук
+                seatNames.add(WorkData.getInstance().getTopListModels().get(i).getSeatNumber());
+                StringBuilder stringBuilder=new StringBuilder();
+                for (int j = 0; j < WorkData.getInstance().getCheckListItemList().get(i).length; j++) {//массив вложенных
+                    String s= WorkData.getInstance().getCheckListItemList().get(i)[j].getCheckedItems();
+                    if(!s.equals("")){
+                        stringBuilder.append(s);
+                    }
+
+                }
+                checkedItems.add(stringBuilder.toString());
+            }
+
+            documentModel = new DocumentModel(
+                    Pred.getText().toString(),
+                    Sector.getText().toString(),
+                    Unom.getText().toString(),
+                    Name.getText().toString(),
+                    VID.getText().toString(),
+                    OT.getText().toString(),
+                    Do.getText().toString(),
+                    Names.getText().toString(),
+                    Prinal.getText().toString(),
+                    seatNames.toArray( new String[0]),
+                    checkedItems.toArray( new String[0])
+
+            );
+
 
             HtmlHelper htmlHelper=new HtmlHelper(myFile.getPath(),documentModel);
             saveFile(htmlHelper.getHtmlString(),myFile);

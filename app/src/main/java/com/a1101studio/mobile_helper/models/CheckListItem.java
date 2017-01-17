@@ -1,5 +1,7 @@
 package com.a1101studio.mobile_helper.models;
 
+import com.a1101studio.mobile_helper.List;
+
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,20 @@ public class CheckListItem {
         }
         return checkListItems;
 
+    }
+    public String getCheckedItems(){
+        StringBuilder stringBuilder=new StringBuilder();
+
+        if (isChecked){
+            stringBuilder.append(description+": ");
+                for (CheckListItem checkListItemLow:checkListItems){
+                    if(checkListItemLow.isChecked())
+                        stringBuilder.append(checkListItemLow.description+",");
+                }
+        }
+
+
+        return stringBuilder.toString();
     }
 
     private String description;

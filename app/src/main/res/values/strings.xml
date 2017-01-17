@@ -68,10 +68,10 @@
         <item>Сколы бетона оголовника фундамента</item>
     </array>
     <array name="title">
-        <item>Трещины в бетоне</item>
-        <item>Раковины, щели, пятна на бетоне</item>
-        <item>Отклонение опор</item>
-        <item>Сколы бетона оголовника фундамента</item>
+        <item>Даня</item>
+        <item>Заполни</item>
+        <item>Это</item>
+        <item>Гавно</item>
     </array>
     <string name="title_activity_main_list">Список неисправностей</string>
     <string name="n">Предпирятие:</string>
@@ -80,6 +80,7 @@
     <string name="re_take_photo">Переснять</string>
     <string name="title_activity_main">Главный экран</string>
     <string name="pidr">Ты пидр</string>
+    <string name="confirm_changes">Принять изменения</string>
 </resources>
 
 

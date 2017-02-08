@@ -39,18 +39,18 @@ public class CheckListItem {
 
     private String description;
     private boolean isChecked;
-    private CheckListItem[] checkListItems;
+    private DefectCheckListItem[] defectCheckListItems;
 
-    public CheckListItem(String description, boolean isChecked, CheckListItem[] checkListItems) {
+    public CheckListItem(String description, boolean isChecked, DefectCheckListItem[] defectCheckListItems) {
         this.description = description;
         this.isChecked = isChecked;
-        this.checkListItems = checkListItems;
+        this.defectCheckListItems = defectCheckListItems;
     }
 
     public CheckListItem(String description, boolean isChecked) {
         this.description = description;
         this.isChecked = isChecked;
-        this.checkListItems = null;
+        this.defectCheckListItems = null;
     }
 
     public boolean isChecked() {
@@ -69,11 +69,12 @@ public class CheckListItem {
         this.description = description;
     }
 
-    public CheckListItem[] getCheckListItems() {
-        return checkListItems;
+
+    public DefectCheckListItem[] getDefectCheckListItems() {
+        return defectCheckListItems;
     }
 
-    public void setCheckListItems(CheckListItem[] checkListItems) {
-        this.checkListItems = checkListItems;
+    public void setDefectCheckListItems(DefectCheckListItem[] defectCheckListItems) {
+        this.defectCheckListItems = defectCheckListItems;
     }
 }

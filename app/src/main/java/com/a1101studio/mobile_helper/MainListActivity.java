@@ -48,10 +48,6 @@ public class MainListActivity extends AppCompatActivity {
         this.topListModels= WorkData.getInstance().getTopListModels();
         ListView listView=(ListView) findViewById(R.id.lv1);
 
-
-
-
-
         TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         listView.setAdapter(adapter);
 

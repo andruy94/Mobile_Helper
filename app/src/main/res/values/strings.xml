@@ -58,8 +58,6 @@
         <item>Признаки коррозии арматуры в фундаментной части опоры.</item>
 
 
-
-
     </array>
     <array name="Des_1_5">
         <item>Грунт в заделке опор не уплотнен: котлован не полностью, засыпан грунтом.</item>
@@ -83,6 +81,7 @@
     <string name="title_activity_main">Главный экран</string>
     <string name="pidr"></string>
     <string name="confirm_changes">Принять изменения</string>
+    <string name="title_activity_list_report">ListReport</string>
 </resources>
 
 

@@ -38,8 +38,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainListActivity" />
-
         </activity>
+        <activity
+            android:name=".ListReport"
+            android:label="@string/title_activity_list_report"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

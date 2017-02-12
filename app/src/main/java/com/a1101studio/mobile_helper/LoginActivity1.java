@@ -149,7 +149,8 @@ public class LoginActivity1 extends AppCompatActivity {
                                             ArrayList<String[][]> lowLowCheckBoxesTitles,//список массива заголовока чекбоксов
                                             ArrayList<String[]> lowModelsCommentListTitles){//список тайтлов к комментам){
 
-        CheckListItem[] checkListItems={CheckListItem.CreateCheckListitem(title,defectTitles,lowModelsCheckBoxesListTitles,lowLowCheckBoxesTitles,lowModelsCommentListTitles)};
+        CheckListItem[] checkListItems={CheckListItem.
+                CreateCheckListitem(title,defectTitles,lowModelsCheckBoxesListTitles,lowLowCheckBoxesTitles,lowModelsCommentListTitles)};
 
         return checkListItems;
     }

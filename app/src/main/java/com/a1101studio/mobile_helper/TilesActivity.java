@@ -27,7 +27,7 @@ public class TilesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_tiles);
         Intent intent=getIntent();
-        int k=intent.getIntExtra("k",0);
+        final int k=intent.getIntExtra("k",0);
         checkListItemsTop = WorkData.getInstance().getCheckListItemList().get(k);
 
         buttons = new Button[6];
@@ -46,7 +46,7 @@ public class TilesActivity extends AppCompatActivity {
                 buttons[i].setBackgroundColor(Color.GREEN);
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
-            buttons[i].setOnClickListener(v->showDefects( finalI,checkListItemsTop[finalI].getDefectCheckListItems(),this));
+            buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));
         }
 
 
@@ -54,8 +54,12 @@ public class TilesActivity extends AppCompatActivity {
        // buttons[5].setText(R.string.pidr);
     }
 
-    private void showDefects(int k, DefectCheckListItem[] checkListItems, Context context) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(context);
+    private void showDefects(Context context,int m,int k) {
+        Intent intent=new Intent(context,List.class);
+        intent.putExtra("m",m);
+        intent.putExtra("k",m);
+        startActivity(intent);
+        /*AlertDialog.Builder builder=new AlertDialog.Builder(context);
         String[] Items=new String[checkListItems.length];
         boolean[] chedList=new boolean[checkListItems.length];
         for(int i=0;i<checkListItems.length;i++){
@@ -76,7 +80,7 @@ public class TilesActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(R.string.cancel,(dialog, which) -> {dialog.cancel(); buttons[k].setBackgroundColor(Color.YELLOW);checkListItemsTop[k].getCheckBoxItem().setChecked(true);});
         builder.setTitle(checkListItemsTop[k].getCheckBoxItem().getTitle());
-        builder.show();
+        builder.show();*/
 
     }
 

@@ -24,7 +24,7 @@ public class LowCheckListItem {
     }
 
     public void setCheckBoxesTitle(String checkBoxesTitle) {
-        checkBoxesTitle = checkBoxesTitle;
+        this.checkBoxesTitle = checkBoxesTitle;
     }
 
 

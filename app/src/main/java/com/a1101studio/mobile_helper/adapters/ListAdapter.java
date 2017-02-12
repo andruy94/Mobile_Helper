@@ -6,11 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.CommentsModel;
+import com.a1101studio.mobile_helper.models.DefectCheckListItem;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
 import com.a1101studio.mobile_helper.models.LowItemsModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
@@ -23,22 +26,57 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
 
     private final Context context;
 
-    private final CheckListItem[] checkListItems;
-    public ListAdapter(Context context, CheckListItem[] checkListItem, int k) {
+    private final CheckListItem checkListItem;
+
+    @Override
+    public int getCount() {
+        return checkListItem.getDefectCheckListItems().length;
+    }
+
+    public ListAdapter(Context context, CheckListItem[] checkListItem, int k, int m) {
         super(context, R.layout.list_item, checkListItem);
         this.context=context;
-        this.checkListItems =WorkData.getInstance().getCheckListItemList().get(k);//checkListItem;
+        this.checkListItem =WorkData.getInstance().getCheckListItemList().get(k)[m];//checkListItem;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        CheckListItem checkListItem= this.checkListItem[position];
         final LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.list_item, parent, false);
+        final LinearLayout linearLayout=(LinearLayout) rowView.findViewById(R.id.ll_second_list);
+
+        //final View rowView = inflater.inflate(R.layout.list_item, parent, false);
 
         CheckBox titleCheckBox=(CheckBox) rowView.findViewById(R.id.chbHeader);
         titleCheckBox.setText(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().getTitle());
-        titleCheckBox.setChecked(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().isChecked());
+        titleCheckBox.setChecked(checkListItem.getCheckBoxItem().isChecked());
+
+
+        LowCheckListItem[] lowCheckListItems=checkListItem.getDefectCheckListItems()[position].getLowItemsModels().getLowCheckListItems();
+        TextView[] textViews=new TextView[lowCheckListItems.length];
+        for(int i=0;i<lowCheckListItems.length;i++){
+            textViews[i]=new TextView(context);
+            textViews[i].setText(lowCheckListItems[i].getCheckBoxesTitle());
+            linearLayout.addView(textViews[i]);
+            for(int j=0;j<lowCheckListItems[i].getCheckBoxItems().length;j++){
+                CheckBox checkBox=new CheckBox(context);
+                checkBox.setText(lowCheckListItems[i].getCheckBoxItems()[j].getTitle());
+                checkBox.setChecked(lowCheckListItems[i].getCheckBoxItems()[j].isChecked());
+                linearLayout.addView(checkBox);
+            }
+        }
+
+        CommentsModel[] commentsModels=checkListItem.getDefectCheckListItems()[position].getLowItemsModels().getCommentsModels();
+        for(int i=0;i<commentsModels.length;i++){
+            TextView textView=new TextView(context);
+            EditText textView1=new EditText(context);
+
+            textView.setText(commentsModels[i].getCommentTitle());
+            textView1.setText(commentsModels[i].getComment());
+            linearLayout.addView(textView);
+            linearLayout.addView(textView1);
+        }
+
 
 
 
@@ -51,6 +89,7 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
 
                 //View child=inflater.inflate(R.layout.inner_item,linearLayout);
                 for(int i=0;i<checkListItem.getDefectCheckListItems().length;i++) {
+                    linearLayout.addView(checkBoxes[i]);
                     linearLayout.addView(checkBoxes[i]);
                     checkBoxes[i].setChecked(checkListItem.getDefectCheckListItems()[i].getCheckBoxItem().isChecked());
                 }

@@ -43,7 +43,9 @@ public class CheckListItem {
                 for (int j = 0; j < lowModelsCheckBoxesListTitles.get(i).length; j++) {
                     lowCheckListItems[j] = new LowCheckListItem();
                     lowCheckListItems[j].setCheckBoxesTitle(lowModelsCheckBoxesListTitles.get(i)[j]);
-
+                    String[] s=lowModelsCheckBoxesListTitles.get(i);
+                    String s1=s[j];
+                    String lowCheckListItemsstr=lowCheckListItems[j].getCheckBoxesTitle();
                     CheckBoxItem[] checkBoxItems = new CheckBoxItem[lowLowCheckBoxesTitles.get(i)[j].length];
                     for (int k = 0; k < lowLowCheckBoxesTitles.get(i)[j].length; k++) {
                         checkBoxItems[k] = new CheckBoxItem(false, lowLowCheckBoxesTitles.get(i)[j][k]);

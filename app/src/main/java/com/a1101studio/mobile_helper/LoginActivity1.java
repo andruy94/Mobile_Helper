@@ -139,7 +139,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
         CheckListItem[] checkListItems={CheckListItem.CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles)};
         ArrayList<CheckListItem[]> checkListItems2=new ArrayList<>();
-        checkListItems2.add(checkListItems);
+        //checkListItems2.add(checkListItems);
         WorkData.getInstance().setCheckListItemList(checkListItems2);//пишем всё в озу
     }
 

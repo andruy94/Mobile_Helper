@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.a1101studio.mobile_helper.adapters.ListAdapter;
+import com.a1101studio.mobile_helper.adapters.TopListAdapter;
 import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
@@ -31,18 +32,19 @@ public class List extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lv1);
         Intent intent=getIntent();
         int k=intent.getIntExtra("k",0);
+        int m=intent.getIntExtra("m",0);
 
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
 
 
-        ListAdapter listAdapter=new ListAdapter(this,WorkData.getInstance().getCheckListItemList().get(k),k);
-        /*builder.setMultiChoiceItems(new String[]{"A", "B", "C"}, new boolean[]{true, false, true}, new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        ListAdapter listAdapter=new ListAdapter(this,WorkData.getInstance().getCheckListItemList().get(k),k,m);
+        ListView listView=(ListView) findViewById(R.id.lv1);
+        listView.setAdapter(listAdapter);
 
-            }
-        });*/
+        //TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
+        //listView.setAdapter(adapter);
+
+        /*AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setAdapter(listAdapter,null);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -54,9 +56,9 @@ public class List extends AppCompatActivity {
         listView.setAdapter(listAdapter);
         Button button=new Button(this);
         button.setText(R.string.confirm);
-        button.setOnClickListener(v->finish());
+        button.setOnClickListener(v->finish());*/
 
 
-        listView.addHeaderView(button);
+        //listView.addHeaderView(button);
     }
 }

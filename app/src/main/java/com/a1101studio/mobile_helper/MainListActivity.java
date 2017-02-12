@@ -74,9 +74,9 @@ public class MainListActivity extends AppCompatActivity {
 
         String detailName="detail1";
 
-        String[] defectsName={"defect1","defect2","defect3"};
+        String[] defectsName={"defect1","defect228","defect3"};
 
-        String[] s1={"olol1"};
+        String[] s1={"ololo1","ololo12","ololo13"};
         String[] s2={"olol2"};
         String[] s3={"olol3"};
         ArrayList<String[]> LowModelsCHeckboxesTitles =new ArrayList<>();
@@ -86,9 +86,9 @@ public class MainListActivity extends AppCompatActivity {
 
         String[][] ss1=new String[3][];
         for (int i=0;i<3;i++){
-            ss1[i]=new String[1];
-            for(int j=0;j<1;j++){
-                ss1[i][j]="olol"+j;
+            ss1[i]=new String[3];
+            for(int j=0;j<3;j++){
+                ss1[i][j]="olol2"+i;
             }
         }
         String[][] ss2=new String[3][];
@@ -127,7 +127,7 @@ public class MainListActivity extends AppCompatActivity {
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, TilesActivity.class);
-                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(detailName,defectsName,LowModelsCommentsTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));//тут можешь мподпихивать данные нужные
+                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));//тут можешь мподпихивать данные нужные
                 intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
                 etSeatNubmer.setText("");

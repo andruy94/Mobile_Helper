@@ -58,7 +58,7 @@ public class MainListActivity extends AppCompatActivity {
         ImageButton imageView=(ImageButton) rowView.findViewById(R.id.ibPhoto);
         imageView.setOnClickListener(v->new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) ->dialog.cancel()).show());
 
-        Resources res = getResources();
+        /*Resources res = getResources();
         String[] title=res.getStringArray(R.array.title);//оглавление
         ArrayList<String[]> descs=new ArrayList<String[]>();
         String[] descs1=res.getStringArray(R.array.Des_1_1);
@@ -70,14 +70,64 @@ public class MainListActivity extends AppCompatActivity {
         descs.add(descs2);
         descs.add(descs3);
         descs.add(descs4);
-        descs.add(descs5);
+        descs.add(descs5);*/
+
+        String detailName="detail1";
+
+        String[] defectsName={"defect1","defect2","defect3"};
+
+        String[] s1={"olol1"};
+        String[] s2={"olol2"};
+        String[] s3={"olol3"};
+        ArrayList<String[]> LowModelsCHeckboxesTitles =new ArrayList<>();
+        LowModelsCHeckboxesTitles.add(s1);
+        LowModelsCHeckboxesTitles.add(s2);
+        LowModelsCHeckboxesTitles.add(s3);
+
+        String[][] ss1=new String[3][];
+        for (int i=0;i<3;i++){
+            ss1[i]=new String[1];
+            for(int j=0;j<1;j++){
+                ss1[i][j]="olol"+j;
+            }
+        }
+        String[][] ss2=new String[3][];
+        for (int i=0;i<3;i++){
+            ss2[i]=new String[1];
+            for(int j=0;j<1;j++){
+                ss2[i][j]="olol"+j;
+            }
+        }
+        String[][] ss3=new String[3][];
+        for (int i=0;i<3;i++){
+            ss3[i]=new String[1];
+            for(int j=0;j<1;j++){
+                ss3[i][j]="olol"+j;
+            }
+        }
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles =new ArrayList<>();
+        lowlowModelsCHeckboxesTitles.add(ss1);
+        lowlowModelsCHeckboxesTitles.add(ss2);
+        lowlowModelsCHeckboxesTitles.add(ss3);
+
+
+        String[] s4={"Title1"};
+        String[] s5={"Title2"};
+        String[] s6={"Title3"};
+        ArrayList<String[]> LowModelsCommentsTitles =new ArrayList<>();
+        LowModelsCommentsTitles.add(s4);
+        LowModelsCommentsTitles.add(s5);
+        LowModelsCommentsTitles.add(s6);
+
+
+
 
 
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, TilesActivity.class);
-                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(title,descs));//тут можешь мподпихивать данные нужные
+                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(detailName,defectsName,LowModelsCommentsTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));//тут можешь мподпихивать данные нужные
                 intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
                 etSeatNubmer.setText("");

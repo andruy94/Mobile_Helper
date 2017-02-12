@@ -9,8 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.DefectCheckListItem;
+import com.a1101studio.mobile_helper.models.LowCheckListItem;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
 public class TilesActivity extends AppCompatActivity {
@@ -37,11 +42,11 @@ public class TilesActivity extends AppCompatActivity {
         button.setOnClickListener(v->finish());
         for(int i=0;i< checkListItemsTop.length;i++){
             buttons[i].setVisibility(View.VISIBLE);
-            if(checkListItemsTop[i].isChecked())
+            if(checkListItemsTop[i].getCheckBoxItem().isChecked())
                 buttons[i].setBackgroundColor(Color.GREEN);
-            buttons[i].setText(checkListItemsTop[i].getDescription());
+            buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
-            buttons[i].setOnClickListener(v->showDefects( finalI,checkListItemsTop[finalI].getCheckListItems(),this));
+            buttons[i].setOnClickListener(v->showDefects( finalI,checkListItemsTop[finalI].getDefectCheckListItems(),this));
         }
 
 
@@ -49,29 +54,52 @@ public class TilesActivity extends AppCompatActivity {
        // buttons[5].setText(R.string.pidr);
     }
 
-    private void showDefects(int k,CheckListItem[] checkListItems, Context context) {
+    private void showDefects(int k, DefectCheckListItem[] checkListItems, Context context) {
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         String[] Items=new String[checkListItems.length];
         boolean[] chedList=new boolean[checkListItems.length];
         for(int i=0;i<checkListItems.length;i++){
-            Items[i]=checkListItems[i].getDescription();
-            chedList[i]=checkListItems[i].isChecked();
+            Items[i]=checkListItems[i].getCheckBoxItem().getTitle();
+            chedList[i]=checkListItems[i].getCheckBoxItem().isChecked();
         }
         builder.setMultiChoiceItems(Items, chedList, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                 //Toast.makeText(context,String.format("item # %d = %s",which,checkListItems[which].getDescription()),Toast.LENGTH_SHORT).show();
-                checkListItems[which].setChecked(isChecked);
+                checkListItems[which].getCheckBoxItem().setChecked(isChecked);
             }
         });
         builder.setPositiveButton(R.string.confirm_changes, (dialog, which) -> {
             dialog.cancel();
             buttons[k].setBackgroundColor(Color.GREEN);
-            checkListItemsTop[k].setChecked(true);
+            checkListItemsTop[k].getCheckBoxItem().setChecked(true);
         });
-        builder.setNegativeButton(R.string.cancel,(dialog, which) -> {dialog.cancel(); buttons[k].setBackgroundColor(Color.YELLOW);checkListItemsTop[k].setChecked(false);});
-        builder.setTitle(checkListItemsTop[k].getDescription());
+        builder.setNegativeButton(R.string.cancel,(dialog, which) -> {dialog.cancel(); buttons[k].setBackgroundColor(Color.YELLOW);checkListItemsTop[k].getCheckBoxItem().setChecked(true);});
+        builder.setTitle(checkListItemsTop[k].getCheckBoxItem().getTitle());
         builder.show();
 
+    }
+
+
+    private void getChecboxBlock(Context context,int i,int k,CheckListItem checkListItem ,LinearLayout linearLayout){
+        LowCheckListItem lowCheckListItem=checkListItem.getDefectCheckListItems()[i].getLowItemsModels().getLowCheckListItems()[k];
+        final TextView checboxesTitle=new TextView(context);
+        checboxesTitle.setText(lowCheckListItem.getCheckBoxesTitle());
+        linearLayout.addView(checboxesTitle);
+
+        final CheckBox[] checkBoxes=new CheckBox[lowCheckListItem.getCheckBoxItems().length];
+        for(int j=0;j<checkListItem.getDefectCheckListItems().length;i++){
+            checkBoxes[j] = new CheckBox(context);
+            checkBoxes[j].setText(lowCheckListItem.getCheckBoxItems()[j].getTitle());
+            checkBoxes[j].setChecked(lowCheckListItem.getCheckBoxItems()[j].isChecked());
+
+            int[] l={j};
+            checkBoxes[j].setOnClickListener(v -> {
+                lowCheckListItem.getCheckBoxItems()[l[0]].setChecked(!lowCheckListItem.getCheckBoxItems()[l[0]].isChecked());
+                checkBoxes[j].setChecked(!lowCheckListItem.getCheckBoxItems()[l[0]].isChecked());
+            });
+            linearLayout.addView(checkBoxes[j]);
+        }
+        return;
     }
 }

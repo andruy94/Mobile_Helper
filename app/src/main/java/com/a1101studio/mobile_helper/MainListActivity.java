@@ -74,7 +74,7 @@ public class MainListActivity extends AppCompatActivity {
 
         String detailName="detail1";
 
-        String[] defectsName={"defect1","defect228","defect3"};
+        String[] defectsName={"defect1","defect228","defect3"};//Одной диталей 
 
         String[] s1={"ololo1","ololo12","ololo13"};
         String[] s2={"olol2"};
@@ -84,7 +84,7 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCHeckboxesTitles.add(s2);
         LowModelsCHeckboxesTitles.add(s3);
 
-        String[][] ss1=new String[3][];
+        String[][] ss1=new String[s1.length][];
         for (int i=0;i<s1.length;i++){
             ss1[i]=new String[3];
             for(int j=0;j<3;j++){

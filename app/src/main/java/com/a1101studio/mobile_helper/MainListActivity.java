@@ -100,7 +100,7 @@ public class MainListActivity extends AppCompatActivity {
         }
         String[][] ss3=new String[3][];
         for (int i=0;i<s3.length;i++){
-            ss3[i]=new String[1];
+            ss3[i]=new String[2];
             for(int j=0;j<2;j++){
                 ss3[i][j]="olol"+j;
             }

@@ -122,9 +122,6 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles.add(s6);
 
 
-
-
-
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));

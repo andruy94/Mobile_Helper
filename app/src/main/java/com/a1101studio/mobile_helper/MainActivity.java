@@ -89,14 +89,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void createPDF(){
-        File htmlFolder = new File(getExternalFilesDir(
-                Environment.DIRECTORY_DOCUMENTS),"Sofon");
+        File htmlFolder = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS+"/report/"),Name.getText().toString());
         if (!htmlFolder.exists()) {
             htmlFolder.mkdir();
 
         }
         try{
-        File myFile = new File(htmlFolder+"n" + ".html");
+        File myFile = new File(htmlFolder+Name.getText().toString() + ".html");
 
             ArrayList<String> checkedItems=new ArrayList<>();
             ArrayList<String> seatNames=new ArrayList<>();

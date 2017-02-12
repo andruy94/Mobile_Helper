@@ -57,29 +57,35 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
 
 
         LowCheckListItem[] lowCheckListItems=checkListItem.getDefectCheckListItems()[position].getLowItemsModels().getLowCheckListItems();
+        if(lowCheckListItems!=null){
         TextView[] textViews=new TextView[lowCheckListItems.length];
-        for(int i=0;i<lowCheckListItems.length;i++){
-            textViews[i]=new TextView(context);
-            textViews[i].setText(lowCheckListItems[i].getCheckBoxesTitle());
-            linearLayout.addView(textViews[i]);
-            for(int j=0;j<lowCheckListItems[i].getCheckBoxItems().length;j++){
-                CheckBox checkBox=new CheckBox(context);
-                checkBox.setText(lowCheckListItems[i].getCheckBoxItems()[j].getTitle());
-                checkBox.setChecked(lowCheckListItems[i].getCheckBoxItems()[j].isChecked());
-                int finalI = i;
-                int finalJ = j;
-                checkBox.setOnClickListener(v->{
+        for(int i=0;i<lowCheckListItems.length;i++) {
+            if(lowCheckListItems[i]!=null) {
+                textViews[i] = new TextView(context);
+                textViews[i].setText(lowCheckListItems[i].getCheckBoxesTitle());
+                linearLayout.addView(textViews[i]);
+                for (int j = 0; j < lowCheckListItems[i].getCheckBoxItems().length; j++) {
+                    CheckBox checkBox = new CheckBox(context);
+                    checkBox.setText(lowCheckListItems[i].getCheckBoxItems()[j].getTitle());
+                    checkBox.setChecked(lowCheckListItems[i].getCheckBoxItems()[j].isChecked());
+                    int finalI = i;
+                    int finalJ = j;
+                    checkBox.setOnClickListener(v -> {
 
-                    checkBox.setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
-                    lowCheckListItems[finalI].getCheckBoxItems()[finalJ].setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
+                        checkBox.setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
+                        lowCheckListItems[finalI].getCheckBoxItems()[finalJ].setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
 
-                });
-                linearLayout.addView(checkBox);
+                    });
+                    linearLayout.addView(checkBox);
+                }
             }
+        }
         }
 
         CommentsModel[] commentsModels=checkListItem.getDefectCheckListItems()[position].getLowItemsModels().getCommentsModels();
+        if(commentsModels!=null)
         for(int i=0;i<commentsModels.length;i++){
+
             TextView textView=new TextView(context);
             EditText textView1=new EditText(context);
             int finalI = i;

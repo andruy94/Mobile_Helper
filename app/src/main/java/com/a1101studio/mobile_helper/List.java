@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,7 +41,15 @@ public class List extends AppCompatActivity {
         ListAdapter listAdapter=new ListAdapter(this,WorkData.getInstance().getCheckListItemList().get(k),k,m);
         ListView listView=(ListView) findViewById(R.id.lv1);
         listView.setAdapter(listAdapter);
-
+        Button button=new Button(this);
+        button.setText(R.string.confirm);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        listView.addFooterView(button);
         //TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         //listView.setAdapter(adapter);
 
@@ -61,4 +70,11 @@ public class List extends AppCompatActivity {
 
         //listView.addHeaderView(button);
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+
 }

@@ -39,27 +39,31 @@ public class CheckListItem {
             LowItemsModel lowItemsModel=new LowItemsModel();
             LowCheckListItem[] lowCheckListItems=null;
             if(lowModelsCheckBoxesListTitles!=null) {
-                lowCheckListItems = new LowCheckListItem[lowModelsCheckBoxesListTitles.get(i).length];
-                for (int j = 0; j < lowModelsCheckBoxesListTitles.get(i).length; j++) {
-                    lowCheckListItems[j] = new LowCheckListItem();
-                    lowCheckListItems[j].setCheckBoxesTitle(lowModelsCheckBoxesListTitles.get(i)[j]);
-                    String[] s=lowModelsCheckBoxesListTitles.get(i);
-                    String s1=s[j];
-                    String lowCheckListItemsstr=lowCheckListItems[j].getCheckBoxesTitle();
-                    CheckBoxItem[] checkBoxItems = new CheckBoxItem[lowLowCheckBoxesTitles.get(i)[j].length];
-                    for (int k = 0; k < lowLowCheckBoxesTitles.get(i)[j].length; k++) {
-                        checkBoxItems[k] = new CheckBoxItem(false, lowLowCheckBoxesTitles.get(i)[j][k]);
+                if(i<lowModelsCheckBoxesListTitles.size()) {
+                    lowCheckListItems = new LowCheckListItem[lowModelsCheckBoxesListTitles.get(i).length];
+                    for (int j = 0; j < lowModelsCheckBoxesListTitles.get(i).length; j++) {
+                        lowCheckListItems[j] = new LowCheckListItem();
+                        lowCheckListItems[j].setCheckBoxesTitle(lowModelsCheckBoxesListTitles.get(i)[j]);
+                        String[] s = lowModelsCheckBoxesListTitles.get(i);
+                        String s1 = s[j];
+                        String lowCheckListItemsstr = lowCheckListItems[j].getCheckBoxesTitle();
+                        CheckBoxItem[] checkBoxItems = new CheckBoxItem[lowLowCheckBoxesTitles.get(i)[j].length];
+                        for (int k = 0; k < lowLowCheckBoxesTitles.get(i)[j].length; k++) {
+                            checkBoxItems[k] = new CheckBoxItem(false, lowLowCheckBoxesTitles.get(i)[j][k]);
+                        }
+                        lowCheckListItems[j].setCheckBoxItems(checkBoxItems);
                     }
-                    lowCheckListItems[j].setCheckBoxItems(checkBoxItems);
                 }
             }
             lowItemsModel.setLowCheckListItems(lowCheckListItems);
 
             CommentsModel[] commentsModels=null;
             if(lowModelsCommentListTitles!=null) {
-                commentsModels = new CommentsModel[lowModelsCommentListTitles.get(i).length];
-                for (int j = 0; j < lowModelsCommentListTitles.get(i).length; j++) {
-                    commentsModels[j] = new CommentsModel(lowModelsCommentListTitles.get(i)[j], "");
+                if(i<lowModelsCommentListTitles.size()) {
+                    commentsModels = new CommentsModel[lowModelsCommentListTitles.get(i).length];
+                    for (int j = 0; j < lowModelsCommentListTitles.get(i).length; j++) {
+                        commentsModels[j] = new CommentsModel(lowModelsCommentListTitles.get(i)[j], "");
+                    }
                 }
             }
             lowItemsModel.setCommentsModels(commentsModels);
@@ -72,8 +76,36 @@ public class CheckListItem {
 
 
 
+
+
     public String getCheckedItems(){
         StringBuilder stringBuilder=new StringBuilder();
+        if(checkBoxItem.isChecked())
+            stringBuilder.append(checkBoxItem.getTitle());
+        for(int i=0;i<defectCheckListItems.length;i++){
+            if(defectCheckListItems[i].getCheckBoxItem().isChecked())
+                stringBuilder.append(defectCheckListItems[i].getCheckBoxItem().getTitle());
+            if(defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()!=null)
+            for(int j=0;j<defectCheckListItems[i].getLowItemsModels().getLowCheckListItems().length;j++){
+                stringBuilder.append(defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()[j].getCheckBoxesTitle());
+                for(int k=0;k<defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()[j].getCheckBoxItems().length;k++){
+                    if(defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()[j].getCheckBoxItems()[k].isChecked())
+                        stringBuilder.append(defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()[j].getCheckBoxItems()[k].getTitle());
+
+                }
+            }
+            if(defectCheckListItems[i].getLowItemsModels().getCommentsModels()!=null)
+            for(int j=0;j<defectCheckListItems[i].getLowItemsModels().getCommentsModels().length;i++){
+                if(!defectCheckListItems[i].getLowItemsModels().getCommentsModels()[j].getComment().equals("")){
+                    stringBuilder.append(defectCheckListItems[i].getLowItemsModels().getCommentsModels()[j].getComment());
+                    stringBuilder.append(defectCheckListItems[i].getLowItemsModels().getCommentsModels()[j].getCommentTitle());
+                }
+            }
+
+
+        }
+
+
         return stringBuilder.toString();
     }
 

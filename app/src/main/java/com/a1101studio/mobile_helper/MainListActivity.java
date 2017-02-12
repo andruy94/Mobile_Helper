@@ -72,9 +72,11 @@ public class MainListActivity extends AppCompatActivity {
         descs.add(descs4);
         descs.add(descs5);*/
 
-        String detailName="detail1";
+        String detailName="Опоры";
 
-        String[] defectsName={"defect1","defect228","defect3"};//РћРґРЅРѕР№ РґРёС‚Р°Р»РµР№ 
+        String[] defectsName={"Коррозия опоры","коррозия элементов опоры","Не заземлена перемычка","ДКР в теле опоры","Дерево в теле опоры","Нумерация"
+                ,"Отсутствие на опоре предупреждающих плакатов","Погнуты уголки опоры","Оторван уголок","Гнездо в опоре","Изогнута траверса","Трещина в теле опоры"
+                ,"Наклон опоры"   };//РћРґРЅРѕР№ РґРёС‚Р°Р»РµР№
 
         String[] s1={"ololo1","ololo12","ololo13"};
         String[] s2={"olol2"};
@@ -84,23 +86,23 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCHeckboxesTitles.add(s2);
         LowModelsCHeckboxesTitles.add(s3);
 
-        String[][] ss1=new String[s1.length][];
+        String[][] ss1=new String[defectsName.length][];
         for (int i=0;i<s1.length;i++){
             ss1[i]=new String[3];
             for(int j=0;j<3;j++){
-                ss1[i][j]="olol2"+i;
+                ss1[i][j]="Привет"+i;
             }
         }
-        String[][] ss2=new String[3][];
+        String[][] ss2=new String[defectsName.length][];
         for (int i=0;i<s2.length;i++){
             ss2[i]=new String[1];
             for(int j=0;j<1;j++){
                 ss2[i][j]="olol"+j;
             }
         }
-        String[][] ss3=new String[3][];
+        String[][] ss3=new String[defectsName.length][];
         for (int i=0;i<s3.length;i++){
-            ss3[i]=new String[2];
+            ss3[i]=new String[s3.length];
             for(int j=0;j<2;j++){
                 ss3[i][j]="olol"+j;
             }

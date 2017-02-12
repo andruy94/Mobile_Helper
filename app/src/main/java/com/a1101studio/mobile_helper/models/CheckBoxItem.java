@@ -13,6 +13,10 @@ public class CheckBoxItem {
         this.title=title;
     }
 
+    public CheckBoxItem() {
+
+    }
+
     public String getTitle() {
         return title;
     }

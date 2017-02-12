@@ -15,6 +15,10 @@ public class LowCheckListItem {
         this.checkBoxItems = checkBoxItems;
     }
 
+    public LowCheckListItem() {
+
+    }
+
     public String getCheckBoxesTitle() {
         return checkBoxesTitle;
     }

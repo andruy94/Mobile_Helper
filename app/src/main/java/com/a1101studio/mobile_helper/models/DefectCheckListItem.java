@@ -6,21 +6,24 @@ package com.a1101studio.mobile_helper.models;
 
 public class DefectCheckListItem {
     private CheckBoxItem checkBoxItem;
-    private LowItemsModel[] lowItemsModels;
+    private LowItemsModel lowItemsModel;
 
-    public DefectCheckListItem(LowItemsModel[] lowItemsModels, CheckBoxItem checkBoxItem) {
+    public DefectCheckListItem(LowItemsModel lowItemsModel, CheckBoxItem checkBoxItem) {
         this.checkBoxItem = checkBoxItem;
-        this.lowItemsModels = lowItemsModels;
+        this.lowItemsModel = lowItemsModel;
+    }
+
+    public DefectCheckListItem() {
+
     }
 
 
-
-    public LowItemsModel[] getLowItemsModels() {
-        return lowItemsModels;
+    public LowItemsModel getLowItemsModels() {
+        return lowItemsModel;
     }
 
-    public void setLowItemsModels(LowItemsModel[] lowItemsModels) {
-        this.lowItemsModels = lowItemsModels;
+    public void setLowItemsModels(LowItemsModel lowItemsModel) {
+        this.lowItemsModel = lowItemsModel;
     }
 
     public CheckBoxItem getCheckBoxItem() {

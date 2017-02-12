@@ -13,6 +13,10 @@ public class LowItemsModel {
         this.commentsModels = commentsModels;
     }
 
+    public LowItemsModel() {
+
+    }
+
     public CommentsModel[] getCommentsModels() {
         return commentsModels;
     }

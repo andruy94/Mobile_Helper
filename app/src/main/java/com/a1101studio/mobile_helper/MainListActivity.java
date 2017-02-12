@@ -58,68 +58,93 @@ public class MainListActivity extends AppCompatActivity {
         ImageButton imageView=(ImageButton) rowView.findViewById(R.id.ibPhoto);
         imageView.setOnClickListener(v->new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) ->dialog.cancel()).show());
 
-        /*Resources res = getResources();
-        String[] title=res.getStringArray(R.array.title);//?????»?°???»?µ?????µ
-        ArrayList<String[]> descs=new ArrayList<String[]>();
-        String[] descs1=res.getStringArray(R.array.Des_1_1);
-        String[] descs2=res.getStringArray(R.array.Des_1_2);
-        String[] descs3=res.getStringArray(R.array.Des_1_3);
-        String[] descs4=res.getStringArray(R.array.Des_1_4);
-        String[] descs5=res.getStringArray(R.array.Des_1_5);
-        descs.add(descs1);
-        descs.add(descs2);
-        descs.add(descs3);
-        descs.add(descs4);
-        descs.add(descs5);*/
 
-        String detailName="?????";
 
-        String[] defectsName={"???????? ?????","???????? ????????? ?????","?? ????????? ?????????","??? ? ???? ?????","?????? ? ???? ?????","?????????"
-                ,"?????????? ?? ????? ??????????????? ????????","??????? ?????? ?????","??????? ??????","?????? ? ?????","???????? ????????","??????? ? ???? ?????"
-                ,"?????? ?????"   };//?????????? ???????°?»?µ??
+        String detailName="Опоры";
+
+        String[] defectsName={"Коррозия опоры","коррозия элементов опоры","Не заземлена перемычка","ДКР в теле опоры","Дерево в теле опоры","Нумерация"
+                ,"Отсутствие на опоре предупреждающих плакатов","Погнуты уголки опоры","Оторван уголок","Гнездо в опоре","Изогнута траверса","Трещина в теле опоры"
+                ,"Наклон опоры"};
 
         String[] s1={"ololo1","ololo12","ololo13"};
-        String[] s2={"olol2"};
-        String[] s3={"olol3","okki2"};
+        String[] s2={"Нумерация"};
+        String[] s3={"Выбор:"};
+        String[] s21={"Не заземлена перемычка. Выбор:"};
+        String[] s20={"Гнездо в опоре:"};
+        String[] nulled={};
         ArrayList<String[]> LowModelsCHeckboxesTitles =new ArrayList<>();
         LowModelsCHeckboxesTitles.add(s1);
-        LowModelsCHeckboxesTitles.add(s2);
-        LowModelsCHeckboxesTitles.add(s3);
+        LowModelsCHeckboxesTitles.add(nulled);//2
+        LowModelsCHeckboxesTitles.add(s21);//3
+        LowModelsCHeckboxesTitles.add(nulled);//4
+        LowModelsCHeckboxesTitles.add(nulled);//5
+        LowModelsCHeckboxesTitles.add(nulled);//6
+        LowModelsCHeckboxesTitles.add(nulled);//7
+        LowModelsCHeckboxesTitles.add(nulled);//8
+        LowModelsCHeckboxesTitles.add(nulled);//9
+        LowModelsCHeckboxesTitles.add(s20);//10
 
         String[][] ss1=new String[defectsName.length][];
         for (int i=0;i<s1.length;i++){
             ss1[i]=new String[3];
             for(int j=0;j<3;j++){
-                ss1[i][j]="??????"+i;
+                ss1[i][j]="??????"+i+j;
             }
         }
-        String[][] ss2=new String[defectsName.length][];
-        for (int i=0;i<s2.length;i++){
-            ss2[i]=new String[1];
-            for(int j=0;j<1;j++){
-                ss2[i][j]="olol"+j;
-            }
-        }
-        String[][] ss3=new String[defectsName.length][];
-        for (int i=0;i<s3.length;i++){
-            ss3[i]=new String[s3.length];
-            for(int j=0;j<2;j++){
-                ss3[i][j]="olol"+j;
-            }
-        }
+        String[][] ss2=new String[1][3];
+        ss2[0][0]="Отсутствует";
+        ss2[0][1]="Плохо читаема";
+        ss2[0][2]="Необходимо обновление нумерации/замена информационного плаката";
+        String[][] nulled2= {};
+        String[][] ss3=new String[1][3];
+        ss3[0][0]="Охранная зона";
+        ss3[0][1]="Не влезай, убьет";
+        String[][] ss4=new String[1][2];
+        ss3[0][0]="В теле опоры";
+        ss3[0][1]="Фаза";
+        String[][] ss5=new String[1][2];
+        ss3[0][0]="Грозотрос";
+        ss3[0][1]="ВОЛС";
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles =new ArrayList<>();
         lowlowModelsCHeckboxesTitles.add(ss1);
-        lowlowModelsCHeckboxesTitles.add(ss2);
-        lowlowModelsCHeckboxesTitles.add(ss3);
+        lowlowModelsCHeckboxesTitles.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles.add(ss5);//3
+        lowlowModelsCHeckboxesTitles.add(nulled2);//4
+        lowlowModelsCHeckboxesTitles.add(nulled2);//5
+        lowlowModelsCHeckboxesTitles.add(ss2);//6
+        lowlowModelsCHeckboxesTitles.add(ss3);//7
+        lowlowModelsCHeckboxesTitles.add(nulled2);//8
+        lowlowModelsCHeckboxesTitles.add(nulled2);//9
+        lowlowModelsCHeckboxesTitles.add(ss4);//10
 
-
-        String[] s4={"Title1"};
-        String[] s5={"Title2"};
-        String[] s6={"Title3"};
+        String[] s4={"Комментарий:"};//1
+        String[] s5={"Комментарий:"};//2
+        String[] s6={"Комментарий:"};//3
+        String[] s7={"Высота","Комментарий:"};//4
+        String[] s8={"Количество деревьев:","Высота:","Комментарий:","Расстояние до токоведущих частей","Комментарий:"};//5
+        String[] s9={"Комментарий:"};//6
+        String[] s10={"Комментарий:"};//7
+        String[] s11={"Количество уголков:"};//8
+        String[] s12={"Количество уголков:"};//9
+        String[] s13={"Комментарий:"};//10
+        String[] s14={"Фаза:"};//11
+        String[] s15={"Глубина трещины:","На какой высоте от земли:"};//12
+        String[] s16={"Комментарий:"};//13
         ArrayList<String[]> LowModelsCommentsTitles =new ArrayList<>();
-        LowModelsCommentsTitles.add(s4);
-        LowModelsCommentsTitles.add(s5);
-        LowModelsCommentsTitles.add(s6);
+        LowModelsCommentsTitles.add(s4);//1
+        LowModelsCommentsTitles.add(s5);//2
+        LowModelsCommentsTitles.add(s6);//3
+        LowModelsCommentsTitles.add(s7);//4
+        LowModelsCommentsTitles.add(s8);//5
+        LowModelsCommentsTitles.add(s9);//6
+        LowModelsCommentsTitles.add(s10);//3
+        LowModelsCommentsTitles.add(s11);//4
+        LowModelsCommentsTitles.add(s12);//5
+        LowModelsCommentsTitles.add(s13);//6
+        LowModelsCommentsTitles.add(s14);//4
+        LowModelsCommentsTitles.add(s15);//5
+        LowModelsCommentsTitles.add(s16);//6
+
 
 
         tvDefect.setOnClickListener(v->{

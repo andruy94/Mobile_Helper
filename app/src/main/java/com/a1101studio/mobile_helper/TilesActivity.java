@@ -27,7 +27,7 @@ public class TilesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_tiles);
         Intent intent=getIntent();
-        final int k=intent.getIntExtra("k",0);
+        final int k=intent.getIntExtra("k",-1);
         checkListItemsTop = WorkData.getInstance().getCheckListItemList().get(k);
 
         buttons = new Button[6];
@@ -57,7 +57,7 @@ public class TilesActivity extends AppCompatActivity {
     private void showDefects(Context context,int m,int k) {
         Intent intent=new Intent(context,List.class);
         intent.putExtra("m",m);
-        intent.putExtra("k",m);
+        intent.putExtra("k",k);
         startActivity(intent);
         /*AlertDialog.Builder builder=new AlertDialog.Builder(context);
         String[] Items=new String[checkListItems.length];

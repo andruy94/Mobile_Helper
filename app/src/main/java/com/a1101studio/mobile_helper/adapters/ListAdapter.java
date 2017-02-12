@@ -1,6 +1,10 @@
 package com.a1101studio.mobile_helper.adapters;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +66,14 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
                 CheckBox checkBox=new CheckBox(context);
                 checkBox.setText(lowCheckListItems[i].getCheckBoxItems()[j].getTitle());
                 checkBox.setChecked(lowCheckListItems[i].getCheckBoxItems()[j].isChecked());
+                int finalI = i;
+                int finalJ = j;
+                checkBox.setOnClickListener(v->{
+
+                    checkBox.setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
+                    lowCheckListItems[finalI].getCheckBoxItems()[finalJ].setChecked(!lowCheckListItems[finalI].getCheckBoxItems()[finalJ].isChecked());
+
+                });
                 linearLayout.addView(checkBox);
             }
         }
@@ -70,7 +82,25 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
         for(int i=0;i<commentsModels.length;i++){
             TextView textView=new TextView(context);
             EditText textView1=new EditText(context);
+            int finalI = i;
+            textView1.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {
+                }
 
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                    if(s.length() != 0)
+                        commentsModels[finalI].setComment(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
             textView.setText(commentsModels[i].getCommentTitle());
             textView1.setText(commentsModels[i].getComment());
             linearLayout.addView(textView);

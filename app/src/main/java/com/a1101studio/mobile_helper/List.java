@@ -31,8 +31,8 @@ public class List extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         listView = (ListView) findViewById(R.id.lv1);
         Intent intent=getIntent();
-        int k=intent.getIntExtra("k",0);
-        int m=intent.getIntExtra("m",0);
+        int k=intent.getIntExtra("k",-1);
+        int m=intent.getIntExtra("m",-1);
 
 
 

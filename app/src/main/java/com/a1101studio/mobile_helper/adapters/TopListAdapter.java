@@ -61,7 +61,7 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
             topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
             topListModels.get(position).setDefect("...");
                 Intent intent=new Intent(context, TilesActivity.class);
-                intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
+                intent.putExtra("k",position);
             context.startActivity(intent);}
             else {
                 Toast.makeText(context, R.string.fill,Toast.LENGTH_SHORT).show();

@@ -78,30 +78,30 @@ public class MainListActivity extends AppCompatActivity {
 
         String[] s1={"ololo1","ololo12","ololo13"};
         String[] s2={"olol2"};
-        String[] s3={"olol3"};
+        String[] s3={"olol3","okki2"};
         ArrayList<String[]> LowModelsCHeckboxesTitles =new ArrayList<>();
         LowModelsCHeckboxesTitles.add(s1);
         LowModelsCHeckboxesTitles.add(s2);
         LowModelsCHeckboxesTitles.add(s3);
 
         String[][] ss1=new String[3][];
-        for (int i=0;i<3;i++){
+        for (int i=0;i<s1.length;i++){
             ss1[i]=new String[3];
             for(int j=0;j<3;j++){
                 ss1[i][j]="olol2"+i;
             }
         }
         String[][] ss2=new String[3][];
-        for (int i=0;i<3;i++){
+        for (int i=0;i<s2.length;i++){
             ss2[i]=new String[1];
             for(int j=0;j<1;j++){
                 ss2[i][j]="olol"+j;
             }
         }
         String[][] ss3=new String[3][];
-        for (int i=0;i<3;i++){
+        for (int i=0;i<s3.length;i++){
             ss3[i]=new String[1];
-            for(int j=0;j<1;j++){
+            for(int j=0;j<2;j++){
                 ss3[i][j]="olol"+j;
             }
         }

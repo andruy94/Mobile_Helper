@@ -144,13 +144,22 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles.add(s15);//5
         LowModelsCommentsTitles.add(s16);//6
 
-        CheckListItem[] checkListItems={CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles)};
+        ArrayList<CheckListItem> checkListItems=new ArrayList<>();
+        //тут добввляешь детальки
+        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+        //---
+        CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
+        for(int i=0;i<checkListItems.size();i++){
+            checkListItemArray[i]=checkListItems.get(i);
+        }
+
+
         //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, TilesActivity.class);
-                WorkData.getInstance().getCheckListItemList().add(checkListItems);//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ
+                WorkData.getInstance().getCheckListItemList().add(checkListItemArray);//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ
                 intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
                 etSeatNubmer.setText("");

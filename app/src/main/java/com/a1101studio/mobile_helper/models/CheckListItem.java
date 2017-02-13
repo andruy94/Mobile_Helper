@@ -106,6 +106,8 @@ public class CheckListItem {
                     stringBuilder2.append(";");
                 }
             }
+            CommentsModel[] commentsModels=defectCheckListItems[i].getLowItemsModels().getCommentsModels();
+            commentsModels=commentsModels;
             if(defectCheckListItems[i].getLowItemsModels().getCommentsModels()!=null)
             for(int j=0;j<defectCheckListItems[i].getLowItemsModels().getCommentsModels().length;j++){
                 try {
@@ -119,10 +121,14 @@ public class CheckListItem {
 
                 }
             }
-            if(defectCheckListItems[i].getCheckBoxItem().isChecked() && !stringBuilder2.toString().equals("") || (defectCheckListItems[i].getLowItemsModels().getCommentsModels()!=null && defectCheckListItems[i].getLowItemsModels().getLowCheckListItems()!=null)) {
+            if(defectCheckListItems[i].getCheckBoxItem().isChecked() && !stringBuilder2.toString().equals("") )
+                    {
                 stringBuilder.append(defectCheckListItems[i].getCheckBoxItem().getTitle());
                 stringBuilder.append(":");
                 stringBuilder.append(stringBuilder2.toString());
+            }else if(defectCheckListItems[i].getCheckBoxItem().isChecked() && defectCheckListItems[i].getLowItemsModels().getCommentsModels().length==0 && defectCheckListItems[i].getLowItemsModels().getLowCheckListItems().length==0){
+                stringBuilder.append(defectCheckListItems[i].getCheckBoxItem().getTitle());
+                stringBuilder.append(';');
             }
         }
         return stringBuilder.toString();

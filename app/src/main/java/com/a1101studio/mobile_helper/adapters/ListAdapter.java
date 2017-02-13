@@ -1,6 +1,7 @@
 package com.a1101studio.mobile_helper.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -49,6 +50,7 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
         final View rowView = inflater.inflate(R.layout.list_item, parent, false);
         final LinearLayout linearLayout=(LinearLayout) rowView.findViewById(R.id.ll_second_list);
 
+
         //final View rowView = inflater.inflate(R.layout.list_item, parent, false);
 
         CheckBox titleCheckBox=(CheckBox) rowView.findViewById(R.id.chbHeader);
@@ -87,19 +89,30 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
         for(int i=0;i<commentsModels.length;i++){
 
             TextView textView=new TextView(context);
-            EditText textView1=new EditText(context);
+            EditText editText=new EditText(context);
+
+            editText.setFocusable(true);
+            editText.setEnabled(true);
+            //editText.setFocusableInTouchMode(true);
+            editText.setId(i+228);
+            //editText.setBackgroundColor(Color.WHITE);
+            editText.setWidth(180);
+            if(i==0 && position==0)
+                editText.requestFocus();
+            // textView1.setTag(i,"eT"+i);
             int finalI = i;
-            textView1.addTextChangedListener(new TextWatcher() {
+            editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start,
                                               int count, int after) {
+                    if(s.length() != 0)
+                        commentsModels[finalI].setComment(s.toString());
                 }
 
                 @Override
                 public void onTextChanged(CharSequence s, int start,
                                           int before, int count) {
-                    if(s.length() != 0)
-                        commentsModels[finalI].setComment(s.toString());
+
                 }
 
                 @Override
@@ -107,10 +120,12 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
 
                 }
             });
-            textView.setText(commentsModels[i].getCommentTitle());
-            textView1.setText(commentsModels[i].getComment());
+            if(commentsModels[i].getCommentTitle()!=null)
+                textView.setText(commentsModels[i].getCommentTitle());
+            if(commentsModels[i].getComment()!=null)
+                editText.setText(commentsModels[i].getComment());
             linearLayout.addView(textView);
-            linearLayout.addView(textView1);
+            linearLayout.addView(editText,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
 

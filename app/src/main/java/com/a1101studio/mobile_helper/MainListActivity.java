@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.adapters.TopListAdapter;
+import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
+import static com.a1101studio.mobile_helper.models.CheckListItem.CreateCheckListitem;
 
 public class MainListActivity extends AppCompatActivity {
 
@@ -84,35 +86,32 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCHeckboxesTitles.add(nulled);//9
         LowModelsCHeckboxesTitles.add(s20);//10
 
-        String[][] ss1=new String[defectsName.length][];
+        String[][] ss1=new String[s1.length][];//массив 9х9
         for (int i=0;i<s1.length;i++){
             ss1[i]=new String[3];
             for(int j=0;j<3;j++){
                 ss1[i][j]="??????"+i+j;
             }
         }
-        String[][] ss2=new String[1][3];
-        ss2[0][0]="Отсутствует";
-        ss2[0][1]="Плохо читаема";
-        ss2[0][2]="Необходимо обновление нумерации/замена информационного плаката";
+
         String[][] nulled2= {};
         String[][] ss3=new String[1][3];
         ss3[0][0]="Охранная зона";
         ss3[0][1]="Не влезай, убьет";
         String[][] ss4=new String[1][2];
-        ss3[0][0]="В теле опоры";
-        ss3[0][1]="Фаза";
+        ss4[0][0]="В теле опоры";
+        ss4[0][1]="Фаза";
         String[][] ss5=new String[1][2];
-        ss3[0][0]="Грозотрос";
-        ss3[0][1]="ВОЛС";
+        ss5[0][0]="Грозотрос";
+        ss5[0][1]="ВОЛС";
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles =new ArrayList<>();
         lowlowModelsCHeckboxesTitles.add(ss1);
         lowlowModelsCHeckboxesTitles.add(nulled2);//2
         lowlowModelsCHeckboxesTitles.add(ss5);//3
         lowlowModelsCHeckboxesTitles.add(nulled2);//4
         lowlowModelsCHeckboxesTitles.add(nulled2);//5
-        lowlowModelsCHeckboxesTitles.add(ss2);//6
-        lowlowModelsCHeckboxesTitles.add(ss3);//7
+        lowlowModelsCHeckboxesTitles.add(nulled2);//6
+        lowlowModelsCHeckboxesTitles.add(nulled2);//7
         lowlowModelsCHeckboxesTitles.add(nulled2);//8
         lowlowModelsCHeckboxesTitles.add(nulled2);//9
         lowlowModelsCHeckboxesTitles.add(ss4);//10
@@ -132,7 +131,7 @@ public class MainListActivity extends AppCompatActivity {
         String[] s16={"Комментарий:"};//13
         ArrayList<String[]> LowModelsCommentsTitles =new ArrayList<>();
         LowModelsCommentsTitles.add(s4);//1
-        LowModelsCommentsTitles.add(s5);//2
+        LowModelsCommentsTitles.add(new String[]{});//2
         LowModelsCommentsTitles.add(s6);//3
         LowModelsCommentsTitles.add(s7);//4
         LowModelsCommentsTitles.add(s8);//5
@@ -145,13 +144,13 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles.add(s15);//5
         LowModelsCommentsTitles.add(s16);//6
 
-
-
+        CheckListItem[] checkListItems={CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles)};
+        //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, TilesActivity.class);
-                WorkData.getInstance().getCheckListItemList().add(LoginActivity1.addCheckListItem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ
+                WorkData.getInstance().getCheckListItemList().add(checkListItems);//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ
                 intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
                 etSeatNubmer.setText("");

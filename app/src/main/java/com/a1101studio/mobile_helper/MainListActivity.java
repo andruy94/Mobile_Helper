@@ -39,6 +39,15 @@ import static com.a1101studio.mobile_helper.models.CheckListItem.CreateCheckList
 public class MainListActivity extends AppCompatActivity {
 
     private ArrayList<TopListModel> topListModels;
+    ListView listView;
+    TopListAdapter adapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        listView.deferNotifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +57,11 @@ public class MainListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.topListModels= WorkData.getInstance().getTopListModels();
-        ListView listView=(ListView) findViewById(R.id.lv1);
 
-        TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
+        listView = (ListView) findViewById(R.id.lv1);
+
+
+        adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         listView.setAdapter(adapter);
 
         View rowView =  ((LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.top_list_item, null, false);
@@ -144,20 +155,23 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles.add(s15);//5
         LowModelsCommentsTitles.add(s16);//6
 
-        ArrayList<CheckListItem> checkListItems=new ArrayList<>();
-        //тут добввляешь детальки
-        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-        //---
-        CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
-        for(int i=0;i<checkListItems.size();i++){
-            checkListItemArray[i]=checkListItems.get(i);
-        }
+
 
 
         //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
+
+                ArrayList<CheckListItem> checkListItems=new ArrayList<>();
+                //тут добввляешь детальки
+                checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                //---
+                CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
+                for(int i=0;i<checkListItems.size();i++){
+                    checkListItemArray[i]=checkListItems.get(i);
+                }
+
                 WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
                 Intent intent=new Intent(this, TilesActivity.class);
                 WorkData.getInstance().getCheckListItemList().add(checkListItemArray);//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ

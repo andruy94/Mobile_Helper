@@ -54,10 +54,19 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
         //final View rowView = inflater.inflate(R.layout.list_item, parent, false);
 
         CheckBox titleCheckBox=(CheckBox) rowView.findViewById(R.id.chbHeader);
+        titleCheckBox.setEnabled(true);
         titleCheckBox.setText(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().getTitle());
         titleCheckBox.setChecked(checkListItem.getCheckBoxItem().isChecked());
-
-
+        if(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().isChecked()) {
+            linearLayout.setVisibility(View.VISIBLE);
+            titleCheckBox.setChecked(true);
+        }else
+            linearLayout.setVisibility(View.GONE);
+        titleCheckBox.setOnClickListener(v->{
+            linearLayout.setVisibility(View.VISIBLE);
+            titleCheckBox.setChecked(true);
+            checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().setChecked(true);
+        });
         LowCheckListItem[] lowCheckListItems=checkListItem.getDefectCheckListItems()[position].getLowItemsModels().getLowCheckListItems();
         if(lowCheckListItems!=null){
         TextView[] textViews=new TextView[lowCheckListItems.length];

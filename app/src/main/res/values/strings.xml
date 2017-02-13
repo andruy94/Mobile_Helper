@@ -82,6 +82,8 @@
     <string name="pidr"></string>
     <string name="confirm_changes">Принять изменения</string>
     <string name="title_activity_list_report">ListReport</string>
+    <string name="hint_login">Логин</string>
+    <string name="hint_password">Пароль</string>
 </resources>
 
 

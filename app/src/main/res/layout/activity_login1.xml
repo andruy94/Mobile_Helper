@@ -14,25 +14,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textSize="40sp"
         android:layout_marginTop="92dp"
         android:id="@+id/login"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:hint="Логин"
+        android:hint="@string/hint_login"
         android:inputType="text" />
 
     <EditText
+        android:textSize="40sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/password"
-        android:hint="Пароль"
+        android:hint="@string/hint_password"
         android:layout_below="@+id/login"
         android:layout_alignLeft="@+id/login"
         android:layout_alignStart="@+id/login" />
 
     <Button
+        android:textSize="40sp"
         android:text="Войти"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

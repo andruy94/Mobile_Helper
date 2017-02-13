@@ -42,6 +42,7 @@ public class List extends AppCompatActivity {
         ListView listView=(ListView) findViewById(R.id.lv1);
         listView.setAdapter(listAdapter);
         Button button=new Button(this);
+        button.setTextSize(20);
         button.setText(R.string.confirm);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

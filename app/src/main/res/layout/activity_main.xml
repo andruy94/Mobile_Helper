@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -12,15 +13,18 @@
     android:orientation="vertical">
 
     <ScrollView
+
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <TextView
+                style="@style/Font"
                 android:text="Предприятие"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,12 +38,14 @@
                 android:id="@+id/Predpriytie" />
 
             <TextView
+                style="@style/Font"
                 android:text="Район(Участок)"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3" />
 
             <EditText
+                style="@style/Font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -47,12 +53,14 @@
                 android:id="@+id/Sector" />
 
             <TextView
+                style="@style/Font"
                 android:text="Воздушная линия Uном"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView4" />
 
             <EditText
+                style="@style/Font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -60,12 +68,14 @@
                 android:id="@+id/Unom" />
 
             <TextView
+                style="@style/Font"
                 android:text="Наименование"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5" />
 
             <EditText
+                style="@style/Font"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
@@ -73,12 +83,14 @@
                 android:id="@+id/Nazvanie" />
 
             <TextView
+                style="@style/Font"
                 android:text="Вид осмотра:"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6" />
 
             <EditText
+                style="@style/Font"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="text"
@@ -86,24 +98,28 @@
                 android:id="@+id/VID" />
 
             <Button
+                style="@style/Font"
                 android:id="@+id/btnShowList"
                 android:text="@string/show_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                style="@style/Font"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <TextView
+                    style="@style/Font"
                     android:text="Осмотр проведен от опоры №"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView7" />
 
                 <EditText
+                    style="@style/Font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -113,17 +129,20 @@
             </LinearLayout>
 
             <LinearLayout
+                style="@style/Font"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
+                    style="@style/Font"
                     android:layout_width="106dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView8"
                     android:text="До опоры №" />
 
                 <EditText
+                    style="@style/Font"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -138,6 +157,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    style="@style/Font"
                     android:text="Осмотр выполнил"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,6 +165,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    style="@style/Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -160,6 +181,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    style="@style/Font"
                     android:text="Листок осмотра принял"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -167,6 +189,7 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    style="@style/Font"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -175,6 +198,7 @@
                     android:layout_weight="1" />
             </LinearLayout>
             <Button
+                style="@style/Font"
                 android:text="@string/send"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

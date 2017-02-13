@@ -56,7 +56,7 @@ public class ListAdapter extends ArrayAdapter<CheckListItem> {
         CheckBox titleCheckBox=(CheckBox) rowView.findViewById(R.id.chbHeader);
         titleCheckBox.setEnabled(true);
         titleCheckBox.setText(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().getTitle());
-        titleCheckBox.setChecked(checkListItem.getCheckBoxItem().isChecked());
+        titleCheckBox.setChecked(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().isChecked());
         if(checkListItem.getDefectCheckListItems()[position].getCheckBoxItem().isChecked()) {
             linearLayout.setVisibility(View.VISIBLE);
             titleCheckBox.setChecked(true);

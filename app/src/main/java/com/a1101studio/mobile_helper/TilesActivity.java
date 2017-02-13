@@ -21,13 +21,28 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 public class TilesActivity extends AppCompatActivity {
     private  CheckListItem[] checkListItemsTop;
     Button[] buttons;
+     int k;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for(int i=0;i< checkListItemsTop.length;i++){
+            buttons[i].setVisibility(View.VISIBLE);
+            checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
+            if(checkListItemsTop[i].getCheckBoxItem().isChecked())
+                buttons[i].setBackgroundColor(Color.YELLOW);
+            buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
+            int finalI = i;
+            buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_tiles);
         Intent intent=getIntent();
-        final int k=intent.getIntExtra("k",-1);
+        k=intent.getIntExtra("k",-1);
         checkListItemsTop = WorkData.getInstance().getCheckListItemList().get(k);
 
         buttons = new Button[6];
@@ -42,8 +57,9 @@ public class TilesActivity extends AppCompatActivity {
         button.setOnClickListener(v->finish());
         for(int i=0;i< checkListItemsTop.length;i++){
             buttons[i].setVisibility(View.VISIBLE);
+            checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
             if(checkListItemsTop[i].getCheckBoxItem().isChecked())
-                buttons[i].setBackgroundColor(Color.GREEN);
+                buttons[i].setBackgroundColor(Color.YELLOW);
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
             buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));

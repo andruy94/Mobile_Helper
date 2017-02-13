@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.TilesActivity;
+import com.a1101studio.mobile_helper.models.CheckListItem;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.bumptech.glide.Glide;
@@ -33,8 +34,8 @@ import java.util.ArrayList;
 public class TopListAdapter  extends ArrayAdapter<TopListModel> {
     public static int REQUEST_IMAGE_CAPTURE=1;
     public static String jakers;
-    ArrayList<TopListModel> topListModels;
-    Context context;
+    private ArrayList<TopListModel> topListModels;
+    private Context context;
     public TopListAdapter(Context context, ArrayList<TopListModel> topListModels) {
         super(context, R.layout.top_list_item,topListModels);
         this.context=context;
@@ -47,8 +48,16 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.top_list_item, parent, false);
         EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
-        
+
         TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
+
+        StringBuilder stringBuilder=new StringBuilder();
+        CheckListItem[] checkListItems=WorkData.getInstance().getCheckListItemList().get(position);
+        for (CheckListItem checkListItem:checkListItems){
+            stringBuilder.append(checkListItem.getCheckedItems());
+        }
+        topListModels.get(position).setDefect(stringBuilder.toString());
+
         ImageButton ibPhoto=(ImageButton) rowView.findViewById(R.id.ibPhoto);
         ibPhoto.setEnabled(true);
         ibPhoto.setOnClickListener(v -> dispatchTakePictureIntent(topListModels.get(position).getSeatNumber()));
@@ -59,7 +68,8 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
             topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
-            topListModels.get(position).setDefect("...");
+
+            //topListModels.get(position).setDefect("...");
                 Intent intent=new Intent(context, TilesActivity.class);
                 intent.putExtra("k",position);
             context.startActivity(intent);}

@@ -147,6 +147,7 @@ public class MainListActivity extends AppCompatActivity {
         ArrayList<CheckListItem> checkListItems=new ArrayList<>();
         //тут добввляешь детальки
         checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
         //---
         CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
         for(int i=0;i<checkListItems.size();i++){

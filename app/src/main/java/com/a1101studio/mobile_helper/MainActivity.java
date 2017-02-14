@@ -66,9 +66,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<TopListModel> topListModels;
     DocumentModel documentModel;
     private static final int IDM_OPEN = 101;
+    private static final int IDM_LOGOUT = 102;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, IDM_OPEN, Menu.NONE, R.string.report_list);
+        menu.add(Menu.NONE, IDM_LOGOUT, Menu.NONE, R.string.logout);
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item)
@@ -77,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent=new Intent(MainActivity.this,reportList.class);
             startActivity(intent);
             return true;
+        }else if(item.getItemId()==IDM_LOGOUT){
+            finish();
         }
 
         return false;

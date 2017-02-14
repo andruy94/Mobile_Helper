@@ -85,6 +85,7 @@
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
     <string name="report_list">Список отчётов</string>
+    <string name="logout">Выйти</string>
 </resources>
 
 

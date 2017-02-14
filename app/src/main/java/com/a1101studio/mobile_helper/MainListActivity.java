@@ -75,7 +75,7 @@ public class MainListActivity extends AppCompatActivity {
 
         String detailName="Опоры";
 
-        String[] defectsName={"Коррозия опоры","коррозия элементов опоры","Не заземлена перемычка","ДКР в теле опоры","Дерево в теле опоры","Нумерация"
+        String[] defectsName={"Коррозия опоры","Коррозия элементов опоры","Не заземлена перемычка","ДКР в теле опоры","Дерево в теле опоры","Нумерация"
                 ,"Отсутствие на опоре предупреждающих плакатов","Погнуты уголки опоры","Оторван уголок","Гнездо в опоре","Изогнута траверса","Трещина в теле опоры"
                 ,"Наклон опоры"};
 
@@ -86,7 +86,7 @@ public class MainListActivity extends AppCompatActivity {
         String[] s20={"Гнездо в опоре:"};
         String[] nulled={};
         ArrayList<String[]> LowModelsCHeckboxesTitles =new ArrayList<>();
-        LowModelsCHeckboxesTitles.add(s1);
+        LowModelsCHeckboxesTitles.add(nulled);
         LowModelsCHeckboxesTitles.add(nulled);//2
         LowModelsCHeckboxesTitles.add(s21);//3
         LowModelsCHeckboxesTitles.add(nulled);//4
@@ -97,13 +97,7 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCHeckboxesTitles.add(nulled);//9
         LowModelsCHeckboxesTitles.add(s20);//10
 
-        String[][] ss1=new String[s1.length][];//массив 9х9
-        for (int i=0;i<s1.length;i++){
-            ss1[i]=new String[3];
-            for(int j=0;j<3;j++){
-                ss1[i][j]="??????"+i+j;
-            }
-        }
+
 
         String[][] nulled2= {};
         String[][] ss3=new String[1][3];
@@ -116,7 +110,7 @@ public class MainListActivity extends AppCompatActivity {
         ss5[0][0]="Грозотрос";
         ss5[0][1]="ВОЛС";
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles =new ArrayList<>();
-        lowlowModelsCHeckboxesTitles.add(ss1);
+        lowlowModelsCHeckboxesTitles.add(nulled2);
         lowlowModelsCHeckboxesTitles.add(nulled2);//2
         lowlowModelsCHeckboxesTitles.add(ss5);//3
         lowlowModelsCHeckboxesTitles.add(nulled2);//4
@@ -154,10 +148,107 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles.add(s14);//4
         LowModelsCommentsTitles.add(s15);//5
         LowModelsCommentsTitles.add(s16);//6
+// Второе
+        String[] s={"Комментарий:"};//1
+        ArrayList<String[]> LowModelsCHeckboxesTitles2 =new ArrayList<>();
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles2 =new ArrayList<>();
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        lowlowModelsCHeckboxesTitles2.add(nulled2);//2
+        ArrayList<String[]> LowModelsCommentsTitles2 =new ArrayList<>();
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//1
+        s= new String[]{"Номер фундамента:","Степень разрушения:"};//1
+        LowModelsCommentsTitles2.add(s);//2
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//3
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//4
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//5
+        s= new String[]{"Количество болтов:","Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//6
+        s= new String[]{"Количество гаек:","Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//7
+        s= new String[]{"Количество гаек:","Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//8
+        s= new String[]{"Количество гаек:","Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//9
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//10
+        s= new String[]{"Номер фундамента:"};//1
+        LowModelsCommentsTitles2.add(s);//11
+        s= new String[]{"Номер фундамента:","Расстояние от фундамента до пяты опоры:"};//1
+        LowModelsCommentsTitles2.add(s);//12
+        String[] defectsName2={"Фундаменты засыпаны","Разрушение фундамента","Отсутствие контура заземления","Просевший грунт под фундаментом",
+                "Отсутствует болт крепления между пятой опоры и фундаментом","Отсутствует контргайка на болту крепления пяты опоры к фундаменту"
+                ,"Отсутствует гайка на болту крепления пяты опоры к фундаменту","Не затянута гайка/контргайка на болту крепления пяты опоры к фундаменту",
+                "Забетонирован фундамент","Необвалован фундамент","Зазор между фундаментом и пятой опоры"};
+//Третье
+        String[] defectsName3={"Бой изоляции","Загрязнение изоляции","Наброс на изоляторах"};
+        ArrayList<String[]> LowModelsCHeckboxesTitles3 =new ArrayList<>();
+        s= new String[]{"Бой изоляции:"};//1
+        LowModelsCHeckboxesTitles3.add(s);
+        LowModelsCHeckboxesTitles3.add(nulled);
+        LowModelsCHeckboxesTitles3.add(nulled);
 
+        ArrayList<String[]> LowModelsCommentsTitles3 =new ArrayList<>();
+        s= new String[]{"Фаза:","Сторона:"};//1
+        LowModelsCommentsTitles3.add(nulled);//7
+        LowModelsCommentsTitles3.add(s);//7
+        LowModelsCommentsTitles3.add(s);//7
 
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles3 =new ArrayList<>();
+        ss3=new String[1][3];
+        ss3[0][0]="Разное количество";
+        ss3[0][1]="По разным фазам";
+        ss3[0][2]="Две стороны";
+        lowlowModelsCHeckboxesTitles3.add(ss3);
+//Четвертая
+        String[] defectsName4={"Гнутая арматура","Гаситель вибрации на проводе","Повреждение арматуры"};
 
+        ArrayList<String[]> LowModelsCHeckboxesTitles4 =new ArrayList<>();
+        s= new String[]{"Гаситель вибрации на проводе:"};//1
+        LowModelsCHeckboxesTitles4.add(nulled);
+        LowModelsCHeckboxesTitles4.add(s);
+        LowModelsCHeckboxesTitles4.add(nulled);
 
+        ArrayList<String[]> LowModelsCommentsTitles4 =new ArrayList<>();
+        s= new String[]{"Фаза:","Сторона:"};//1
+        LowModelsCommentsTitles4.add(s);//7
+        LowModelsCommentsTitles4.add(nulled);//7
+        s= new String[]{"Комментарий:"};//1
+        LowModelsCommentsTitles4.add(s);//7
+
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles4 =new ArrayList<>();
+        ss3=new String[1][2];
+        ss3[0][0]="Не установлен/Криво установлен/Изогнут";
+        ss3[0][1]="Смещен в пролет";
+        lowlowModelsCHeckboxesTitles4.add(nulled2);
+        lowlowModelsCHeckboxesTitles4.add(ss3);
+        lowlowModelsCHeckboxesTitles4.add(nulled2);
         //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
@@ -165,7 +256,9 @@ public class MainListActivity extends AppCompatActivity {
                 ArrayList<CheckListItem> checkListItems=new ArrayList<>();
                 //тут добввляешь детальки
                 checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-                checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                checkListItems.add(CreateCheckListitem("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
+                checkListItems.add(CreateCheckListitem("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
+                checkListItems.add(CreateCheckListitem("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
                 //---
                 CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
                 for(int i=0;i<checkListItems.size();i++){

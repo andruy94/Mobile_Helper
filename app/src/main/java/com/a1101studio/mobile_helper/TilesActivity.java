@@ -29,7 +29,7 @@ public class TilesActivity extends AppCompatActivity {
             buttons[i].setVisibility(View.VISIBLE);
             checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
             if(checkListItemsTop[i].getCheckBoxItem().isChecked())
-                buttons[i].setBackgroundColor(Color.YELLOW);
+                buttons[i].setBackgroundColor(Color.GREEN);
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
             buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));

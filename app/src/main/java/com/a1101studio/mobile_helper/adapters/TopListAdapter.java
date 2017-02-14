@@ -85,7 +85,7 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
     private void dispatchTakePictureIntent(String filename) {
 
         final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(new File(context.getCacheDir()+"/"+filename).exists()){
+       /* if(new File(context.getCacheDir()+"/"+filename).exists()){
             AlertDialog.Builder builder=new AlertDialog.Builder(context);
             View view=((Activity)context).getLayoutInflater().inflate(R.layout.dialog_view, null);
             ImageView imageView=(ImageView) view.findViewById(R.id.imageView);
@@ -107,10 +107,10 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
             });
             builder.show();
         }
-        else if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {
+        else if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {*/
             jakers=filename;
             ((Activity)context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        //}
     }
 
 }

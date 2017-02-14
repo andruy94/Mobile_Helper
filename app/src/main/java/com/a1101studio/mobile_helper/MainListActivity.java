@@ -1,9 +1,11 @@
 package com.a1101studio.mobile_helper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -31,6 +33,7 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
@@ -252,28 +255,40 @@ public class MainListActivity extends AppCompatActivity {
         //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainListActivity.this);
+                builder.setTitle(R.string.choose_type);
+                builder.setSingleChoiceItems(R.array.types, -1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        ArrayList<CheckListItem> checkListItems=new ArrayList<>();
+                        //тут добввляешь детальки
+                        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                        checkListItems.add(CreateCheckListitem("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
+                        checkListItems.add(CreateCheckListitem("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
+                        checkListItems.add(CreateCheckListitem("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
+                        //---
+                        CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
+                        for(int i=0;i<checkListItems.size();i++){
+                            checkListItemArray[i]=checkListItems.get(i);
+                        }
+                        WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()+";"+getResources().getStringArray(R.array.types)[which]));
+                        Intent intent=new Intent(MainListActivity.this, TilesActivity.class);
+                        WorkData.getInstance().getCheckListItemList().add(checkListItemArray);
+                        intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
-                ArrayList<CheckListItem> checkListItems=new ArrayList<>();
-                //тут добввляешь детальки
-                checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-                checkListItems.add(CreateCheckListitem("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
-                checkListItems.add(CreateCheckListitem("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
-                checkListItems.add(CreateCheckListitem("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
-                //---
-                CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
-                for(int i=0;i<checkListItems.size();i++){
-                    checkListItemArray[i]=checkListItems.get(i);
-                }
+                        etSeatNubmer.setText("");
+                        tvDefect.setText("");
+                        startActivity(intent);
+                    }
+                    }
+                );
+                builder.show();
 
-                WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
-                Intent intent=new Intent(this, TilesActivity.class);
-                WorkData.getInstance().getCheckListItemList().add(checkListItemArray);//?????? ?????¶?µ???? ???????????????????°???? ???°???????µ ?????¶?????µ
-                intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
-                etSeatNubmer.setText("");
-                tvDefect.setText("");
-                startActivity(intent);}
-            else {
+
+
+        }else {
                 Toast.makeText(this, R.string.fill,Toast.LENGTH_SHORT).show();
             }
         });
@@ -319,15 +334,15 @@ public class MainListActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveFileWithColision(imageBitmap,fileName);
+                    saveFileWithColision(imageBitmap,"/mobile_helper/"+fileName+"_"+new Date().getTime()+".jpg");
                 }
             }).start();
         }
     }
     void saveFileWithColision(Bitmap bitmap, String nameImg){
-        File outputDir = getCacheDir();
+        //File outputDir = getCacheDir();
         try {
-            File namefile = new File(outputDir+"/"+nameImg);
+            File namefile = new File(Environment.getExternalStorageDirectory().getPath()+nameImg);
             if(namefile.exists())
                 namefile.delete();
             Log.e("TAG",namefile.getPath());
@@ -336,7 +351,7 @@ public class MainListActivity extends AppCompatActivity {
             ostream.flush();
             ostream.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("TAG",e.toString());
         }
     }
 }

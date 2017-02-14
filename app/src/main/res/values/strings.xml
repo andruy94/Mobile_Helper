@@ -73,6 +73,15 @@
         <item>Изоляторы</item>
         <item>Заземляющие устройства</item>
     </array>
+
+    <array name="types">
+        <item>ХУЙ</item>
+        <item>ПИЗДА</item>
+        <item>Залупа</item>
+        <item>Гавно</item>
+        <item>Хуесосо</item>
+    </array>
+
     <string name="title_activity_main_list">Список неисправностей</string>
     <string name="n">Предпирятие:</string>
     <string name="sector">Район(Участок):</string>
@@ -86,6 +95,7 @@
     <string name="hint_password">Пароль</string>
     <string name="report_list">Список отчётов</string>
     <string name="logout">Выйти</string>
+    <string name="choose_type">Выберите тип опоры :</string>
 </resources>
 
 

@@ -272,7 +272,7 @@ public class MainListActivity extends AppCompatActivity {
                         for(int i=0;i<checkListItems.size();i++){
                             checkListItemArray[i]=checkListItems.get(i);
                         }
-                        WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()+";"+getResources().getStringArray(R.array.types)[which]));
+                        WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()+" ; "+getResources().getStringArray(R.array.types)[which]));
                         Intent intent=new Intent(MainListActivity.this, TilesActivity.class);
                         WorkData.getInstance().getCheckListItemList().add(checkListItemArray);
                         intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
@@ -334,14 +334,16 @@ public class MainListActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveFileWithColision(imageBitmap,"/mobile_helper/"+fileName+"_"+new Date().getTime()+".jpg");
+                    saveFileWithColision(imageBitmap,"/mobile_helper/"+fileName+"/",fileName+"_"+new Date().getTime()+".jpg");
                 }
             }).start();
         }
     }
-    void saveFileWithColision(Bitmap bitmap, String nameImg){
+    void saveFileWithColision(Bitmap bitmap,String dirName ,String nameImg){
         //File outputDir = getCacheDir();
         try {
+            File dir=new File(dirName);
+            dir.mkdir();
             File namefile = new File(Environment.getExternalStorageDirectory().getPath()+nameImg);
             if(namefile.exists())
                 namefile.delete();

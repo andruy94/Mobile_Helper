@@ -342,9 +342,9 @@ public class MainListActivity extends AppCompatActivity {
     void saveFileWithColision(Bitmap bitmap,String dirName ,String nameImg){
         //File outputDir = getCacheDir();
         try {
-            File dir=new File(dirName);
+            File dir=new File(Environment.getExternalStorageDirectory().getPath()+dirName);
             dir.mkdir();
-            File namefile = new File(Environment.getExternalStorageDirectory().getPath()+nameImg);
+            File namefile = new File(dir.getPath()+"/"+nameImg);
             if(namefile.exists())
                 namefile.delete();
             Log.e("TAG",namefile.getPath());

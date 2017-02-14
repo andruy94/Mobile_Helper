@@ -84,6 +84,7 @@
     <string name="title_activity_list_report">ListReport</string>
     <string name="hint_login">Логин</string>
     <string name="hint_password">Пароль</string>
+    <string name="report_list">Список отчётов</string>
 </resources>
 
 

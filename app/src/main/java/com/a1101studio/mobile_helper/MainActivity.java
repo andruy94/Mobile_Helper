@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.R.attr.type;
 
@@ -63,6 +65,24 @@ public class MainActivity extends AppCompatActivity {
     EditText Prinal;
     private ArrayList<TopListModel> topListModels;
     DocumentModel documentModel;
+    private static final int IDM_OPEN = 101;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, IDM_OPEN, Menu.NONE, R.string.report_list);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(item.getItemId()==IDM_OPEN){
+            Intent intent=new Intent(MainActivity.this,reportList.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +109,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void createPDF(){
-        File htmlFolder = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS+"/report/"),Name.getText().toString());
+        File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/");
         if (!htmlFolder.exists()) {
             htmlFolder.mkdir();
 
         }
         try{
-        File myFile = new File(htmlFolder+Name.getText().toString() + ".html");
+        File myFile = new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/"+Name.getText().toString()+new Date().getTime() + ".html");
 
             ArrayList<String> checkedItems=new ArrayList<>();
             ArrayList<String> seatNames=new ArrayList<>();
@@ -201,10 +221,6 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }

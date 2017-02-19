@@ -49,8 +49,8 @@ public class HtmlHelper {
         HtmlString = HtmlString+ "</tbody>\n" +
                 "</table><p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
         HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+"  /________________/"+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectorName()+"/________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+documentModel.getInspectorName()+"  /________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectionSheet()+"/________________/"+"</p>";
         HtmlString = HtmlString+ "  </body>\n" +
                 "</html>";
         byte ptext[] = HtmlString.getBytes("UTF-8");

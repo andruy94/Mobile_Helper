@@ -17,7 +17,7 @@
     <string name="auth_error">Не правильный логин или пароль</string>
     <string name="Confirm">ОК</string>
     <string name="confirm">Подтвердить</string>
-    <string name="send">Отправить Отчёт</string>
+    <string name="send">Сохранить отчёт</string>
     <string name="sending_is_ok">Данные отпралены!</string>
     <string name="cancel">Закрыть</string>
     <string name="fill">Заполните поле</string>
@@ -75,11 +75,12 @@
     </array>
 
     <array name="types">
-        <item>ХУЙ</item>
-        <item>ПИЗДА</item>
-        <item>Залупа</item>
-        <item>Гавно</item>
-        <item>Хуесосо</item>
+        <item>АМ</item>
+        <item>АМУ</item>
+        <item>ПБ</item>
+        <item>АММ</item>
+        <item>АММУ</item>
+        <item>ПММ</item>
     </array>
 
     <string name="title_activity_main_list">Список неисправностей</string>

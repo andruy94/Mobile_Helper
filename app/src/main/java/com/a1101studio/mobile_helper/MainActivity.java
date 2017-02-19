@@ -1,6 +1,7 @@
 package com.a1101studio.mobile_helper;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 
 import android.content.res.AssetManager;
@@ -103,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
         Names   = (EditText)findViewById(R.id.Nameosmotr);
         Prinal   = (EditText)findViewById(R.id.Prinal);
         Button btnShowListActivity=(Button) findViewById(R.id.btnShowList);
-        btnShowListActivity.setOnClickListener(v->startActivity(new Intent(this,MainListActivity.class)));
+
+            btnShowListActivity.setOnClickListener(v -> startActivity(new Intent(this, MainListActivity.class)));
+
         Button btnSend=(Button) findViewById(R.id.btnSend);
 
 
@@ -112,64 +115,81 @@ public class MainActivity extends AppCompatActivity {
         btnSend.setOnClickListener(oclBtnOk);
     }
 
-    void createPDF(){
-        File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/");
-        if (!htmlFolder.exists()) {
-            htmlFolder.mkdir();
+    void createPDF() {
+        if (Pred.getText().toString().trim().length() > 0 && Sector.getText().toString().trim().length() > 0 && Unom.getText().toString().trim().length() > 0 && Name.getText().toString().trim().length() > 0 &&
+                VID.getText().toString().trim().length() > 0 && OT.getText().toString().trim().length() > 0 && Do.getText().toString().trim().length() > 0 && Names.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
+            File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
+            if (!htmlFolder.exists()) {
+                htmlFolder.mkdir();
 
-        }
-        try{
-        File myFile = new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/"+Name.getText().toString()+new Date().getTime() + ".html");
-
-            ArrayList<String> checkedItems=new ArrayList<>();
-            ArrayList<String> seatNames=new ArrayList<>();
-
-            for(int i=0;i< WorkData.getInstance().getTopListModels().size();i++) {//Ð¼Ð°ÑÐ¸Ð¸Ð² Ð²ÐµÑ€Ñ…Ð½Ð¸Ñ… ÑˆÑ‚ÑƒÐº
-                seatNames.add(WorkData.getInstance().getTopListModels().get(i).getSeatNumber());
-                StringBuilder stringBuilder=new StringBuilder();
-                for (int j = 0; j < WorkData.getInstance().getCheckListItemList().get(i).length; j++) {//Ð¼Ð°ÑÑÐ¸Ð² Ð²Ð»Ð¾Ð¶ÐµÐ½Ð½Ñ‹Ñ…
-                    String s= WorkData.getInstance().getCheckListItemList().get(i)[j].getCheckedItems();
-                    if(!s.equals("")){
-                        stringBuilder.append(s);
-                        stringBuilder.delete(stringBuilder.length()-1,stringBuilder.length());
-                        stringBuilder.append(".");
-                    }
-
-                }
-                checkedItems.add(stringBuilder.toString());
             }
+            try {
+                String namerepot;
+                namerepot = Name.getText().toString();
+                if (namerepot == " ") {
+                    namerepot = "" + new Date().getTime();
+                }
+                namerepot = namerepot + ".html";
+                File myFile = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/" + namerepot);
 
-            documentModel = new DocumentModel(
-                    Pred.getText().toString(),
-                    Sector.getText().toString(),
-                    Unom.getText().toString(),
-                    Name.getText().toString(),
-                    VID.getText().toString(),
-                    OT.getText().toString(),
-                    Do.getText().toString(),
-                    Names.getText().toString(),
-                    Prinal.getText().toString(),
-                    seatNames.toArray( new String[0]),
-                    checkedItems.toArray( new String[0])
+                ArrayList<String> checkedItems = new ArrayList<>();
+                ArrayList<String> seatNames = new ArrayList<>();
 
-            );
+                for (int i = 0; i < WorkData.getInstance().getTopListModels().size(); i++) {//Ð¼Ð°ÑÐ¸Ð¸Ð² Ð²ÐµÑ€Ñ…Ð½Ð¸Ñ… ÑˆÑ‚ÑƒÐº
+                    seatNames.add(WorkData.getInstance().getTopListModels().get(i).getSeatNumber());
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int j = 0; j < WorkData.getInstance().getCheckListItemList().get(i).length; j++) {//Ð¼Ð°ÑÑÐ¸Ð² Ð²Ð»Ð¾Ð¶ÐµÐ½Ð½Ñ‹Ñ…
+                        String s = WorkData.getInstance().getCheckListItemList().get(i)[j].getCheckedItems();
+                        if (!s.equals("")) {
+                            stringBuilder.append(s);
+                            stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
+                            stringBuilder.append(".");
+                        }
+
+                    }
+                    checkedItems.add(stringBuilder.toString());
+                }
+
+                documentModel = new DocumentModel(
+                        Pred.getText().toString(),
+                        Sector.getText().toString(),
+                        Unom.getText().toString(),
+                        Name.getText().toString(),
+                        VID.getText().toString(),
+                        OT.getText().toString(),
+                        Do.getText().toString(),
+                        Names.getText().toString(),
+                        Prinal.getText().toString(),
+                        seatNames.toArray(new String[0]),
+                        checkedItems.toArray(new String[0])
+
+                );
 
 
-            HtmlHelper htmlHelper=new HtmlHelper(myFile.getPath(),documentModel);
-            saveFile(htmlHelper.getHtmlString(),myFile);
+                HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel);
+                saveFile(htmlHelper.getHtmlString(), myFile);
 
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-           intent.setDataAndType(Uri.fromFile(myFile), "text/html");
-            //intent.addCategory(Intent.CATEGORY_BROWSABLE);
-           // intent.setData(Uri.fromFile(myFile));
-            //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            startActivity(intent);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                //intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                // intent.setData(Uri.fromFile(myFile));
+                //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(intent);
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("TAG",e.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("TAG", e.toString());
+            }
+        }
+        else {
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("Âû äîëæíû çàïîëíèòü âñå ïîëÿ ôîðìû.");
+            dlgAlert.setTitle("Îøèáêà");
+            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
         }
     }
 

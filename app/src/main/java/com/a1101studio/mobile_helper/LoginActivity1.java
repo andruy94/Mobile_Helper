@@ -45,7 +45,7 @@ public class LoginActivity1 extends AppCompatActivity {
         aut = (Button) findViewById(R.id.aut);
         loginAndPassword();
         View.OnClickListener oclaut = v -> {
-            if(login.getText().toString().trim().equals("1") && password.getText().toString().trim().equals("1")) {
+            if(login.getText().toString().trim().equals("AVTI") && password.getText().toString().trim().equals("AVTI")) {
                 Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
                 WorkData.getInstance();
                 startActivity(intent);

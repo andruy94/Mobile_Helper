@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -129,8 +130,13 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
             }
         });
 
-        if (position == 0)
-            etSeatNubmer.requestFocus();
+        etSeatNubmer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etSeatNubmer.requestFocus();
+                return false;
+            }
+        });
         return rowView;
     }
 

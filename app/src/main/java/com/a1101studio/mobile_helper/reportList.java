@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class reportList extends AppCompatActivity {
 
@@ -26,13 +25,11 @@ public class reportList extends AppCompatActivity {
         File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
         dir.mkdir();
         File[] filelist = dir.listFiles();
-        ArrayList<String> stringArrayList=new ArrayList<>();
-        for (int i = 0; i < stringArrayList.size(); i++) {
-            if (filelist[i].getName() != null)
-                if (filelist[i].getName().contains(".html"))
-                    stringArrayList.add(filelist[i].getName());
+        String[] theNamesOfFiles = new String[filelist.length];
+        for (int i = 0; i < theNamesOfFiles.length; i++) {
+                    theNamesOfFiles[i] = filelist[i].getName();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringArrayList.toArray(new String[stringArrayList.size()]));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, theNamesOfFiles);
 
 // используем адаптер данных
         listView.setAdapter(adapter);

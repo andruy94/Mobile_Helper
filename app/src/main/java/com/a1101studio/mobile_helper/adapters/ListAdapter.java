@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -210,8 +211,14 @@ public class ListAdapter extends ArrayAdapter<Detail> {
 
                 commentsEditTexts[i].setFocusable(true);
                 commentsEditTexts[i].setEnabled(true);
-                if (i == 0 && (position == 0 || position == 1))
-                    commentsEditTexts[i].requestFocus();
+                int finalI1 = i;
+                commentsEditTexts[i].setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        commentsEditTexts[finalI1].requestFocus();
+                        return false;
+                    }
+                });
                 // textView1.setTag(i,"eT"+i);
                 int finalI = i;
                 commentsEditTexts[i].addTextChangedListener(new TextWatcher() {

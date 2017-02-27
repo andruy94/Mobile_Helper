@@ -113,7 +113,7 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                 }
 
                 if (flag)
-                    s = s.substring(0, s.length() - k);
+                    s = s.substring(0, s.length() - context.getResources().getStringArray(R.array.types)[k].length()-1);
                 else {
                     k=s.indexOf(';');
                     s = s.substring(0, s.length() - k);

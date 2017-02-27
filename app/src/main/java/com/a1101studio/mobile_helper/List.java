@@ -47,7 +47,7 @@ public class List extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkResult())
+               // if (checkResult())
                     finish();
             }
         });
@@ -81,11 +81,7 @@ public class List extends AppCompatActivity {
             if (defectCheckListItems[i].getCheckBoxItem().isChecked()) {
                 if (defectCheckListItems[i].getLowItemsModels().getCommentsModels().length > 0) {
                     for (int j = 0; j < defectCheckListItems[i].getLowItemsModels().getCommentsModels().length; j++) {
-                        if (defectCheckListItems[i].getLowItemsModels().getCommentsModels()[i].getComment().trim().equals("")) {
-                            listAdapter.getViewHolderModelArrayList().get(i).getCommentsEditTexts()[j].setError(getString(R.string.fill_text));
-                            flag = false;
-                            break;
-                        }
+                        //---
                     }
                 }
             }

@@ -224,8 +224,10 @@ public class ListAdapter extends ArrayAdapter<Detail> {
                     @Override
                     public void onTextChanged(CharSequence s, int start,
                                               int before, int count) {
-                        if (s.length() != 0)
+                        if (s.toString().trim().length() != 0)
                             commentsModels[finalI].setComment(s.toString());
+                        else
+                            commentsModels[finalI].setComment("");
                     }
 
                     @Override

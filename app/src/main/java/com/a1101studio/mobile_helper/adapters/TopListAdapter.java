@@ -62,7 +62,7 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         etSeatNubmer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new AlertDialog.Builder(context).setNegativeButton(context.getString(R.string.cancel),null).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setNegativeButton(context.getString(R.string.cancel),null).setItems(context.getResources().getStringArray(R.array.extra_long_click_menu), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
@@ -74,13 +74,14 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                                         dialog.cancel();
                                     }
                                 }).show();
-                                dialog.cancel();
                                 TopListAdapter.this.notifyDataSetChanged();
+                                dialog.cancel();
                                 break;
                             case 1:
                                 topListModels.remove(position);
-                                dialog.cancel();
+                                WorkData.getInstance().getDetails().remove(position);
                                 TopListAdapter.this.notifyDataSetChanged();
+                                dialog.cancel();
                                 break;
                         }
                     }
@@ -94,7 +95,24 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         tvDefect.setText(topListModels.get(position).getDefect());
         tvDefect.setOnClickListener(v -> {
             if (!etSeatNubmer.getText().toString().trim().equals("")) {
-                topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
+                String s=etSeatNubmer.getText().toString();
+                boolean flag=false;
+                int k=0;
+                String[] stringArray = context.getResources().getStringArray(R.array.types);
+                for (int i = 0; i < stringArray.length; i++) {
+                    String str = stringArray[i];
+
+                    if (s.contains(str)) {
+                        flag = true;
+                        k=i;
+                        break;
+                    }
+
+                }
+                if(flag)
+                    s=s.substring(0,s.length()-context.getResources().getStringArray(R.array.types)[k].length()-1);
+
+                topListModels.get(position).setSeatNumber(s);
 
                 //topListModels.get(position).setDefect("...");
                 Intent intent = new Intent(context, TilesActivity.class);
@@ -105,7 +123,8 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
             }
         });
 
-
+        if(position==0)
+            etSeatNubmer.requestFocus();
         return rowView;
     }
 

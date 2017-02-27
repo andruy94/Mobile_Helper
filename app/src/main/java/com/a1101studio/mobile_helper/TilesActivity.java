@@ -3,6 +3,8 @@ package com.a1101studio.mobile_helper;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 public class TilesActivity extends AppCompatActivity {
     private  Detail[] checkListItemsTop;
     Button[] buttons;
+    int color;
      int k;
     @Override
     protected void onResume() {
@@ -27,6 +30,8 @@ public class TilesActivity extends AppCompatActivity {
             checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
             if(checkListItemsTop[i].getCheckBoxItem().isChecked())
                 buttons[i].setBackgroundColor(Color.GREEN);
+            else
+                buttons[i].setBackgroundColor(getResources().getColor(R.color.colorButton));
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
             buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));
@@ -49,6 +54,8 @@ public class TilesActivity extends AppCompatActivity {
         buttons[3]=(Button) findViewById(R.id.button4);
         buttons[4]=(Button) findViewById(R.id.button5);
         buttons[5]=(Button) findViewById(R.id.button6);
+
+
         Button button=(Button) findViewById(R.id.btnExit);
         button.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         button.setOnClickListener(v->finish());

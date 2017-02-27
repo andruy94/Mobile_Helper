@@ -231,8 +231,9 @@ public class MainListActivity extends AppCompatActivity {
             lowlowModelsCHeckboxesTitles3.add(ss3);
             lowlowModelsCHeckboxesTitles3.add(nulled2);
             lowlowModelsCHeckboxesTitles3.add(nulled2);
+            s= new String[]{"Разное кол-во:","По разным фазам:"};//1
+            LowModelsCommentsTitles3.add(s);//7
             s= new String[]{"Фаза:","Сторона:"};//1
-            LowModelsCommentsTitles3.add(nulled);//7
             LowModelsCommentsTitles3.add(s);//7
             LowModelsCommentsTitles3.add(s);//7
         }
@@ -261,12 +262,120 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles4.add(nulled2);
         lowlowModelsCHeckboxesTitles4.add(ss3);
         lowlowModelsCHeckboxesTitles4.add(nulled2);
+
+//5
+        String[] defectsName5={"Распушен провод","'Фонарь' на проводе","Наброс на проводе","Повреждение провода","Соединитель на проводе","Наброс на проводе"};
+
+        ArrayList<String[]> LowModelsCHeckboxesTitles5 =new ArrayList<>();
+        s= new String[]{"Гаситель вибрации на проводе:"};//1
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+
+        ArrayList<String[]> LowModelsCommentsTitles5 =new ArrayList<>();
+        s= new String[]{"Фаза:","Комментарий:"};//1
+        LowModelsCommentsTitles5.add(s);//1
+        LowModelsCommentsTitles5.add(s);//2
+        LowModelsCommentsTitles5.add(s);//3
+        LowModelsCommentsTitles5.add(s);//4
+        LowModelsCommentsTitles5.add(s);//1
+        LowModelsCommentsTitles5.add(s);//1
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles5 =new ArrayList<>();
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+//6
+        String[] defectsName6={"Отсутствие в пролете грозотроса","Распушен грозотрос","'Фонарь' на грозотросе","Наброс на тросу","Гаситель вибрации на тросу","Повреждение грозотроса"};
+        ArrayList<String[]> LowModelsCHeckboxesTitles6 =new ArrayList<>();
+        s= new String[]{"Гаситель вибрации на тросу:"};//1
+        LowModelsCHeckboxesTitles6.add(nulled);
+        LowModelsCHeckboxesTitles6.add(nulled);
+        LowModelsCHeckboxesTitles6.add(nulled);
+        LowModelsCHeckboxesTitles6.add(nulled);
+        LowModelsCHeckboxesTitles6.add(s);
+        LowModelsCHeckboxesTitles6.add(nulled);
+        ArrayList<String[]> LowModelsCommentsTitles6 =new ArrayList<>();
+        s= new String[]{"Комментарий:"};//1
+        LowModelsCommentsTitles6.add(s);//1
+        LowModelsCommentsTitles6.add(s);//2
+        LowModelsCommentsTitles6.add(s);//3
+        LowModelsCommentsTitles6.add(s);//4
+        LowModelsCommentsTitles6.add(s);//1
+        LowModelsCommentsTitles6.add(s);//1
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles6 =new ArrayList<>();
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+        ss3=new String[1][2];
+        ss3[0][0]="Не установлен/Криво установлен/Изогнут";
+        ss3[0][1]="Смещен в пролет";
+        lowlowModelsCHeckboxesTitles6.add(ss3);
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+
+        String[] defectsName7={"ДКР в пролете","Боковые ДКР","Дерево в пролете","Боковые деревья","В охранной зоне","Пересечения в пролете"};
+
+        ArrayList<String[]> LowModelsCHeckboxesTitles7 =new ArrayList<>();
+        s= new String[]{"В охранной зоне:"};//1
+        LowModelsCHeckboxesTitles7.add(nulled);
+        LowModelsCHeckboxesTitles7.add(nulled);
+        LowModelsCHeckboxesTitles7.add(nulled);
+        LowModelsCHeckboxesTitles7.add(nulled);
+        LowModelsCHeckboxesTitles7.add(s);
+        s= new String[]{"Пересечения в пролете:"};//1
+        LowModelsCHeckboxesTitles7.add(s);
+
+        ArrayList<String[]> LowModelsCommentsTitles7 =new ArrayList<>();
+        s= new String[]{"Комментарий:"};//1
+        LowModelsCommentsTitles7.add(s);//1
+        s= new String[]{"Расстояние до токоведущих частей:","Комментарий:"};//1
+        LowModelsCommentsTitles7.add(s);//2
+        s= new String[]{"Высота дерева:","Расстояние до токоведущих частей:","Количество деревьев:","Комментарий:"};//1
+        LowModelsCommentsTitles7.add(s);//3
+        s= new String[]{"Расстояние до токоведущих частей:","Комментарий:"};//1
+        LowModelsCommentsTitles7.add(s);//4
+        s= new String[]{"Расстояние от стойки до провода:","Примечание"};//1
+        LowModelsCommentsTitles7.add(s);//1
+        s= new String[]{"Комментарий:",};//1
+        LowModelsCommentsTitles7.add(s);//1
+
+        ArrayList<String[][]> lowlowModelsCHeckboxesTitles7 =new ArrayList<>();
+        lowlowModelsCHeckboxesTitles7.add(nulled2);
+        lowlowModelsCHeckboxesTitles7.add(nulled2);
+        lowlowModelsCHeckboxesTitles7.add(nulled2);
+        lowlowModelsCHeckboxesTitles7.add(nulled2);
+        ss3=new String[1][2];
+        ss3[0][0]="Сбор мусора";
+        ss3[0][1]="Отсыпка груна/щебня";
+        lowlowModelsCHeckboxesTitles7.add(ss3);
+        ss3=new String[1][11];
+        ss3[0][0]="ЛЭП";
+        ss3[0][1]="Ж/Д";
+        ss3[0][2]="Контактная сеть Ж/Д";
+        ss3[0][3]="Дорога";
+        ss3[0][4]="Гаражи";
+        ss3[0][5]="Стоянка";
+        ss3[0][6]="Линия освещения";
+        ss3[0][7]="СИП";
+        ss3[0][8]="Низковольтная линия";
+        ss3[0][9]="Овраг";
+        ss3[0][10]="Болото";
+        lowlowModelsCHeckboxesTitles7.add(ss3);
         //тут добавляется в лист всё
+        //тут добавляется в лист всё состояние трассы
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
                 if(WorkData.getInstance().getTopListModels().size()%2!=0){
                     ArrayList<Detail> details =new ArrayList<>();
-                    details.add(CreateDetail("пролёт",defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                    details.add(CreateDetail("Пролёт",defectsName5,LowModelsCHeckboxesTitles5,lowlowModelsCHeckboxesTitles5,LowModelsCommentsTitles5));
+                    details.add(CreateDetail("Тросс",defectsName6,LowModelsCHeckboxesTitles6,lowlowModelsCHeckboxesTitles6,LowModelsCommentsTitles6));
+                    details.add(CreateDetail("Состояние трассы",defectsName7,LowModelsCHeckboxesTitles7,lowlowModelsCHeckboxesTitles7,LowModelsCommentsTitles7));
                     /*details.add(CreateDetail("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
                     details.add(CreateDetail("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
                     details.add(CreateDetail("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));*/

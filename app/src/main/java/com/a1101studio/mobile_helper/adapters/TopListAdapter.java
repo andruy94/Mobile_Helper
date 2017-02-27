@@ -111,10 +111,13 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                     }
 
                 }
-                 k=s.indexOf(';');
-                //if (flag)
-                    s = s.substring(0, s.length() - k);
 
+                if (flag)
+                    s = s.substring(0, s.length() - k);
+                else {
+                    k=s.indexOf(';');
+                    s = s.substring(0, s.length() - k);
+                }
                 topListModels.get(position).setSeatNumber(s);
 
                 //topListModels.get(position).setDefect("...");

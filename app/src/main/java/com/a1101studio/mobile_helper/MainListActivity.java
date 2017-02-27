@@ -264,36 +264,57 @@ public class MainListActivity extends AppCompatActivity {
         //тут добавляется в лист всё
         tvDefect.setOnClickListener(v->{
             if(!etSeatNubmer.getText().toString().trim().equals("")){
-                AlertDialog.Builder builder=new AlertDialog.Builder(MainListActivity.this);
-                builder.setTitle(R.string.choose_type);
-                builder.setSingleChoiceItems(R.array.types, -1, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        ArrayList<Detail> details =new ArrayList<>();
-                        //тут добввляешь детальки
-                        details.add(CreateDetail(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-                        details.add(CreateDetail("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
-                        details.add(CreateDetail("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
-                        details.add(CreateDetail("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
-                        //---
-                        Detail[] detailArray =new Detail[details.size()];
-                        for(int i = 0; i< details.size(); i++){
-                            detailArray[i]= details.get(i);
-                        }
-                        boolean isSeat=true;
-                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which],etSeatNubmer.getText().toString()));
-                        Intent intent=new Intent(MainListActivity.this, TilesActivity.class);
-                        WorkData.getInstance().getDetails().add(detailArray);
-                        intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
+                if(WorkData.getInstance().getTopListModels().size()%2!=0){
+                    ArrayList<Detail> details =new ArrayList<>();
+                    details.add(CreateDetail(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                    details.add(CreateDetail("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
+                    details.add(CreateDetail("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
+                    details.add(CreateDetail("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
+                    //---
+                    Detail[] detailArray =new Detail[details.size()];
+                    for(int i = 0; i< details.size(); i++){
+                        detailArray[i]= details.get(i);
+                    }
+                    WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()));
+                    Intent intent=new Intent(MainListActivity.this, TilesActivity.class);
+                    WorkData.getInstance().getDetails().add(detailArray);
+                    intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
-                        etSeatNubmer.setText("");
-                        tvDefect.setText("");
-                        startActivity(intent);
-                    }
-                    }
-                );
-                builder.show();
+                    etSeatNubmer.setText("");
+                    tvDefect.setText("");
+                    startActivity(intent);
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainListActivity.this);
+                    builder.setTitle(R.string.choose_type);
+                    builder.setSingleChoiceItems(R.array.types, -1, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                    ArrayList<Detail> details = new ArrayList<>();
+                                    //тут добввляешь детальки
+                                    details.add(CreateDetail(detailName, defectsName, LowModelsCHeckboxesTitles, lowlowModelsCHeckboxesTitles, LowModelsCommentsTitles));
+                                    details.add(CreateDetail("Фундамент", defectsName2, LowModelsCHeckboxesTitles2, lowlowModelsCHeckboxesTitles2, LowModelsCommentsTitles2));
+                                    details.add(CreateDetail("Изоляторы", defectsName3, LowModelsCHeckboxesTitles3, lowlowModelsCHeckboxesTitles3, LowModelsCommentsTitles3));
+                                    details.add(CreateDetail("Линеная арматура", defectsName4, LowModelsCHeckboxesTitles4, lowlowModelsCHeckboxesTitles4, LowModelsCommentsTitles4));
+                                    //---
+                                    Detail[] detailArray = new Detail[details.size()];
+                                    for (int i = 0; i < details.size(); i++) {
+                                        detailArray[i] = details.get(i);
+                                    }
+                                    boolean isSeat = true;
+                                    WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which], etSeatNubmer.getText().toString()));
+                                    Intent intent = new Intent(MainListActivity.this, TilesActivity.class);
+                                    WorkData.getInstance().getDetails().add(detailArray);
+                                    intent.putExtra("k", WorkData.getInstance().getTopListModels().size() - 1);
+
+                                    etSeatNubmer.setText("");
+                                    tvDefect.setText("");
+                                    startActivity(intent);
+                                }
+                            }
+                    );
+                    builder.show();
+                }
 
 
 

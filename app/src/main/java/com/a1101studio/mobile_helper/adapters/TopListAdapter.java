@@ -62,15 +62,17 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         etSeatNubmer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new AlertDialog.Builder(context).setNegativeButton(context.getString(R.string.cancel),null).setItems(context.getResources().getStringArray(R.array.extra_long_click_menu), new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(context).setNegativeButton(context.getString(R.string.cancel), null).setItems(context.getResources().getStringArray(R.array.extra_long_click_menu), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
+                                if (topListModels.get(position).isSeat())
                                 new AlertDialog.Builder(context).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        topListModels.get(position).setType(context.getResources().getStringArray(R.array.types)[which]);
+
+                                            topListModels.get(position).setType(context.getResources().getStringArray(R.array.types)[which]);
                                         dialog.cancel();
                                     }
                                 }).show();
@@ -95,22 +97,23 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         tvDefect.setText(topListModels.get(position).getDefect());
         tvDefect.setOnClickListener(v -> {
             if (!etSeatNubmer.getText().toString().trim().equals("")) {
-                String s=etSeatNubmer.getText().toString();
-                boolean flag=false;
-                int k=0;
+                String s = etSeatNubmer.getText().toString();
+                boolean flag = false;
+                int k = 0;
                 String[] stringArray = context.getResources().getStringArray(R.array.types);
                 for (int i = 0; i < stringArray.length; i++) {
                     String str = stringArray[i];
 
                     if (s.contains(str)) {
                         flag = true;
-                        k=i;
+                        k = i;
                         break;
                     }
 
                 }
-                if(flag)
-                    s=s.substring(0,s.length()-context.getResources().getStringArray(R.array.types)[k].length()-1);
+                 k=s.indexOf(';');
+                //if (flag)
+                    s = s.substring(0, s.length() - k);
 
                 topListModels.get(position).setSeatNumber(s);
 
@@ -123,7 +126,7 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
             }
         });
 
-        if(position==0)
+        if (position == 0)
             etSeatNubmer.requestFocus();
         return rowView;
     }

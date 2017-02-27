@@ -215,25 +215,29 @@ public class MainListActivity extends AppCompatActivity {
                 ,"Отсутствует гайка на болту крепления пяты опоры к фундаменту","Не затянута гайка/контргайка на болту крепления пяты опоры к фундаменту",
                 "Забетонирован фундамент","Необвалован фундамент","Зазор между фундаментом и пятой опоры"};
 //Третье
-        String[] defectsName3={"Бой изоляции","Загрязнение изоляции","Наброс на изоляторах"};
+        String[] defectsName3 ={"Бой изоляции цепи 1","Загрязнение изоляции цепи 1","Наброс на изоляторах цепи 1","Бой изоляции цепи 2","Загрязнение изоляции цепи 2","Наброс на изоляторах цепи 2","Бой изоляции цепи 3","Загрязнение изоляции цепи 3","Наброс на изоляторах цепи 3","Бой изоляции цепи 4","Загрязнение изоляции цепи 4","Наброс на изоляторах цепи 4",};
         ArrayList<String[]> LowModelsCHeckboxesTitles3 =new ArrayList<>();
-        s= new String[]{"Бой изоляции:"};//1
-        LowModelsCHeckboxesTitles3.add(s);
-        LowModelsCHeckboxesTitles3.add(nulled);
-        LowModelsCHeckboxesTitles3.add(nulled);
-
         ArrayList<String[]> LowModelsCommentsTitles3 =new ArrayList<>();
-        s= new String[]{"Фаза:","Сторона:"};//1
-        LowModelsCommentsTitles3.add(nulled);//7
-        LowModelsCommentsTitles3.add(s);//7
-        LowModelsCommentsTitles3.add(s);//7
-
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles3 =new ArrayList<>();
-        ss3=new String[1][3];
-        ss3[0][0]="Разное количество";
-        ss3[0][1]="По разным фазам";
-        ss3[0][2]="Две стороны";
-        lowlowModelsCHeckboxesTitles3.add(ss3);
+        for (int i=0;i<4;i++)
+        {
+            s= new String[]{"Сторона:"};//1
+            LowModelsCHeckboxesTitles3.add(s);
+            LowModelsCHeckboxesTitles3.add(nulled);
+            LowModelsCHeckboxesTitles3.add(nulled);
+            ss3=new String[1][2];
+            ss3[0][0]="Первая";
+            ss3[0][1]="Вторая";
+            lowlowModelsCHeckboxesTitles3.add(ss3);
+            lowlowModelsCHeckboxesTitles3.add(nulled2);
+            lowlowModelsCHeckboxesTitles3.add(nulled2);
+            s= new String[]{"Фаза:","Сторона:"};//1
+            LowModelsCommentsTitles3.add(nulled);//7
+            LowModelsCommentsTitles3.add(s);//7
+            LowModelsCommentsTitles3.add(s);//7
+        }
+
+
 //Четвертая
         String[] defectsName4={"Гнутая арматура","Гаситель вибрации на проводе","Повреждение арматуры"};
 

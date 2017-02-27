@@ -16,17 +16,17 @@ import java.util.ArrayList;
  *
 *
 * */
-public class CheckListItem {
+public class Detail {
 
 
-    public static  CheckListItem CreateCheckListitem(String title,//Тайтл плитки
-                                                     String[] defectTitles,//список дефектов
-                                                     ArrayList<String[]> lowModelsCheckBoxesListTitles,//список заголовка блоков чекбоксов
-                                                     ArrayList<String[][]> lowLowCheckBoxesTitles,//список массива заголовока чекбоксов
-                                                     ArrayList<String[]> lowModelsCommentListTitles){//список тайтлов к комментам
-        CheckListItem checkListItem=new CheckListItem();
+    public static Detail CreateDetail(String title,//Тайтл плитки
+                                      String[] defectTitles,//список дефектов
+                                      ArrayList<String[]> lowModelsCheckBoxesListTitles,//список заголовка блоков чекбоксов
+                                      ArrayList<String[][]> lowLowCheckBoxesTitles,//список массива заголовока чекбоксов
+                                      ArrayList<String[]> lowModelsCommentListTitles){//список тайтлов к комментам
+        Detail detail =new Detail();
         CheckBoxItem checkBoxItem=new CheckBoxItem(false,title);
-        checkListItem.setCheckBoxItem(checkBoxItem);
+        detail.setCheckBoxItem(checkBoxItem);
 
         //осталось самое сложное
         DefectCheckListItem[] defectCheckListItems=new DefectCheckListItem[defectTitles.length];
@@ -67,8 +67,8 @@ public class CheckListItem {
             lowItemsModel.setCommentsModels(commentsModels);
             defectCheckListItems[i].setLowItemsModels(lowItemsModel);
         }
-        checkListItem.setDefectCheckListItems(defectCheckListItems);
-        return checkListItem;
+        detail.setDefectCheckListItems(defectCheckListItems);
+        return detail;
     }
 
 
@@ -140,12 +140,12 @@ public class CheckListItem {
     private CheckBoxItem checkBoxItem;
     private DefectCheckListItem[] defectCheckListItems;
 
-    public CheckListItem(CheckBoxItem checkBoxItem, DefectCheckListItem[] defectCheckListItems) {
+    public Detail(CheckBoxItem checkBoxItem, DefectCheckListItem[] defectCheckListItems) {
         this.checkBoxItem = checkBoxItem;
         this.defectCheckListItems = defectCheckListItems;
     }
 
-    public CheckListItem(){
+    public Detail(){
 
     }
     public CheckBoxItem getCheckBoxItem() {

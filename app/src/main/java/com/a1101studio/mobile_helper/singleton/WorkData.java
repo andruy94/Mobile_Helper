@@ -1,7 +1,6 @@
 package com.a1101studio.mobile_helper.singleton;
 
-import com.a1101studio.mobile_helper.List;
-import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
  * Created by andruy94 on 12/18/2016.
  */
 public class WorkData {
-    private  ArrayList<CheckListItem[]> checkListItemList;
+    private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
     private static WorkData ourInstance = new WorkData();
     public static WorkData getInstance() {
@@ -20,12 +19,12 @@ public class WorkData {
     private WorkData() {
     }
 
-    public  ArrayList<CheckListItem[]> getCheckListItemList() {
-        return checkListItemList;
+    public  ArrayList<Detail[]> getDetails() {
+        return details;
     }
 
-    public  void setCheckListItemList(ArrayList<CheckListItem[]> checkListItemList) {
-        this.checkListItemList = checkListItemList;
+    public  void setDetails(ArrayList<Detail[]> details) {
+        this.details = details;
     }
 
     public ArrayList<TopListModel> getTopListModels() {

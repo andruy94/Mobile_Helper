@@ -6,11 +6,22 @@ package com.a1101studio.mobile_helper.models;
 
 public class TopListModel {
     private String defect;
-    private String SeatNumber;
+    private boolean isSeat;
+    private String type;
+    private String seatNumber;
+
+    public TopListModel(String defect, boolean isSeat, String type, String seatNumber) {
+        this.defect = defect;
+        this.isSeat = isSeat;
+        this.seatNumber = seatNumber;
+        this.type=type;
+    }
 
     public TopListModel(String defect, String seatNumber) {
-        this.defect = defect;
-        SeatNumber = seatNumber;
+        isSeat=false;
+        this.defect=defect;
+        this.seatNumber =seatNumber;
+        this.type="";
     }
 
     public String getDefect() {
@@ -22,10 +33,26 @@ public class TopListModel {
     }
 
     public String getSeatNumber() {
-        return SeatNumber;
+        return seatNumber;
     }
 
     public void setSeatNumber(String seatNumber) {
-        SeatNumber = seatNumber;
+        this.seatNumber = seatNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isSeat() {
+        return isSeat;
+    }
+
+    public void setIsSeat(boolean isSeat) {
+        this.isSeat = isSeat;
     }
 }

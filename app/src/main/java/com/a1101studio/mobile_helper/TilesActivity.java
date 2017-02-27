@@ -1,10 +1,8 @@
 package com.a1101studio.mobile_helper;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +11,12 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.a1101studio.mobile_helper.models.CheckListItem;
-import com.a1101studio.mobile_helper.models.DefectCheckListItem;
+import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
 public class TilesActivity extends AppCompatActivity {
-    private  CheckListItem[] checkListItemsTop;
+    private  Detail[] checkListItemsTop;
     Button[] buttons;
      int k;
     @Override
@@ -43,7 +40,7 @@ public class TilesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tiles);
         Intent intent=getIntent();
         k=intent.getIntExtra("k",-1);
-        checkListItemsTop = WorkData.getInstance().getCheckListItemList().get(k);
+        checkListItemsTop = WorkData.getInstance().getDetails().get(k);
 
         buttons = new Button[6];
         buttons[0]=(Button) findViewById(R.id.button1);
@@ -101,14 +98,14 @@ public class TilesActivity extends AppCompatActivity {
     }
 
 
-    private void getChecboxBlock(Context context,int i,int k,CheckListItem checkListItem ,LinearLayout linearLayout){
-        LowCheckListItem lowCheckListItem=checkListItem.getDefectCheckListItems()[i].getLowItemsModels().getLowCheckListItems()[k];
+    private void getChecboxBlock(Context context, int i, int k, Detail detail, LinearLayout linearLayout){
+        LowCheckListItem lowCheckListItem= detail.getDefectCheckListItems()[i].getLowItemsModels().getLowCheckListItems()[k];
         final TextView checboxesTitle=new TextView(context);
         checboxesTitle.setText(lowCheckListItem.getCheckBoxesTitle());
         linearLayout.addView(checboxesTitle);
 
         final CheckBox[] checkBoxes=new CheckBox[lowCheckListItem.getCheckBoxItems().length];
-        for(int j=0;j<checkListItem.getDefectCheckListItems().length;i++){
+        for(int j = 0; j< detail.getDefectCheckListItems().length; i++){
             checkBoxes[j] = new CheckBox(context);
             checkBoxes[j].setText(lowCheckListItem.getCheckBoxItems()[j].getTitle());
             checkBoxes[j].setChecked(lowCheckListItem.getCheckBoxItems()[j].isChecked());

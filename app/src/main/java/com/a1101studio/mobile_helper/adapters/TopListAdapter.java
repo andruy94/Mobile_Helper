@@ -12,34 +12,31 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.TilesActivity;
-import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
  * Created by andruy94 on 12/18/2016.
  */
 
-public class TopListAdapter  extends ArrayAdapter<TopListModel> {
-    public static int REQUEST_IMAGE_CAPTURE=1;
+public class TopListAdapter extends ArrayAdapter<TopListModel> {
+    public static int REQUEST_IMAGE_CAPTURE = 1;
     public static String jakers;
     private ArrayList<TopListModel> topListModels;
     private Context context;
+
     public TopListAdapter(Context context, ArrayList<TopListModel> topListModels) {
-        super(context, R.layout.top_list_item,topListModels);
-        this.context=context;
-        this.topListModels= WorkData.getInstance().getTopListModels();
+        super(context, R.layout.top_list_item, topListModels);
+        this.context = context;
+        this.topListModels = WorkData.getInstance().getTopListModels();
     }
 
     @Override
@@ -47,34 +44,64 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
         final LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.top_list_item, parent, false);
-        EditText etSeatNubmer=(EditText) rowView.findViewById(R.id.etSeatNumber);
+        EditText etSeatNubmer = (EditText) rowView.findViewById(R.id.etSeatNumber);
 
-        TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
+        TextView tvDefect = (TextView) rowView.findViewById(R.id.tvDefect);
 
-        StringBuilder stringBuilder=new StringBuilder();
-        CheckListItem[] checkListItems=WorkData.getInstance().getCheckListItemList().get(position);
-        for (CheckListItem checkListItem:checkListItems){
-            stringBuilder.append(checkListItem.getCheckedItems());
+        StringBuilder stringBuilder = new StringBuilder();
+        Detail[] details = WorkData.getInstance().getDetails().get(position);
+        for (Detail detail : details) {
+            stringBuilder.append(detail.getCheckedItems());
         }
         topListModels.get(position).setDefect(stringBuilder.toString());
 
-        ImageButton ibPhoto=(ImageButton) rowView.findViewById(R.id.ibPhoto);
+        ImageButton ibPhoto = (ImageButton) rowView.findViewById(R.id.ibPhoto);
         ibPhoto.setEnabled(true);
         ibPhoto.setOnClickListener(v -> dispatchTakePictureIntent(topListModels.get(position).getSeatNumber()));
-        etSeatNubmer.setText(topListModels.get(position).getSeatNumber());
+        etSeatNubmer.setText(topListModels.get(position).getSeatNumber() + ';' + topListModels.get(position).getType());
+        etSeatNubmer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                new AlertDialog.Builder(context).setNegativeButton(context.getString(R.string.cancel),null).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                new AlertDialog.Builder(context).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        topListModels.get(position).setType(context.getResources().getStringArray(R.array.types)[which]);
+                                        dialog.cancel();
+                                    }
+                                }).show();
+                                dialog.cancel();
+                                TopListAdapter.this.notifyDataSetChanged();
+                                break;
+                            case 1:
+                                topListModels.remove(position);
+                                dialog.cancel();
+                                TopListAdapter.this.notifyDataSetChanged();
+                                break;
+                        }
+                    }
+                }).show();
+                return false;
+            }
+        });
+        tvDefect.setText(topListModels.get(position).getType());
+        tvDefect.setOnClickListener(v -> Toast.makeText(context, "ololo", Toast.LENGTH_LONG).show());
 
-        
         tvDefect.setText(topListModels.get(position).getDefect());
-        tvDefect.setOnClickListener(v->{
-            if(!etSeatNubmer.getText().toString().trim().equals("")){
-            topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
+        tvDefect.setOnClickListener(v -> {
+            if (!etSeatNubmer.getText().toString().trim().equals("")) {
+                topListModels.get(position).setSeatNumber(etSeatNubmer.getText().toString());
 
-            //topListModels.get(position).setDefect("...");
-                Intent intent=new Intent(context, TilesActivity.class);
-                intent.putExtra("k",position);
-            context.startActivity(intent);}
-            else {
-                Toast.makeText(context, R.string.fill,Toast.LENGTH_SHORT).show();
+                //topListModels.get(position).setDefect("...");
+                Intent intent = new Intent(context, TilesActivity.class);
+                intent.putExtra("k", position);
+                context.startActivity(intent);
+            } else {
+                Toast.makeText(context, R.string.fill, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -108,8 +135,8 @@ public class TopListAdapter  extends ArrayAdapter<TopListModel> {
             builder.show();
         }
         else if (takePictureIntent.resolveActivity(context.getPackageManager()) != null) {*/
-            jakers=filename;
-            ((Activity)context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        jakers = filename;
+        ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         //}
     }
 

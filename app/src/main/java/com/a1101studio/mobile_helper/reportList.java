@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class reportList extends AppCompatActivity {
 
@@ -22,14 +23,16 @@ public class reportList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         this.getResources().getLayout(R.layout.activity_report_list);
         ListView listView = (ListView) findViewById(R.id.listView);
-        File dir = new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/");
+        File dir = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
         dir.mkdir();
         File[] filelist = dir.listFiles();
-        String[] theNamesOfFiles = new String[filelist.length];
-        for (int i = 0; i < theNamesOfFiles.length; i++) {
-            theNamesOfFiles[i] = filelist[i].getName();
+        ArrayList<String> stringArrayList=new ArrayList<>();
+        for (int i = 0; i < stringArrayList.size(); i++) {
+            if (filelist[i].getName() != null)
+                if (filelist[i].getName().contains(".html"))
+                    stringArrayList.add(filelist[i].getName());
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, theNamesOfFiles);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, stringArrayList.toArray(new String[stringArrayList.size()]));
 
 // используем адаптер данных
         listView.setAdapter(adapter);
@@ -37,7 +40,7 @@ public class reportList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()+"/mobile_helper/"+adapter.getItem(position).toString())), "text/html");
+                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/" + adapter.getItem(position).toString())), "text/html");
                 //intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 // intent.setData(Uri.fromFile(myFile));
                 //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");

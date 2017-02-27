@@ -2,12 +2,10 @@ package com.a1101studio.mobile_helper;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
@@ -17,16 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.adapters.TopListAdapter;
-import com.a1101studio.mobile_helper.models.CheckListItem;
+import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
@@ -37,7 +33,7 @@ import java.util.Date;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
-import static com.a1101studio.mobile_helper.models.CheckListItem.CreateCheckListitem;
+import static com.a1101studio.mobile_helper.models.Detail.CreateDetail;
 
 public class MainListActivity extends AppCompatActivity {
 
@@ -72,7 +68,16 @@ public class MainListActivity extends AppCompatActivity {
 
         TextView tvDefect=(TextView) rowView.findViewById(R.id.tvDefect);
         ImageButton imageView=(ImageButton) rowView.findViewById(R.id.ibPhoto);
-        imageView.setOnClickListener(v->new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) ->dialog.cancel()).show());
+        imageView.setVisibility(View.INVISIBLE);
+        imageView.setOnClickListener(v->{
+            if(etSeatNubmer.getText().toString().trim().equals("")) {
+                new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) -> dialog.cancel()).show();
+            }
+            else {
+                final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                MainListActivity.this.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
 
 
 
@@ -261,20 +266,21 @@ public class MainListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                        ArrayList<CheckListItem> checkListItems=new ArrayList<>();
+                        ArrayList<Detail> details =new ArrayList<>();
                         //тут добввляешь детальки
-                        checkListItems.add(CreateCheckListitem(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
-                        checkListItems.add(CreateCheckListitem("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
-                        checkListItems.add(CreateCheckListitem("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
-                        checkListItems.add(CreateCheckListitem("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
+                        details.add(CreateDetail(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles));
+                        details.add(CreateDetail("Фундамент",defectsName2,LowModelsCHeckboxesTitles2,lowlowModelsCHeckboxesTitles2,LowModelsCommentsTitles2));
+                        details.add(CreateDetail("Изоляторы",defectsName3,LowModelsCHeckboxesTitles3,lowlowModelsCHeckboxesTitles3,LowModelsCommentsTitles3));
+                        details.add(CreateDetail("Линеная арматура",defectsName4,LowModelsCHeckboxesTitles4,lowlowModelsCHeckboxesTitles4,LowModelsCommentsTitles4));
                         //---
-                        CheckListItem[] checkListItemArray=new CheckListItem[checkListItems.size()];
-                        for(int i=0;i<checkListItems.size();i++){
-                            checkListItemArray[i]=checkListItems.get(i);
+                        Detail[] detailArray =new Detail[details.size()];
+                        for(int i = 0; i< details.size(); i++){
+                            detailArray[i]= details.get(i);
                         }
-                        WorkData.getInstance().getTopListModels().add(new TopListModel("...",etSeatNubmer.getText().toString()+" ; "+getResources().getStringArray(R.array.types)[which]));
+                        boolean isSeat=true;
+                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which],etSeatNubmer.getText().toString()));
                         Intent intent=new Intent(MainListActivity.this, TilesActivity.class);
-                        WorkData.getInstance().getCheckListItemList().add(checkListItemArray);
+                        WorkData.getInstance().getDetails().add(detailArray);
                         intent.putExtra("k",WorkData.getInstance().getTopListModels().size()-1);
 
                         etSeatNubmer.setText("");
@@ -339,7 +345,7 @@ public class MainListActivity extends AppCompatActivity {
             }).start();
         }
     }
-    void saveFileWithColision(Bitmap bitmap,String dirName ,String nameImg){
+    public static void  saveFileWithColision(Bitmap bitmap,String dirName ,String nameImg){
         //File outputDir = getCacheDir();
         try {
             File dir=new File(Environment.getExternalStorageDirectory().getPath()+dirName);

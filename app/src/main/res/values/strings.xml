@@ -84,6 +84,11 @@
         <item>ПММ(Промежуточного типа металлическая многогранная)</item>
     </array>
 
+    <array name="extra_long_click_menu">
+        <item>Изменить тип опоры</item>
+        <item>Удалить элемент из списка</item>
+    </array>
+
     <string name="title_activity_main_list">Список неисправностей</string>
     <string name="n">Предпирятие:</string>
     <string name="sector">Район(Участок):</string>
@@ -98,6 +103,7 @@
     <string name="report_list">Список отчётов</string>
     <string name="logout">Выйти</string>
     <string name="choose_type">Выберите тип опоры :</string>
+    <string name="fill_text">Введите текст</string>
 </resources>
 
 

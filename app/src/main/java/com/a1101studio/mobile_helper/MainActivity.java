@@ -4,15 +4,10 @@ package com.a1101studio.mobile_helper;
 import android.app.AlertDialog;
 import android.content.Intent;
 
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Environment;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -21,37 +16,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.HtmlHelper;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.qrcode.ByteArray;
-import com.itextpdf.text.pdf.qrcode.EncodeHintType;
-import com.itextpdf.text.pdf.qrcode.Encoder;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
-
-import static android.R.attr.type;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -136,10 +111,12 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> seatNames = new ArrayList<>();
 
                 for (int i = 0; i < WorkData.getInstance().getTopListModels().size(); i++) {//масиив верхних штук
-                    seatNames.add(WorkData.getInstance().getTopListModels().get(i).getSeatNumber());
+                    String seatNumber=WorkData.getInstance().getTopListModels().get(i).getSeatNumber();
+                    seatNumber=(WorkData.getInstance().getTopListModels().get(i).isSeat() ) ? seatNumber+";"+WorkData.getInstance().getTopListModels().get(i).getType():seatNumber;
+                    seatNames.add(seatNumber);
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (int j = 0; j < WorkData.getInstance().getCheckListItemList().get(i).length; j++) {//массив вложенных
-                        String s = WorkData.getInstance().getCheckListItemList().get(i)[j].getCheckedItems();
+                    for (int j = 0; j < WorkData.getInstance().getDetails().get(i).length; j++) {//массив вложенных
+                        String s = WorkData.getInstance().getDetails().get(i)[j].getCheckedItems();
                         if (!s.equals("")) {
                             stringBuilder.append(s);
                             stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());

@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Created by andruy94 on 12/18/2016.
  */
 public class WorkData {
+    private static final int KILL_TIMER = 5000;
     private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
     private static WorkData ourInstance = new WorkData();
@@ -17,6 +18,7 @@ public class WorkData {
     }
 
     private WorkData() {
+
     }
 
     public  ArrayList<Detail[]> getDetails() {
@@ -33,5 +35,19 @@ public class WorkData {
 
     public void setTopListModels(ArrayList<TopListModel> topListModels) {
         this.topListModels = topListModels;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(KILL_TIMER * 60);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    details.clear();
+                    topListModels.clear();
+                }
+            }
+        }).start();
     }
 }

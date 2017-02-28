@@ -51,6 +51,7 @@ public class ListAdapter extends ArrayAdapter<Detail> {
 
     static public class ViewHolderModel {
         private static final int TEXT_SIZE = 34;
+        private static final int TEXT_SIZE_SMALL = 20;
         private CheckBox defectCheckBox;
         private TextView[] titleCheckBoxesBlocks;
         private CheckBox[][] checkBoxes;
@@ -85,7 +86,6 @@ public class ListAdapter extends ArrayAdapter<Detail> {
 
         public void setTitleCheckBoxesBlocks(TextView[] titleCheckBoxesBlocks) {
             this.titleCheckBoxesBlocks = titleCheckBoxesBlocks;
-
         }
 
         public CheckBox[][] getCheckBoxes() {

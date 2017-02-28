@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
                 );
 
-
                 HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel);
                 saveFile(htmlHelper.getHtmlString(), myFile);
 

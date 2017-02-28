@@ -31,7 +31,7 @@ public class HtmlHelper {
         HtmlString = HtmlString+ "<p>"+"Предприятие:"+documentModel.getCompanyName()+"</p>";
         HtmlString = HtmlString+ "<p>"+"Район(участок):"+documentModel.getArea()+"</p>";
         HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
-        HtmlString = HtmlString+ "<p>"+"наименование:"+documentModel.getElectricLine()+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ</p>";
+        HtmlString = HtmlString+ "<p>"+"Наименование:"+documentModel.getElectricLine()+"Воздушная линия Uном="+documentModel.getElectricLine()+"кВ</p>";
         HtmlString = HtmlString+ "<p>"+"Вид осмотра:"+documentModel.getTypeOfInspection()+"</p>";
 
         HtmlString = HtmlString+ "<table border=\"1\" cellspacing=\"0\">\n" +

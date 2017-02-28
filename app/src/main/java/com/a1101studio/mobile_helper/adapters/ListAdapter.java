@@ -3,6 +3,7 @@ package com.a1101studio.mobile_helper.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,6 +34,8 @@ import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAG
  */
 
 public class ListAdapter extends ArrayAdapter<Detail> {
+    private int lastFocussedPosition = -1;
+    private Handler handler = new Handler();
     public ArrayList<ViewHolderModel> getViewHolderModelArrayList() {
         return viewHolderModelArrayList;
     }
@@ -212,13 +215,28 @@ public class ListAdapter extends ArrayAdapter<Detail> {
                 commentsEditTexts[i].setFocusable(true);
                 commentsEditTexts[i].setEnabled(true);
                 int finalI1 = i;
-                commentsEditTexts[i].setOnTouchListener(new View.OnTouchListener() {
+                commentsEditTexts[i].setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
                     @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        commentsEditTexts[finalI1].requestFocus();
-                        return false;
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if (hasFocus) {
+                            handler.postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    if (lastFocussedPosition == -1 || lastFocussedPosition == position) {
+                                        lastFocussedPosition = position;
+                                        commentsEditTexts[finalI1].requestFocus();
+                                    }
+                                }
+                            }, 100);
+
+                        } else {
+                            lastFocussedPosition = -1;
+                        }
                     }
                 });
+
                 // textView1.setTag(i,"eT"+i);
                 int finalI = i;
                 commentsEditTexts[i].addTextChangedListener(new TextWatcher() {

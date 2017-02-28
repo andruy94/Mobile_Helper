@@ -240,13 +240,15 @@ public class MainListActivity extends AppCompatActivity {
 
 
 //Четвертая
-        String[] defectsName4={"Гнутая арматура","Гаситель вибрации на проводе","Повреждение арматуры"};
+        String[] defectsName4={"Гнутая арматура","Гаситель вибрации на проводе","Повреждение арматуры","Гаситель вибрации на тросу"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles4 =new ArrayList<>();
-        s= new String[]{"Гаситель вибрации на проводе:"};//1
+        s= new String[]{"Гаситель вибрации на проводе:","Фаза"};//1
         LowModelsCHeckboxesTitles4.add(nulled);
         LowModelsCHeckboxesTitles4.add(s);
         LowModelsCHeckboxesTitles4.add(nulled);
+        s= new String[]{"Гаситель вибрации на проводе:"};//1
+        LowModelsCHeckboxesTitles4.add(s);
 
         ArrayList<String[]> LowModelsCommentsTitles4 =new ArrayList<>();
         s= new String[]{"Фаза:","Сторона:"};//1
@@ -254,14 +256,24 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles4.add(nulled);//7
         s= new String[]{"Комментарий:"};//1
         LowModelsCommentsTitles4.add(s);//7
+        LowModelsCommentsTitles4.add(nulled);//7
 
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles4 =new ArrayList<>();
-        ss3=new String[1][2];
-        ss3[0][0]="Не установлен/Криво установлен/Изогнут";
-        ss3[0][1]="Смещен в пролет";
+        ss3=new String[2][3];
+        ss3[0][0]="Не установлен";
+        ss3[0][1]="Криво установлен/Изогнут";
+        ss3[0][2]="Смещен в пролет";
+        ss3[1][0]="Ж";
+        ss3[1][1]="З";
+        ss3[1][2]="К";
         lowlowModelsCHeckboxesTitles4.add(nulled2);
         lowlowModelsCHeckboxesTitles4.add(ss3);
+        ss3=new String[1][3];
+        ss3[0][0]="Не установлен";
+        ss3[0][1]="Криво установлен/Изогнут";
+        ss3[0][2]="Смещен в пролет";
         lowlowModelsCHeckboxesTitles4.add(nulled2);
+        lowlowModelsCHeckboxesTitles4.add(ss3);
 
 //5
         String[] defectsName5={"Распушен провод","'Фонарь' на проводе","Наброс на проводе","Повреждение провода","Соединитель на проводе","Наброс на проводе"};

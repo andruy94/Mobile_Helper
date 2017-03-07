@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.a1101studio.mobile_helper.models.Detail;
+import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -135,6 +136,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
         Detail[] details ={Detail.CreateDetail(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles)};
         ArrayList<Detail[]> checkListItems2=new ArrayList<>();
+        DocumentModel documentModel=new DocumentModel();
         //checkListItems2.add(details);
         WorkData.getInstance().setDetails(checkListItems2);//пишем всё в озу
     }

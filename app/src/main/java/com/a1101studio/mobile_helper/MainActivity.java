@@ -43,19 +43,20 @@ public class MainActivity extends AppCompatActivity {
     DocumentModel documentModel;
     private static final int IDM_OPEN = 101;
     private static final int IDM_LOGOUT = 102;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, IDM_OPEN, Menu.NONE, R.string.report_list);
         menu.add(Menu.NONE, IDM_LOGOUT, Menu.NONE, R.string.logout);
         return true;
     }
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if(item.getItemId()==IDM_OPEN){
-            Intent intent=new Intent(MainActivity.this,reportList.class);
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == IDM_OPEN) {
+            Intent intent = new Intent(MainActivity.this, reportList.class);
             startActivity(intent);
             return true;
-        }else if(item.getItemId()==IDM_LOGOUT){
+        } else if (item.getItemId() == IDM_LOGOUT) {
             finish();
         }
 
@@ -63,27 +64,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Pred   = (EditText)findViewById(R.id.Predpriytie);
-        Sector   = (EditText)findViewById(R.id.Sector);
-        Unom   = (EditText)findViewById(R.id.Unom);
-        Name   = (EditText)findViewById(R.id.Nazvanie);
-        VID   = (EditText)findViewById(R.id.VID);
-        OT   = (EditText)findViewById(R.id.OT);
-        Do   = (EditText)findViewById(R.id.DO);
-        Names   = (EditText)findViewById(R.id.Nameosmotr);
-        Prinal   = (EditText)findViewById(R.id.Prinal);
-        Button btnShowListActivity=(Button) findViewById(R.id.btnShowList);
+        Pred = (EditText) findViewById(R.id.Predpriytie);
+        Sector = (EditText) findViewById(R.id.Sector);
+        Unom = (EditText) findViewById(R.id.Unom);
+        Name = (EditText) findViewById(R.id.Nazvanie);
+        VID = (EditText) findViewById(R.id.VID);
+        OT = (EditText) findViewById(R.id.OT);
+        Do = (EditText) findViewById(R.id.DO);
+        Names = (EditText) findViewById(R.id.Nameosmotr);
+        Prinal = (EditText) findViewById(R.id.Prinal);
+        Button btnShowListActivity = (Button) findViewById(R.id.btnShowList);
 
-            btnShowListActivity.setOnClickListener(v -> startActivity(new Intent(this, MainListActivity.class)));
+        btnShowListActivity.setOnClickListener(v -> startActivity(new Intent(this, MainListActivity.class)));
 
-        Button btnSend=(Button) findViewById(R.id.btnSend);
-
+        Button btnSend = (Button) findViewById(R.id.btnSend);
 
 
         View.OnClickListener oclBtnOk = v -> createPDF();
@@ -96,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
             if (!htmlFolder.exists()) {
                 htmlFolder.mkdir();
-
             }
             try {
                 String namerepot;
@@ -111,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<String> seatNames = new ArrayList<>();
 
                 for (int i = 0; i < WorkData.getInstance().getTopListModels().size(); i++) {//Ð¼Ð°ÑÐ¸Ð¸Ð² Ð²ÐµÑ€Ñ…Ð½Ð¸Ñ… ÑˆÑ‚ÑƒÐº
-                    String seatNumber=WorkData.getInstance().getTopListModels().get(i).getSeatNumber();
-                    seatNumber=(WorkData.getInstance().getTopListModels().get(i).isSeat() ) ? seatNumber+";"+WorkData.getInstance().getTopListModels().get(i).getType():seatNumber;
+                    String seatNumber = WorkData.getInstance().getTopListModels().get(i).getSeatNumber();
+                    seatNumber = (WorkData.getInstance().getTopListModels().get(i).isSeat()) ? seatNumber + ";" + WorkData.getInstance().getTopListModels().get(i).getType() : seatNumber;
                     seatNames.add(seatNumber);
                     StringBuilder stringBuilder = new StringBuilder();
                     for (int j = 0; j < WorkData.getInstance().getDetails().get(i).length; j++) {//Ð¼Ð°ÑÑÐ¸Ð² Ð²Ð»Ð¾Ð¶ÐµÐ½Ð½Ñ‹Ñ…
@@ -142,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
                 );
 
-                HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel);
+                HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel,this);
                 saveFile(htmlHelper.getHtmlString(), myFile);
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -158,9 +156,8 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Log.e("TAG", e.toString());
             }
-        }
-        else {
-            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+        } else {
+            AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
             dlgAlert.setMessage("Âû äîëæíû çàïîëíèòü âñå ïîëÿ ôîðìû.");
             dlgAlert.setTitle("Îøèáêà");
             dlgAlert.setPositiveButton("OK", null);
@@ -169,15 +166,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void saveFile(String s, File file) throws IOException{
+    void saveFile(String s, File file) throws IOException {
 
-            if(file.exists())
-                file.delete();
-            Log.e("TAG",file.getPath());
-            FileOutputStream ostream = new FileOutputStream(file);
-            ostream.write(s.getBytes());
-            ostream.flush();
-            ostream.close();
+        if (file.exists())
+            file.delete();
+        Log.e("TAG", file.getPath());
+        FileOutputStream ostream = new FileOutputStream(file);
+        ostream.write(s.getBytes());
+        ostream.flush();
+        ostream.close();
 
     }
 
@@ -219,8 +216,6 @@ public class MainActivity extends AppCompatActivity {
 
         Transport.send(message);
     }*/
-
-
 
 
 }

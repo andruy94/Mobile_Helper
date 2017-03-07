@@ -9,6 +9,10 @@ public class DocumentModel {
     private String[] defectNames;
     private String companyName;
 
+    public DocumentModel() {
+
+    }
+
     public String getArea() {
         return area;
     }

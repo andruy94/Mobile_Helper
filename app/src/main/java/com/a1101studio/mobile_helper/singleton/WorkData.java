@@ -13,7 +13,7 @@ public class WorkData {
     private static final int KILL_TIMER = 5000;
     private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
-    private ArrayList<DocumentModel> documentModels;
+    private DocumentModel documentModel;
     private static WorkData ourInstance = new WorkData();
     public static WorkData getInstance() {
         return ourInstance;
@@ -27,6 +27,22 @@ public class WorkData {
         return details;
     }
 
+    public DocumentModel getDocumentModel() {
+        return documentModel;
+    }
+
+    public void setDocumentModel(DocumentModel documentModel) {
+        this.documentModel = documentModel;
+    }
+
+    public static WorkData getOurInstance() {
+        return ourInstance;
+    }
+
+    public static void setOurInstance(WorkData ourInstance) {
+        WorkData.ourInstance = ourInstance;
+    }
+
     public  void setDetails(ArrayList<Detail[]> details) {
         this.details = details;
     }
@@ -37,27 +53,9 @@ public class WorkData {
 
     public void setTopListModels(ArrayList<TopListModel> topListModels) {
         this.topListModels = topListModels;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true){
-                    try {
-                        Thread.sleep(KILL_TIMER * 60);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    details.clear();
-                    topListModels.clear();
-                }
-            }
-        }).start();
     }
 
-    public ArrayList<DocumentModel> getDocumentModels() {
-        return documentModels;
-    }
 
-    public void setDocumentModels(ArrayList<DocumentModel> documentModels) {
-        this.documentModels = documentModels;
-    }
+
+
 }

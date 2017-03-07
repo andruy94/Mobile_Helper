@@ -1,5 +1,8 @@
 package com.a1101studio.mobile_helper.utils;
 
+import android.content.Context;
+
+import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.models.DocumentModel;
 
 import java.io.UnsupportedEncodingException;
@@ -12,15 +15,19 @@ public class HtmlHelper {
     private String[] Defects;//набор дефекто соотвествующие опорам
     private String HtmlString;//набор дефекто соотвествующие опорам
     private DocumentModel documentModel;
+    private Context context;
 
-    public HtmlHelper(String fileName, DocumentModel documentModel) {
+    public HtmlHelper(String fileName, DocumentModel documentModel, Context context) {
         this.fileName = fileName;
         SeatNames = documentModel.getSeatNames();
         Defects = documentModel.getDefectNames();
         this.documentModel=documentModel;
+        this.context=context;
     }
 
     public String getHtmlString() throws UnsupportedEncodingException {
+        String[] strings1=context.getResources().getStringArray(R.array.bold_text_array1);
+        String[] strings2=context.getResources().getStringArray(R.array.bold_text_array2);
         HtmlString = "";
                 HtmlString = HtmlString+ "<!DOCTYPE html>\n" +
                 "<html>\n" +

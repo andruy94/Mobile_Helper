@@ -22,6 +22,17 @@
     <string name="cancel">Закрыть</string>
     <string name="fill">Заполните поле</string>
     <string name="show_list">Показать список</string>
+
+    <array name="bold_text_array1">
+        <item>хуй</item>
+        <item>пизда</item>
+    </array>
+
+    <array name="bold_text_array2">
+        <item>хуй</item>
+        <item>пизда</item>
+    </array>
+
     <array name="Des_1_1">
         <item>Соответствие марки бетона проектной</item>
         <item>Отклонения верха опоры вдоль или поперек оси</item>

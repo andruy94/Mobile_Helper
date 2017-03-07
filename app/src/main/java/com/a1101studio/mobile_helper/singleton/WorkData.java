@@ -1,6 +1,7 @@
 package com.a1101studio.mobile_helper.singleton;
 
 import com.a1101studio.mobile_helper.models.Detail;
+import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class WorkData {
     private static final int KILL_TIMER = 5000;
     private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
+    private ArrayList<DocumentModel> documentModels;
     private static WorkData ourInstance = new WorkData();
     public static WorkData getInstance() {
         return ourInstance;
@@ -49,5 +51,13 @@ public class WorkData {
                 }
             }
         }).start();
+    }
+
+    public ArrayList<DocumentModel> getDocumentModels() {
+        return documentModels;
+    }
+
+    public void setDocumentModels(ArrayList<DocumentModel> documentModels) {
+        this.documentModels = documentModels;
     }
 }

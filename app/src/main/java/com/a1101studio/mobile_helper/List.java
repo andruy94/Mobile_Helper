@@ -2,14 +2,15 @@ package com.a1101studio.mobile_helper;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
-import com.a1101studio.mobile_helper.adapters.ListAdapter;
+import com.a1101studio.mobile_helper.adapters.NewListAdapter;
 import com.a1101studio.mobile_helper.models.DefectCheckListItem;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.singleton.WorkData;
@@ -20,8 +21,8 @@ import static com.a1101studio.mobile_helper.MainListActivity.saveFileWithColisio
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 
 public class List extends AppCompatActivity {
-    private ListView listView;
-    ListAdapter listAdapter;
+
+    NewListAdapter listAdapter;
     private String headName;
     Detail detail;
 
@@ -30,28 +31,29 @@ public class List extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        listView = (ListView) findViewById(R.id.lv1);
+
         Intent intent = getIntent();
         int k = intent.getIntExtra("k", -1);
         int m = intent.getIntExtra("m", -1);
 
 
         detail = WorkData.getInstance().getDetails().get(k)[m];
-        listAdapter = new ListAdapter(this, WorkData.getInstance().getDetails().get(k), k, m);
+        listAdapter = new NewListAdapter(this, WorkData.getInstance().getDetails().get(k), k, m);
         headName = WorkData.getInstance().getTopListModels().get(k).getSeatNumber();
-        ListView listView = (ListView) findViewById(R.id.lv1);
-        listView.setAdapter(listAdapter);
-        Button button = new Button(this);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.lv1);
+        recyclerView.setAdapter(listAdapter);
+        Button button = (Button) findViewById(R.id.btnConfrim);
         button.setTextSize(20);
         button.setText(R.string.confirm);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // if (checkResult())
-                    finish();
+                // if (checkResult())
+                finish();
             }
         });
-        listView.addFooterView(button);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.addView(button);
         //TopListAdapter adapter = new TopListAdapter(this, WorkData.getInstance().getTopListModels());
         //listView.setAdapter(adapter);
 

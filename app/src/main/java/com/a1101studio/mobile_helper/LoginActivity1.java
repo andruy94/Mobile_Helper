@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import rx.Observable;
 
+import static com.a1101studio.mobile_helper.BuildConfig.DEBUG;
+
 
 public class LoginActivity1 extends AppCompatActivity {
 
@@ -48,6 +50,12 @@ public class LoginActivity1 extends AppCompatActivity {
 
         WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
         init();
+
+        if(DEBUG){
+            Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
+            WorkData.getInstance();
+            startActivity(intent);
+        }
 
     }
 

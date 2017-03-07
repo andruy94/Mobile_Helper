@@ -24,8 +24,13 @@
     <string name="show_list">Показать список</string>
 
     <array name="bold_text_array1">
-        <item>хуй</item>
-        <item>пизда</item>
+        <item>Опоры</item>
+        <item>Фундамент</item>
+        <item>Изоляторы</item>
+        <item>Линеная арматура</item>
+        <item>Пролёт</item>
+        <item>Тросс</item>
+        <item>Состояние трассы</item>
     </array>
 
     <array name="bold_text_array2">
@@ -106,7 +111,7 @@
     <string name="Unom">Воздушная линия Uном:</string>
     <string name="re_take_photo">Переснять</string>
     <string name="title_activity_main">Главный экран</string>
-    <string name="pidr"></string>
+    <string name="pidr"/>
     <string name="confirm_changes">Принять изменения</string>
     <string name="title_activity_list_report">ListReport</string>
     <string name="hint_login">Логин</string>
@@ -116,5 +121,4 @@
     <string name="choose_type">Выберите тип опоры :</string>
     <string name="fill_text">Введите текст</string>
 </resources>
-
 

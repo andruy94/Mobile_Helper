@@ -27,7 +27,6 @@ public class HtmlHelper {
 
     public String getHtmlString() throws UnsupportedEncodingException {
         String[] strings1=context.getResources().getStringArray(R.array.bold_text_array1);
-        String[] strings2=context.getResources().getStringArray(R.array.bold_text_array2);
         HtmlString = "";
                 HtmlString = HtmlString+ "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -62,6 +61,12 @@ public class HtmlHelper {
                 "</html>";
         byte ptext[] = HtmlString.getBytes("UTF-8");
         String value = new String(ptext, "UTF-8");
+        String value1 = new String();
+        for (int i=0; i<strings1.length;i++)
+        {
+           value1= value.replaceAll(strings1[i]+":","<b>"+strings1[i]+":</b>");
+           value = value1;
+        }
         return value;
     }
 

@@ -17,8 +17,8 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 
 import java.util.Date;
 
-import static com.a1101studio.mobile_helper.MainListActivity.saveFileWithColision;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
+import static com.a1101studio.mobile_helper.utils.FileHelper.saveFileWithColision;
 
 public class List extends AppCompatActivity {
 
@@ -107,7 +107,7 @@ public class List extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveFileWithColision(imageBitmap, "/mobile_helper/" + headName + "/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg");
+                    saveFileWithColision(imageBitmap, "/mobile_helper/" + headName + "/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg",List.this);
                 }
             }).start();
         }

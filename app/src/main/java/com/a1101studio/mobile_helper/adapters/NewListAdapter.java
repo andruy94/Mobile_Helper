@@ -2,9 +2,12 @@ package com.a1101studio.mobile_helper.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,20 +26,25 @@ import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.models.CommentsModel;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
+import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
+import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
  */
 
 public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHolderModel> {
+    private final int k;
+    private final int m;
     private int lastFocussedPosition = -1;
     private Handler handler = new Handler();
-    protected int postion = 0;
+
 
     public ArrayList<ViewHolderModel> getViewHolderModelArrayList() {
         return viewHolderModelArrayList;
@@ -55,6 +63,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
         private CheckBox[][] checkBoxes;
         private EditText[] commentsEditTexts;
         private TextView[] commentsTextViews;
+        private ImageButton imageButton;
         private ImageView takePhoto;
         private LinearLayout linearLayout;
 
@@ -124,6 +133,14 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
         public void setLinearLayout(LinearLayout linearLayout) {
             this.linearLayout = linearLayout;
         }
+
+        public ImageButton getImageButton() {
+            return imageButton;
+        }
+
+        public void setImageButton(ImageButton imageButton) {
+            this.imageButton = imageButton;
+        }
     }
 
     public String getCurrentTag() {
@@ -141,12 +158,10 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
         viewHolderModelArrayList.add(v);
         //фото кнопка
         ImageButton imageButton = (ImageButton) rowView.findViewById(R.id.iBtnPhotoDefect);
-        imageButton.setOnClickListener(view ->
-        {
-            currentTag= detail.getDefectCheckListItems()[this.postion].getCheckBoxItem().getTitle();
-            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        });
+        v.setImageButton(imageButton);
+
+
+
         //чекбокс дефекта
         CheckBox defectCheckBox = (CheckBox) rowView.findViewById(R.id.chbHeader);
         v.setDefectCheckBox(defectCheckBox);
@@ -158,7 +173,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
     public void onBindViewHolder(ViewHolderModel v, int pos) {
         LinearLayout linearLayout = v.getLinearLayout();
         int position = v.getAdapterPosition();
-        this.postion = position;
+        //this.postion = position;
         CheckBox defectCheckBox = v.getDefectCheckBox();
         defectCheckBox.setEnabled(true);
         defectCheckBox.setText(detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle());
@@ -257,6 +272,56 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
                 linearLayout.addView(commentsEditTexts[i], new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
 
+        ImageButton imageButton=v.getImageButton();
+        imageButton.setOnClickListener(view ->
+        {
+            currentTag = detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle();
+            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        });
+
+        imageButton.setOnLongClickListener(v1 -> {
+            String[] theNamesOfFiles;
+            File dir = CreateFileDir("/mobile_helper/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
+            File[] filelist = dir.listFiles();
+            if (filelist != null) {
+                theNamesOfFiles = new String[filelist.length];
+                for (int i = 0; i < theNamesOfFiles.length; i++) {
+                    theNamesOfFiles[i] = filelist[i].getName();
+                }
+            } else {
+                theNamesOfFiles = new String[0];
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, theNamesOfFiles);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.img_files);
+            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                    /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
+                            BuildConfig.APPLICATION_ID + ".provider",
+                            myFile), "text/html");
+                    else*/
+                    intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
+                    context.startActivity(intent);
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+
+            return false;
+        });
+
+
     }
 
     @Override
@@ -267,6 +332,8 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
 
     public NewListAdapter(Context context, Detail[] detail, int k, int m) {
         //super(context, R.layout.list_item, detail);
+        this.k = k;
+        this.m = m;
         this.context = context;
         this.detail = WorkData.getInstance().getDetails().get(k)[m];//detail;
     }

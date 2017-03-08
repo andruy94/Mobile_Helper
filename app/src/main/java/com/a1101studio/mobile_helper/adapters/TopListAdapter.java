@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -22,7 +23,12 @@ import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
+
+import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
@@ -59,6 +65,51 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         ImageButton ibPhoto = (ImageButton) rowView.findViewById(R.id.ibPhoto);
         ibPhoto.setEnabled(true);
         ibPhoto.setOnClickListener(v -> dispatchTakePictureIntent(topListModels.get(position).getSeatNumber()));
+        ibPhoto.setOnLongClickListener(v -> {
+            String[] theNamesOfFiles;
+            ArrayList<String> arrayList = new ArrayList<String>();
+            File dir = CreateFileDir("/mobile_helper/" + topListModels.get(position).getSeatNumber() + "/", context);
+            File[] filelist = dir.listFiles((dir1, name) -> {
+                return name.contains(".jpg");
+            });
+            theNamesOfFiles = new String[filelist.length];
+            if (filelist != null) {
+                for (int i = 0; i < filelist.length; i++) {
+                    theNamesOfFiles[i] = filelist[i].getName();
+                }
+
+            } else {
+                theNamesOfFiles = new String[0];
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, theNamesOfFiles);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(R.string.img_files);
+            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                    /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
+                            BuildConfig.APPLICATION_ID + ".provider",
+                            myFile), "text/html");
+                    else*/
+                    intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
+                    context.startActivity(intent);
+                    dialog.cancel();
+                }
+            });
+            builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+
+            return false;
+        });
+
         etSeatNubmer.setText(topListModels.get(position).getSeatNumber() + ';' + topListModels.get(position).getType());
         etSeatNubmer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -69,14 +120,14 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                         switch (which) {
                             case 0:
                                 if (topListModels.get(position).isSeat())
-                                new AlertDialog.Builder(context).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+                                    new AlertDialog.Builder(context).setItems(context.getResources().getStringArray(R.array.types), new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
                                             topListModels.get(position).setType(context.getResources().getStringArray(R.array.types)[which]);
-                                        dialog.cancel();
-                                    }
-                                }).show();
+                                            dialog.cancel();
+                                        }
+                                    }).show();
                                 TopListAdapter.this.notifyDataSetChanged();
                                 dialog.cancel();
                                 break;
@@ -114,9 +165,9 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                 }
 
                 if (flag)
-                    s = s.substring(0, s.length() - context.getResources().getStringArray(R.array.types)[k].length()-1);
+                    s = s.substring(0, s.length() - context.getResources().getStringArray(R.array.types)[k].length() - 1);
                 else {
-                    k=s.indexOf(';');
+                    k = s.indexOf(';');
                     s = s.substring(0, s.length() - k);
                 }
                 topListModels.get(position).setSeatNumber(s);

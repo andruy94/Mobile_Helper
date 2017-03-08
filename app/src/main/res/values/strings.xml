@@ -120,5 +120,8 @@
     <string name="logout">Выйти</string>
     <string name="choose_type">Выберите тип опоры :</string>
     <string name="fill_text">Введите текст</string>
+    <string name="error">Ошибка!</string>
+    <string name="device_no_services">Ваше устройство не поддерживается!</string>
+    <string name="img_files">Файлы изображений :</string>
 </resources>
 

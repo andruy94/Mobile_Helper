@@ -1,5 +1,6 @@
 package com.a1101studio.mobile_helper;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -34,6 +36,8 @@ import java.util.Date;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
 import static com.a1101studio.mobile_helper.models.Detail.CreateDetail;
+import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
+import static com.a1101studio.mobile_helper.utils.FileHelper.saveFileWithColision;
 
 public class MainListActivity extends AppCompatActivity {
 
@@ -78,6 +82,8 @@ public class MainListActivity extends AppCompatActivity {
                 MainListActivity.this.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }
         });
+
+
 
 
         String detailName = "Опоры";
@@ -238,15 +244,15 @@ public class MainListActivity extends AppCompatActivity {
 
 //Четвертая
         //String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры"};
-        String[] defectsName4={"Гнутая арматура","Гаситель вибрации на проводе","Повреждение арматуры","Гаситель вибрации на тросу"};
+        String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры", "Гаситель вибрации на тросу"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles4 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на проводе:"};//1
-        s= new String[]{"Гаситель вибрации на проводе:","Фаза"};//1
+        s = new String[]{"Гаситель вибрации на проводе:", "Фаза"};//1
         LowModelsCHeckboxesTitles4.add(nulled);
         LowModelsCHeckboxesTitles4.add(s);
         LowModelsCHeckboxesTitles4.add(nulled);
-        s= new String[]{"Гаситель вибрации на проводе:"};//1
+        s = new String[]{"Гаситель вибрации на проводе:"};//1
         LowModelsCHeckboxesTitles4.add(s);
 
         ArrayList<String[]> LowModelsCommentsTitles4 = new ArrayList<>();
@@ -261,19 +267,19 @@ public class MainListActivity extends AppCompatActivity {
         ss3 = new String[1][2];
         ss3[0][0] = "Не установлен/Криво установлен/Изогнут";
         ss3[0][1] = "Смещен в пролет";
-        ss3=new String[2][3];
-        ss3[0][0]="Не установлен";
-        ss3[0][1]="Криво установлен/Изогнут";
-        ss3[0][2]="Смещен в пролет";
-        ss3[1][0]="Ж";
-        ss3[1][1]="З";
-        ss3[1][2]="К";
+        ss3 = new String[2][3];
+        ss3[0][0] = "Не установлен";
+        ss3[0][1] = "Криво установлен/Изогнут";
+        ss3[0][2] = "Смещен в пролет";
+        ss3[1][0] = "Ж";
+        ss3[1][1] = "З";
+        ss3[1][2] = "К";
         lowlowModelsCHeckboxesTitles4.add(nulled2);
         lowlowModelsCHeckboxesTitles4.add(ss3);
-        ss3=new String[1][3];
-        ss3[0][0]="Не установлен";
-        ss3[0][1]="Криво установлен/Изогнут";
-        ss3[0][2]="Смещен в пролет";
+        ss3 = new String[1][3];
+        ss3[0][0] = "Не установлен";
+        ss3[0][1] = "Криво установлен/Изогнут";
+        ss3[0][2] = "Смещен в пролет";
         lowlowModelsCHeckboxesTitles4.add(nulled2);
         lowlowModelsCHeckboxesTitles4.add(ss3);
 
@@ -487,27 +493,11 @@ public class MainListActivity extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveFileWithColision(imageBitmap, "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg");
+                    saveFileWithColision(imageBitmap, "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
                 }
             }).start();
         }
     }
 
-    public static void saveFileWithColision(Bitmap bitmap, String dirName, String nameImg) {
-        //File outputDir = getCacheDir();
-        try {
-            File dir = new File(Environment.getExternalStorageDirectory().getPath() + dirName);
-            dir.mkdir();
-            File namefile = new File(dir.getPath() + "/" + nameImg);
-            if (namefile.exists())
-                namefile.delete();
-            Log.e("TAG", namefile.getPath());
-            FileOutputStream ostream = new FileOutputStream(namefile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-            ostream.flush();
-            ostream.close();
-        } catch (Exception e) {
-            Log.e("TAG", e.toString());
-        }
-    }
+
 }

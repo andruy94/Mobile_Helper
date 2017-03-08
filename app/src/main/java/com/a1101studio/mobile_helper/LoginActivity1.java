@@ -1,7 +1,9 @@
 package com.a1101studio.mobile_helper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +36,15 @@ public class LoginActivity1 extends AppCompatActivity {
         login = (TextView) findViewById(R.id.login);
         password = (TextView) findViewById(R.id.password);
         aut = (Button) findViewById(R.id.aut);
+
+        if(!Environment.getExternalStorageDirectory().canWrite()){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle(R.string.error);
+            builder.setMessage(R.string.device_no_services);
+            builder.setPositiveButton(R.string.confirm, (dialog, which) ->{aut.setEnabled(false);dialog.cancel();});
+            builder.show();
+        }
+
         loginAndPassword();
         View.OnClickListener oclaut = v -> {
             if(login.getText().toString().trim().equals("AVTI") && password.getText().toString().trim().equals("AVTI")) {
@@ -47,10 +58,9 @@ public class LoginActivity1 extends AppCompatActivity {
         };
 
         aut.setOnClickListener(oclaut);
-        ArrayList<TopListModel> topListModel= new ArrayList<>();
 
-        WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
         init();
+
 
         if(DEBUG){
             Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
@@ -70,7 +80,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
     void  init(){
 
-        Resources res = getResources();
+        /*Resources res = getResources();
         String[] title=res.getStringArray(R.array.title);//оглавление
         ArrayList<String[]> descs=new ArrayList<String[]>();
         String[] descs1=res.getStringArray(R.array.Des_1_1);
@@ -129,16 +139,15 @@ public class LoginActivity1 extends AppCompatActivity {
         LowModelsCommentsTitles.add(s4);
         LowModelsCommentsTitles.add(s5);
         LowModelsCommentsTitles.add(s6);
+        */
 
 
-
-
-
-        Detail[] details ={Detail.CreateDetail(detailName,defectsName,LowModelsCHeckboxesTitles,lowlowModelsCHeckboxesTitles,LowModelsCommentsTitles)};
         ArrayList<Detail[]> checkListItems2=new ArrayList<>();
-        DocumentModel documentModel=new DocumentModel();
-        //checkListItems2.add(details);
         WorkData.getInstance().setDetails(checkListItems2);//пишем всё в озу
+        ArrayList<TopListModel> topListModel= new ArrayList<>();
+        WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
+        DocumentModel documentModel=new DocumentModel();
+        WorkData.getInstance().setDocumentModel(documentModel);
     }
 
     static Detail[] addCheckListItem(String title,//Тайтл плитки

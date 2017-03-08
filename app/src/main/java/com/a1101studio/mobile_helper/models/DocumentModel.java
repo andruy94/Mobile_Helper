@@ -10,7 +10,14 @@ public class DocumentModel {
     private String companyName;
 
     public DocumentModel() {
-
+        area = "";
+        electricLine = "";
+        nomination = "";
+        typeOfInspection = "";
+        NumberStartInspectionSeat = "";
+        NumberEndInspectioSeat = "";
+        inspectorName = "";
+        inspectionSheet = "";
     }
 
     public String getArea() {
@@ -86,12 +93,12 @@ public class DocumentModel {
     private String inspectorName;
     private String inspectionSheet;
 
-    public DocumentModel( String company, String area,
+    public DocumentModel(String company, String area,
                          String electricLine, String nomination,
                          String typeOfInspection, String numberStartInspectionSeat,
-                         String numberEndInspectioSeat, String inspectorName, String inspectionSheet,String[] seatNames,String[] defectNames) {
+                         String numberEndInspectioSeat, String inspectorName, String inspectionSheet, String[] seatNames, String[] defectNames) {
         this.seatNames = seatNames;
-        this.defectNames=defectNames;
+        this.defectNames = defectNames;
         this.companyName = company;
         this.area = area;
         this.electricLine = electricLine;

@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.Intent;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.a1101studio.mobile_helper.utils.FileHelper;
 import com.a1101studio.mobile_helper.utils.HtmlHelper;
 
 import java.io.File;
@@ -28,16 +31,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.a1101studio.mobile_helper.utils.FileHelper.saveFile;
+
 
 public class MainActivity extends AppCompatActivity {
-    EditText Pred;
-    EditText Sector;
-    EditText Unom;
-    EditText Name;
-    EditText VID;
-    EditText OT;
-    EditText Do;
-    EditText Names;
+    EditText ETCompanyName;
+    EditText ETArea;
+    EditText ETElectricLine;
+    EditText ETNomination;
+    EditText ETTypeOfInspection;
+    EditText ETNumberStartInspectionSeat;
+    EditText ETNumberEndInspectioSeat;
+    EditText ETInspectorName;
     EditText Prinal;
     private ArrayList<TopListModel> topListModels;
     DocumentModel documentModel;
@@ -64,21 +69,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        documentModel.setCompanyName(ETCompanyName.getText().toString());
+        documentModel.setArea(ETArea.getText().toString());
+        documentModel.setElectricLine(ETElectricLine.getText().toString());
+        documentModel.setNomination(ETNomination.getText().toString());
+        documentModel.setTypeOfInspection(ETTypeOfInspection.getText().toString());
+        documentModel.setNumberStartInspectionSeat(ETNumberStartInspectionSeat.getText().toString());
+        documentModel.setNumberEndInspectioSeat(ETNumberEndInspectioSeat.getText().toString());
+        documentModel.setInspectorName(ETInspectorName.getText().toString());
+        documentModel.setInspectionSheet(Prinal.getText().toString());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        documentModel=WorkData.getInstance().getDocumentModel();
 
-        Pred = (EditText) findViewById(R.id.Predpriytie);
-        Sector = (EditText) findViewById(R.id.Sector);
-        Unom = (EditText) findViewById(R.id.Unom);
-        Name = (EditText) findViewById(R.id.Nazvanie);
-        VID = (EditText) findViewById(R.id.VID);
-        OT = (EditText) findViewById(R.id.OT);
-        Do = (EditText) findViewById(R.id.DO);
-        Names = (EditText) findViewById(R.id.Nameosmotr);
+        ETCompanyName = (EditText) findViewById(R.id.Predpriytie);
+        ETArea = (EditText) findViewById(R.id.Sector);
+        ETElectricLine = (EditText) findViewById(R.id.Unom);
+        ETNomination = (EditText) findViewById(R.id.Nazvanie);
+        ETTypeOfInspection = (EditText) findViewById(R.id.VID);
+        ETNumberStartInspectionSeat = (EditText) findViewById(R.id.OT);
+        ETNumberEndInspectioSeat = (EditText) findViewById(R.id.DO);
+        ETInspectorName = (EditText) findViewById(R.id.Nameosmotr);
         Prinal = (EditText) findViewById(R.id.Prinal);
         Button btnShowListActivity = (Button) findViewById(R.id.btnShowList);
+
+
+        ETCompanyName.setText(documentModel.getCompanyName());
+        ETArea.setText(documentModel.getArea());
+        ETElectricLine.setText(documentModel.getElectricLine());
+        ETNomination.setText(documentModel.getNomination());
+        ETTypeOfInspection.setText(documentModel.getTypeOfInspection());
+        ETNumberStartInspectionSeat.setText(documentModel.getNumberStartInspectionSeat());
+        ETNumberEndInspectioSeat.setText(documentModel.getNumberEndInspectioSeat());
+        ETInspectorName.setText(documentModel.getInspectorName());
+        Prinal.setText(documentModel.getInspectionSheet());
 
         btnShowListActivity.setOnClickListener(v -> startActivity(new Intent(this, MainListActivity.class)));
 
@@ -90,20 +123,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void createPDF() {
-        if (Pred.getText().toString().trim().length() > 0 && Sector.getText().toString().trim().length() > 0 && Unom.getText().toString().trim().length() > 0 && Name.getText().toString().trim().length() > 0 &&
-                VID.getText().toString().trim().length() > 0 && OT.getText().toString().trim().length() > 0 && Do.getText().toString().trim().length() > 0 && Names.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
+        if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getText().toString().trim().length() > 0 && ETElectricLine.getText().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
+                ETTypeOfInspection.getText().toString().trim().length() > 0 && ETNumberStartInspectionSeat.getText().toString().trim().length() > 0 && ETNumberEndInspectioSeat.getText().toString().trim().length() > 0 && ETInspectorName.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
             File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
             if (!htmlFolder.exists()) {
                 htmlFolder.mkdir();
             }
             try {
                 String namerepot;
-                namerepot = Name.getText().toString();
+                namerepot = ETNomination.getText().toString();
                 if (namerepot == " ") {
                     namerepot = "" + new Date().getTime();
                 }
                 namerepot = namerepot + ".html";
-                File myFile = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/" + namerepot);
+                File myFile = new File(FileHelper.CreateFileDir("/mobile_helper/",this), namerepot);
 
                 ArrayList<String> checkedItems = new ArrayList<>();
                 ArrayList<String> seatNames = new ArrayList<>();
@@ -125,36 +158,50 @@ public class MainActivity extends AppCompatActivity {
                     checkedItems.add(stringBuilder.toString());
                 }
 
-                documentModel = new DocumentModel(
-                        Pred.getText().toString(),
-                        Sector.getText().toString(),
-                        Unom.getText().toString(),
-                        Name.getText().toString(),
-                        VID.getText().toString(),
-                        OT.getText().toString(),
-                        Do.getText().toString(),
-                        Names.getText().toString(),
+                /*documentModel = new DocumentModel(
+                        ETCompanyName.getText().toString(),
+                        ETArea.getText().toString(),
+                        ETElectricLine.getText().toString(),
+                        ETNomination.getText().toString(),
+                        ETTypeOfInspection.getText().toString(),
+                        ETNumberStartInspectionSeat.getText().toString(),
+                        ETNumberEndInspectioSeat.getText().toString(),
+                        ETInspectorName.getText().toString(),
                         Prinal.getText().toString(),
                         seatNames.toArray(new String[0]),
                         checkedItems.toArray(new String[0])
 
-                );
+                );*/
+                documentModel.setCompanyName(ETCompanyName.getText().toString());
+                documentModel.setArea(ETArea.getText().toString());
+                documentModel.setElectricLine(ETElectricLine.getText().toString());
+                documentModel.setNomination(ETNomination.getText().toString());
+                documentModel.setTypeOfInspection(ETTypeOfInspection.getText().toString());
+                documentModel.setNumberStartInspectionSeat(ETNumberStartInspectionSeat.getText().toString());
+                documentModel.setNumberEndInspectioSeat(ETNumberEndInspectioSeat.getText().toString());
+                documentModel.setInspectorName(ETInspectorName.getText().toString());
+                documentModel.setInspectionSheet(Prinal.getText().toString());
+                documentModel.setSeatNames(seatNames.toArray(new String[0]));
+                documentModel.setDefectNames(checkedItems.toArray(new String[0]));
+
 
                 HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel,this);
                 saveFile(htmlHelper.getHtmlString(), myFile);
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(myFile), "text/html");
-                //intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                // intent.setData(Uri.fromFile(myFile));
-                //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
+                            BuildConfig.APPLICATION_ID + ".provider",
+                            myFile), "text/html");
+                else*/
+                    intent.setDataAndType(Uri.fromFile(myFile), "text/html");
                 startActivity(intent);
 
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.e("TAG", e.toString());
+                Log.e("TAG", "ex="+e.toString());
             }
         } else {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
@@ -166,17 +213,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void saveFile(String s, File file) throws IOException {
 
-        if (file.exists())
-            file.delete();
-        Log.e("TAG", file.getPath());
-        FileOutputStream ostream = new FileOutputStream(file);
-        ostream.write(s.getBytes());
-        ostream.flush();
-        ostream.close();
-
-    }
 
     /*void SendMail(String mailText) throws MessagingException {
         final String username = "";

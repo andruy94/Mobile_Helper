@@ -30,6 +30,7 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -37,6 +38,7 @@ import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAG
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
 import static com.a1101studio.mobile_helper.models.Detail.CreateDetail;
 import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
+import static com.a1101studio.mobile_helper.utils.FileHelper.saveFile;
 import static com.a1101studio.mobile_helper.utils.FileHelper.saveFileWithColision;
 
 public class MainListActivity extends AppCompatActivity {
@@ -432,6 +434,13 @@ public class MainListActivity extends AppCompatActivity {
                                             detailArray[i] = details.get(i);
                                         }
                                         boolean isSeat = true;
+
+                                        try {
+                                            saveFile("tmp",new File(CreateFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
                                         WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which], etSeatNubmer.getText().toString()));
                                         Intent intent = new Intent(MainListActivity.this, TilesActivity.class);
                                         WorkData.getInstance().getDetails().add(detailArray);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -414,8 +415,17 @@ public class MainListActivity extends AppCompatActivity {
 
                         etSeatNubmer.setText("");
                         tvDefect.setText("");
+
+                        try {
+                            saveFile("tmp",new File(CreateFileDir("/mobile_helper/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                            //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         startActivity(intent);
                     } else {
+
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainListActivity.this);
                         builder.setTitle(R.string.choose_type);
                         builder.setSingleChoiceItems(R.array.types, -1, new DialogInterface.OnClickListener() {
@@ -435,11 +445,7 @@ public class MainListActivity extends AppCompatActivity {
                                         }
                                         boolean isSeat = true;
 
-                                        try {
-                                            saveFile("tmp",new File(CreateFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
+
 
                                         WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which], etSeatNubmer.getText().toString()));
                                         Intent intent = new Intent(MainListActivity.this, TilesActivity.class);
@@ -448,6 +454,14 @@ public class MainListActivity extends AppCompatActivity {
 
                                         etSeatNubmer.setText("");
                                         tvDefect.setText("");
+
+                                        try {
+                                            saveFile("tmp",new File(CreateFileDir("/mobile_helper/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                                            //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+
                                         startActivity(intent);
                                     }
                                 }

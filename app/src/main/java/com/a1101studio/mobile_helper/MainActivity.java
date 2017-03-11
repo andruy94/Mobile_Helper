@@ -5,11 +5,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -26,7 +24,6 @@ import com.a1101studio.mobile_helper.utils.FileHelper;
 import com.a1101studio.mobile_helper.utils.HtmlHelper;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -125,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     void createPDF() {
         if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getText().toString().trim().length() > 0 && ETElectricLine.getText().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
                 ETTypeOfInspection.getText().toString().trim().length() > 0 && ETNumberStartInspectionSeat.getText().toString().trim().length() > 0 && ETNumberEndInspectioSeat.getText().toString().trim().length() > 0 && ETInspectorName.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
-            File htmlFolder = new File(Environment.getExternalStorageDirectory().getPath() + "/mobile_helper/");
+            File htmlFolder = FileHelper.CreateOrGetFileDir(this);
             if (!htmlFolder.exists()) {
                 htmlFolder.mkdir();
             }
@@ -136,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     namerepot = "" + new Date().getTime();
                 }
                 namerepot = namerepot + ".html";
-                File myFile = new File(FileHelper.CreateFileDir("/mobile_helper/",this), namerepot);
+                File myFile = new File(FileHelper.CreateOrGetFileDir(this), namerepot);
 
                 ArrayList<String> checkedItems = new ArrayList<>();
                 ArrayList<String> seatNames = new ArrayList<>();
@@ -205,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("Вы должны заполнить все поля формы.");
-            dlgAlert.setTitle("Ошибка");
+            dlgAlert.setMessage("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.");
+            dlgAlert.setTitle("пїЅпїЅпїЅпїЅпїЅпїЅ");
             dlgAlert.setPositiveButton("OK", null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();

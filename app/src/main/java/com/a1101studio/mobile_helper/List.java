@@ -107,7 +107,7 @@ public class List extends AppCompatActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    saveFileWithColision(imageBitmap, "/mobile_helper/" + headName + "/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg",List.this);
+                    saveFileWithColision(imageBitmap, "/" + headName + "/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg",List.this);
                 }
             }).start();
         }

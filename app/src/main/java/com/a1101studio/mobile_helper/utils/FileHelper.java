@@ -14,10 +14,20 @@ import java.io.IOException;
  */
 
 public class FileHelper {
-    public static File CreateFileDir(String dirName,Context context) {
+    public static File CreateOrGetFileDir(String dirName, Context context) {
 
-        File dir = new File(Environment.getExternalStorageDirectory().getPath() + dirName);
+        File dir = new File(context.getExternalFilesDir(null).getPath() + dirName);
         dir.mkdir();
+        /*if (!dir.canWrite()) {
+            dir = new File(context.getFilesDir() + dirName );
+            dir.mkdir();
+        }*/
+        return dir;
+    }
+
+    public static File CreateOrGetFileDir(Context context) {
+
+        File dir = context.getExternalFilesDir(null);
         /*if (!dir.canWrite()) {
             dir = new File(context.getFilesDir() + dirName );
             dir.mkdir();
@@ -28,7 +38,7 @@ public class FileHelper {
     public static void saveFileWithColision(Bitmap bitmap, String dirName, String nameImg, Context context) {
         //File outputDir = getCacheDir();
         try {
-            File dir =CreateFileDir(dirName,context);
+            File dir = CreateOrGetFileDir(dirName,context);
             dir.mkdir();
             File namefile = new File(dir.getPath() + "/" + nameImg);
             if (namefile.exists())

@@ -1,9 +1,7 @@
 package com.a1101studio.mobile_helper;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Environment;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +13,7 @@ import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.a1101studio.mobile_helper.utils.FileHelper;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
@@ -29,6 +28,9 @@ public class LoginActivity1 extends AppCompatActivity {
     TextView password;
     TextView login;
     Button aut;
+    TextView tvVersion;
+    boolean isServices = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,24 +38,41 @@ public class LoginActivity1 extends AppCompatActivity {
         login = (TextView) findViewById(R.id.login);
         password = (TextView) findViewById(R.id.password);
         aut = (Button) findViewById(R.id.aut);
+        tvVersion = (TextView) findViewById(R.id.textViewVersion);
+        tvVersion.setText(getString(R.string.version_number, BuildConfig.VERSION_NAME));
 
-        if(!Environment.getExternalStorageDirectory().canWrite()){
-            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        tvVersion.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity1.this);
+            builder.setTitle(R.string.About);
+            builder.setMessage(getString(R.string.about_main_text,BuildConfig.VERSION_NAME,String.valueOf(BuildConfig.VERSION_CODE)));
+            builder.setPositiveButton(R.string.ok,(d,i)->d.cancel());
+            builder.show();
+
+
+        });
+
+        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(false);
             builder.setTitle(R.string.error);
             builder.setMessage(R.string.device_no_services);
-            builder.setPositiveButton(R.string.confirm, (dialog, which) ->{aut.setEnabled(false);dialog.cancel();});
+            builder.setPositiveButton(R.string.ok, (dialog, which) -> {
+                aut.setEnabled(false);
+                dialog.cancel();
+                isServices=false;
+            });
             builder.show();
         }
 
         loginAndPassword();
         View.OnClickListener oclaut = v -> {
-            if(login.getText().toString().trim().equals("AVTI") && password.getText().toString().trim().equals("AVTI")) {
+            if (login.getText().toString().trim().equals("AVTI") && password.getText().toString().trim().equals("AVTI")) {
                 Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
                 WorkData.getInstance();
                 startActivity(intent);
-            }else{
-                AlertDialog.Builder alert=new AlertDialog.Builder(LoginActivity1.this);
-                alert.setMessage(R.string.auth_error).setPositiveButton(R.string.Confirm, (dialog, which) -> dialog.cancel()).show();
+            } else {
+                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity1.this);
+                alert.setMessage(R.string.auth_error).setPositiveButton(R.string.ok, (dialog, which) -> dialog.cancel()).show();
             }
         };
 
@@ -62,7 +81,7 @@ public class LoginActivity1 extends AppCompatActivity {
         init();
 
 
-        if(DEBUG){
+        if (DEBUG && false) {
             Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
             WorkData.getInstance();
             startActivity(intent);
@@ -70,15 +89,15 @@ public class LoginActivity1 extends AppCompatActivity {
 
     }
 
-    void loginAndPassword(){
+    void loginAndPassword() {
         Observable.combineLatest(
                 RxTextView.textChanges(login),
                 RxTextView.textChanges(password),
-                (login,password)->login.length()>0 && password.length()>0
+                (login, password) -> login.length() > 0 && password.length() > 0 && isServices
         ).subscribe(aut::setEnabled);
     }
 
-    void  init(){
+    void init() {
 
         /*Resources res = getResources();
         String[] title=res.getStringArray(R.array.title);//оглавление
@@ -142,11 +161,11 @@ public class LoginActivity1 extends AppCompatActivity {
         */
 
 
-        ArrayList<Detail[]> checkListItems2=new ArrayList<>();
+        ArrayList<Detail[]> checkListItems2 = new ArrayList<>();
         WorkData.getInstance().setDetails(checkListItems2);//пишем всё в озу
-        ArrayList<TopListModel> topListModel= new ArrayList<>();
+        ArrayList<TopListModel> topListModel = new ArrayList<>();
         WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
-        DocumentModel documentModel=new DocumentModel();
+        DocumentModel documentModel = new DocumentModel();
         WorkData.getInstance().setDocumentModel(documentModel);
     }
 
@@ -154,10 +173,10 @@ public class LoginActivity1 extends AppCompatActivity {
                                      String[] defectTitles,//список дефектов
                                      ArrayList<String[]> lowModelsCheckBoxesListTitles,//список заголовка блоков чекбоксов
                                      ArrayList<String[][]> lowLowCheckBoxesTitles,//список массива заголовока чекбоксов
-                                     ArrayList<String[]> lowModelsCommentListTitles){//список тайтлов к комментам){
+                                     ArrayList<String[]> lowModelsCommentListTitles) {//список тайтлов к комментам){
 
-        Detail[] details ={Detail.
-                CreateDetail(title,defectTitles,lowModelsCheckBoxesListTitles,lowLowCheckBoxesTitles,lowModelsCommentListTitles)};
+        Detail[] details = {Detail.
+                CreateDetail(title, defectTitles, lowModelsCheckBoxesListTitles, lowLowCheckBoxesTitles, lowModelsCommentListTitles)};
 
         return details;
     }

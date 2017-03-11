@@ -15,7 +15,7 @@
         completions."
     </string>
     <string name="auth_error">Не правильный логин или пароль</string>
-    <string name="Confirm">ОК</string>
+    <string name="ok">ОК</string>
     <string name="confirm">Подтвердить</string>
     <string name="send">Сохранить отчёт</string>
     <string name="sending_is_ok">Данные отпралены!</string>
@@ -123,5 +123,8 @@
     <string name="error">Ошибка!</string>
     <string name="device_no_services">Ваше устройство не поддерживается!</string>
     <string name="img_files">Файлы изображений :</string>
+    <string name="version_number">Версия: %s</string>
+    <string name="About">О программе</string>
+    <string name="about_main_text">Версия: %1$s, код версии: %2$s\nРазработчики: \nБокбов А.К.\nСафоненко Д.П.\nКонсультант:\nПушкарский Е.В.</string>
 </resources>
 

@@ -26,14 +26,13 @@ import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.models.CommentsModel;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
-import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
+import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
@@ -282,7 +281,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
 
         imageButton.setOnLongClickListener(v1 -> {
             String[] theNamesOfFiles;
-            File dir = CreateFileDir("/mobile_helper/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
+            File dir = CreateOrGetFileDir("/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
             File[] filelist = dir.listFiles();
             if (filelist != null) {
                 theNamesOfFiles = new String[filelist.length];

@@ -24,11 +24,9 @@ import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
 
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateFileDir;
+import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
@@ -68,7 +66,7 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
         ibPhoto.setOnLongClickListener(v -> {
             String[] theNamesOfFiles;
             ArrayList<String> arrayList = new ArrayList<String>();
-            File dir = CreateFileDir("/mobile_helper/" + topListModels.get(position).getSeatNumber() + "/", context);
+            File dir = CreateOrGetFileDir("/" + topListModels.get(position).getSeatNumber() + "/", context);
             File[] filelist = dir.listFiles((dir1, name) -> {
                 return name.contains(".jpg");
             });

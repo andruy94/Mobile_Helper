@@ -42,9 +42,23 @@
         android:layout_below="@+id/password"
         android:layout_alignLeft="@+id/password"
         android:layout_alignStart="@+id/password"
-        android:layout_marginTop="25dp"
-        android:id="@+id/aut"
         android:layout_alignRight="@+id/password"
         android:layout_alignEnd="@+id/password"
+        android:layout_marginTop="25dp"
+        android:id="@+id/aut"
+
         />
+    <TextView
+        style="@style/Font"
+        android:id="@+id/textViewVersion"
+        android:layout_alignLeft="@+id/aut"
+        android:layout_alignStart="@+id/aut"
+        android:layout_alignRight="@+id/aut"
+        android:layout_alignEnd="@+id/aut"
+        android:text="SDSDsds"
+        android:layout_below="@+id/aut"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
 </RelativeLayout>

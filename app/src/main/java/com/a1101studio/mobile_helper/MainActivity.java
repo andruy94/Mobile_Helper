@@ -202,9 +202,9 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
-            dlgAlert.setMessage("�� ������ ��������� ��� ���� �����.");
-            dlgAlert.setTitle("������");
-            dlgAlert.setPositiveButton("OK", null);
+            dlgAlert.setMessage(R.string.fill_all_field);
+            dlgAlert.setTitle(R.string.error);
+            dlgAlert.setPositiveButton(R.string.ok, null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
         }

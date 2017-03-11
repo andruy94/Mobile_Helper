@@ -3,7 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/build.gradle" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/MainActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/MainListActivity.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/MainListActivity.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/utils/HtmlHelper.java" charset="windows-1251" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

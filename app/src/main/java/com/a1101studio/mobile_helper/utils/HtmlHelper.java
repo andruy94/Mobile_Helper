@@ -28,7 +28,7 @@ public class HtmlHelper {
     public String getHtmlString() throws UnsupportedEncodingException {
         String[] strings1=context.getResources().getStringArray(R.array.bold_text_array1);
         HtmlString = "";
-                HtmlString = HtmlString+ "<!DOCTYPE html>\n" +
+        HtmlString = HtmlString+ "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "    <head>\n" +
                 "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />" +
@@ -46,15 +46,16 @@ public class HtmlHelper {
                 "        <td style=\"text-align: center;\">Номер опоры,пролета</td>\n" +
                 "        <td style=\"text-align: center;\">Замеченные неисправности</td></tr>";
         for (int x = 0; x < SeatNames.length; x++) {
-
-            HtmlString = HtmlString+ "<tr><td  style=\"text-align: center;\">"+documentModel.getSeatNames()[x]+"</td>";
-            HtmlString = HtmlString+ "<td>"+documentModel.getDefectNames()[x]+"</td></tr>";
-
+            if (!documentModel.getDefectNames()[x].trim().equals("")) {
+                HtmlString = HtmlString + "<tr><td  style=\"text-align: center;\">" + documentModel.getSeatNames()[x] + "</td>";
+                HtmlString = HtmlString + "<td>" + documentModel.getDefectNames()[x] + "</td></tr>";
+            }
         }
         Calendar c = Calendar.getInstance();
         HtmlString = HtmlString+ "</tbody>\n" +
                 "</table><p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
         HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
+
         HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+documentModel.getInspectorName()+"  /________________/"+"</p>";
         HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectionSheet()+"/________________/"+"</p>";
         HtmlString = HtmlString+ "  </body>\n" +
@@ -64,8 +65,8 @@ public class HtmlHelper {
         String value1 = new String();
         for (int i=0; i<strings1.length;i++)
         {
-           value1= value.replaceAll(strings1[i]+":","<b>"+strings1[i]+":</b>");
-           value = value1;
+            value1= value.replaceAll(strings1[i]+":","<b>"+strings1[i]+":</b>");
+            value = value1;
         }
         return value;
     }

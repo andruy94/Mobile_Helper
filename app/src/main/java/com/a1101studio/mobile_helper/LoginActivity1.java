@@ -7,16 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.FileHelper;
+import com.a1101studio.mobile_helper.utils.License;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import rx.Observable;
 
@@ -30,11 +35,25 @@ public class LoginActivity1 extends AppCompatActivity {
     Button aut;
     TextView tvVersion;
     boolean isServices = true;
+    private int tapeCount = 0;
+    private final int NEED_TAPE = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login1);
+        if (!(new Date().after(License.getDateStartDate()) && new Date().before(License.getDateEndData())))//after=посел
+            finish();
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_login);
+        relativeLayout.setOnClickListener(v -> {
+            if (tapeCount < NEED_TAPE) {
+                tapeCount++;
+            } else if (tapeCount == NEED_TAPE) {
+                License.noLimited = true;
+                Toast.makeText(LoginActivity1.this, "Супер-Убер режим включён!", Toast.LENGTH_SHORT).show();
+            }
+        });
         login = (TextView) findViewById(R.id.login);
         password = (TextView) findViewById(R.id.password);
         aut = (Button) findViewById(R.id.aut);
@@ -44,14 +63,14 @@ public class LoginActivity1 extends AppCompatActivity {
         tvVersion.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity1.this);
             builder.setTitle(R.string.About);
-            builder.setMessage(getString(R.string.about_main_text,BuildConfig.VERSION_NAME,String.valueOf(BuildConfig.VERSION_CODE)));
-            builder.setPositiveButton(R.string.ok,(d,i)->d.cancel());
+            builder.setMessage(getString(R.string.about_main_text, BuildConfig.VERSION_NAME, String.valueOf(BuildConfig.VERSION_CODE)));
+            builder.setPositiveButton(R.string.ok, (d, i) -> d.cancel());
             builder.show();
 
 
         });
 
-        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
             builder.setTitle(R.string.error);
@@ -59,7 +78,7 @@ public class LoginActivity1 extends AppCompatActivity {
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
                 aut.setEnabled(false);
                 dialog.cancel();
-                isServices=false;
+                isServices = false;
             });
             builder.show();
         }

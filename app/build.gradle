@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileOptions.encoding = 'UTF-8' // write your encoding here
-    compileSdkVersion 24
+    compileSdkVersion 25
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.a1101studio.mobile_helper"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 4
         versionName "2.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -37,9 +37,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support:design:24.2.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.itextpdf:itextg:5.5.10'
 // Because RxAndroid releases are few and far between, it is recommended you also

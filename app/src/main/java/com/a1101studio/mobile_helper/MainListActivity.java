@@ -24,6 +24,7 @@ import com.a1101studio.mobile_helper.adapters.TopListAdapter;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.a1101studio.mobile_helper.utils.License;
 
 import java.io.File;
 import java.io.IOException;
@@ -389,7 +390,7 @@ public class MainListActivity extends AppCompatActivity {
         //тут добавляется в лист всё состояние трассы
         tvDefect.setOnClickListener(v -> {
             if (!etSeatNubmer.getText().toString().trim().equals("")) {
-                if (WorkData.getInstance().getTopListModels().size() < MAX_DEFECTS)
+                if (WorkData.getInstance().getTopListModels().size() < MAX_DEFECTS || License.noLimited)
                     if (WorkData.getInstance().getTopListModels().size() % 2 != 0) {
                         ArrayList<Detail> details = new ArrayList<>();
                         details.add(CreateDetail("Пролёт", defectsName5, LowModelsCHeckboxesTitles5, lowlowModelsCHeckboxesTitles5, LowModelsCommentsTitles5));

@@ -1,8 +1,13 @@
 package com.a1101studio.mobile_helper.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 
 import java.io.File;
@@ -63,5 +68,23 @@ public class FileHelper {
         ostream.flush();
         ostream.close();
 
+    }
+
+    static final int REQUEST_TAKE_PHOTO = 1;
+
+    private void dispatchTakePictureIntent(Activity activity,File file) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+
+            // Continue only if the File was successfully created
+            if (file != null) {
+                //Uri photoURI = getU
+                /*takePictureIntent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");*/
+                //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                activity.startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
     }
 }

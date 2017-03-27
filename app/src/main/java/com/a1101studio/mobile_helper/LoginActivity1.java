@@ -70,7 +70,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
         });
 
-        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
             builder.setTitle(R.string.error);

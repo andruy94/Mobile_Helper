@@ -89,8 +89,8 @@ public class MainListActivity extends AppCompatActivity {
 
         String[] defectsName = {"Коррозия опоры", "Коррозия элементов опоры", "Не заземлена перемычка", "ДКР в теле опоры", "Дерево в теле опоры", "Нумерация"
                 , "Отсутствие на опоре предупреждающих плакатов", "Погнуты уголки опоры", "Оторван уголок", "Гнездо в опоре", "Изогнута траверса", "Трещина в теле опоры"
-                , "Наклон опоры"};
-
+                , "Наклон опоры","Другое"};
+        String[] s111 = {"Комментарий"};
         String[] s1 = {"ololo1", "ololo12", "ololo13"};
         String[] s2 = {"Нумерация"};
         String[] s3 = {"Выбор:"};
@@ -209,16 +209,14 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles2.add(s);//9
         s = new String[]{"Номер фундамента:"};//1
         LowModelsCommentsTitles2.add(s);//10
-        s = new String[]{"Номер фундамента:"};//1
-        LowModelsCommentsTitles2.add(s);//11
         s = new String[]{"Номер фундамента:", "Расстояние от фундамента до пяты опоры:"};//1
-        LowModelsCommentsTitles2.add(s);//12
+        LowModelsCommentsTitles2.add(s111);//12
         String[] defectsName2 = {"Фундаменты засыпаны", "Разрушение фундамента", "Отсутствие контура заземления", "Просевший грунт под фундаментом",
                 "Отсутствует болт крепления между пятой опоры и фундаментом", "Отсутствует контргайка на болту крепления пяты опоры к фундаменту"
                 , "Отсутствует гайка на болту крепления пяты опоры к фундаменту", "Не затянута гайка/контргайка на болту крепления пяты опоры к фундаменту",
-                "Забетонирован фундамент", "Необвалован фундамент", "Зазор между фундаментом и пятой опоры"};
+                "Забетонирован фундамент", "Необвалован фундамент", "Зазор между фундаментом и пятой опоры","Другое"};
 //Третье
-        String[] defectsName3 = {"Бой изоляции цепи 1", "Загрязнение изоляции цепи 1", "Наброс на изоляторах цепи 1", "Бой изоляции цепи 2", "Загрязнение изоляции цепи 2", "Наброс на изоляторах цепи 2", "Бой изоляции цепи 3", "Загрязнение изоляции цепи 3", "Наброс на изоляторах цепи 3", "Бой изоляции цепи 4", "Загрязнение изоляции цепи 4", "Наброс на изоляторах цепи 4",};
+        String[] defectsName3 = {"Бой изоляции цепи 1", "Загрязнение изоляции цепи 1", "Наброс на изоляторах цепи 1", "Бой изоляции цепи 2", "Загрязнение изоляции цепи 2", "Наброс на изоляторах цепи 2", "Бой изоляции цепи 3", "Загрязнение изоляции цепи 3", "Наброс на изоляторах цепи 3", "Бой изоляции цепи 4", "Загрязнение изоляции цепи 4", "Наброс на изоляторах цепи 4","Другое"};
         ArrayList<String[]> LowModelsCHeckboxesTitles3 = new ArrayList<>();
         ArrayList<String[]> LowModelsCommentsTitles3 = new ArrayList<>();
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles3 = new ArrayList<>();
@@ -243,7 +241,7 @@ public class MainListActivity extends AppCompatActivity {
 
 //Четвертая
         //String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры"};
-        String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры", "Гаситель вибрации на тросу"};
+        String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры", "Гаситель вибрации на тросу","Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles4 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на проводе:"};//1
@@ -283,7 +281,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles4.add(ss3);
 
 //5
-        String[] defectsName5 = {"Распушен провод", "'Фонарь' на проводе", "Наброс на проводе", "Повреждение провода", "Соединитель на проводе", "Наброс на проводе"};
+        String[] defectsName5 = {"Распушен провод", "'Фонарь' на проводе", "Наброс на проводе", "Повреждение провода", "Соединитель на проводе", "Наброс на проводе","Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles5 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на проводе:"};//1
@@ -310,7 +308,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles5.add(nulled2);
         lowlowModelsCHeckboxesTitles5.add(nulled2);
 //6
-        String[] defectsName6 = {"Отсутствие в пролете грозотроса", "Распушен грозотрос", "'Фонарь' на грозотросе", "Наброс на тросу", "Гаситель вибрации на тросу", "Повреждение грозотроса"};
+        String[] defectsName6 = {"Отсутствие в пролете грозотроса", "Распушен грозотрос", "'Фонарь' на грозотросе", "Наброс на тросу", "Гаситель вибрации на тросу", "Повреждение грозотроса","Другое"};
         ArrayList<String[]> LowModelsCHeckboxesTitles6 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на тросу:"};//1
         LowModelsCHeckboxesTitles6.add(nulled);
@@ -338,7 +336,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles6.add(ss3);
         lowlowModelsCHeckboxesTitles6.add(nulled2);
 
-        String[] defectsName7 = {"ДКР в пролете", "Боковые ДКР", "Дерево в пролете", "Боковые деревья", "В охранной зоне", "Пересечения в пролете"};
+        String[] defectsName7 = {"ДКР в пролете", "Боковые ДКР", "Дерево в пролете", "Боковые деревья", "В охранной зоне", "Пересечения в пролете","Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles7 = new ArrayList<>();
         s = new String[]{"В охранной зоне:"};//1
@@ -386,7 +384,30 @@ public class MainListActivity extends AppCompatActivity {
         ss3[0][9] = "Овраг";
         ss3[0][10] = "Болото";
         lowlowModelsCHeckboxesTitles7.add(ss3);
-        //тут добавляется в лист всё
+
+        LowModelsCHeckboxesTitles.add(nulled);
+        LowModelsCHeckboxesTitles2.add(nulled);
+        LowModelsCHeckboxesTitles3.add(nulled);
+        LowModelsCHeckboxesTitles4.add(nulled);
+        LowModelsCHeckboxesTitles5.add(nulled);
+        LowModelsCHeckboxesTitles6.add(nulled);
+        LowModelsCHeckboxesTitles7.add(nulled);
+
+        lowlowModelsCHeckboxesTitles.add(nulled2);
+        lowlowModelsCHeckboxesTitles2.add(nulled2);
+        lowlowModelsCHeckboxesTitles3.add(nulled2);
+        lowlowModelsCHeckboxesTitles4.add(nulled2);
+        lowlowModelsCHeckboxesTitles5.add(nulled2);
+        lowlowModelsCHeckboxesTitles6.add(nulled2);
+        lowlowModelsCHeckboxesTitles7.add(nulled2);
+
+        LowModelsCommentsTitles.add(s111);
+        LowModelsCommentsTitles2.add(s111);
+        LowModelsCommentsTitles3.add(s111);
+        LowModelsCommentsTitles4.add(s111);
+        LowModelsCommentsTitles5.add(s111);
+        LowModelsCommentsTitles6.add(s111);
+        LowModelsCommentsTitles7.add(s111);
         //тут добавляется в лист всё состояние трассы
         tvDefect.setOnClickListener(v -> {
             if (!etSeatNubmer.getText().toString().trim().equals("")) {

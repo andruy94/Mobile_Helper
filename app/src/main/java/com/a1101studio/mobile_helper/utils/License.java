@@ -22,7 +22,7 @@ public class License {
         return dateEndData;
 
     }
-    private static final String endDate = "3/18/2017 00:00:00";
+    private static final String endDate = "3/30/2017 00:00:00";
     public static Date getDateStartDate(){
         Date dateEndData=null;
         try {

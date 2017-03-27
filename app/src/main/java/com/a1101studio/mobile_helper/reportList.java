@@ -2,9 +2,8 @@ package com.a1101studio.mobile_helper;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,8 +12,6 @@ import android.widget.ListView;
 import com.a1101studio.mobile_helper.utils.FileHelper;
 
 import java.io.File;
-
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
 
 public class reportList extends AppCompatActivity {
 
@@ -26,7 +23,7 @@ public class reportList extends AppCompatActivity {
         this.getResources().getLayout(R.layout.activity_report_list);
         ListView listView = (ListView) findViewById(R.id.listView);
         String[] theNamesOfFiles;
-        File dir= CreateOrGetFileDir(this);
+        File dir= FileHelper.createOrGetFileDir(this);
         File[] filelist = dir.listFiles((dir1, name) -> {
             return name.contains(".html");
         });
@@ -47,7 +44,7 @@ public class reportList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(FileHelper.CreateOrGetFileDir(reportList.this) + "/" + adapter.getItem(position).toString())), "text/html");
+                intent.setDataAndType(Uri.fromFile(new File(FileHelper.createOrGetFileDir(reportList.this) + "/" + adapter.getItem(position).toString())), "text/html");
                 //intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 // intent.setData(Uri.fromFile(myFile));
                 //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");

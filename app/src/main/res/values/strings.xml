@@ -127,5 +127,6 @@
     <string name="About">О программе</string>
     <string name="about_main_text">Версия: %1$s, код версии: %2$s\nРазработчики: \nБокбов А.К.\nСафоненко Д.П.\nКонсультант:\nПушкарский Е.В.</string>
     <string name="fill_all_field">Вы должны заполнить все поля.</string>
+    <string name="sign_in">Войти</string>
 </resources>
 

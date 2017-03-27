@@ -10,55 +10,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.a1101studio.mobile_helper.LoginActivity1">
 
+
+
+
     <EditText
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:textSize="40sp"
-        android:layout_marginTop="92dp"
-        android:id="@+id/login"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp"
+        android:ems="10"
         android:hint="@string/hint_login"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textSize="40sp" />
 
     <EditText
-        android:textSize="40sp"
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/password"
-        android:hint="@string/hint_password"
-        android:layout_below="@+id/login"
         android:layout_alignLeft="@+id/login"
-        android:layout_alignStart="@+id/login" />
+        android:layout_alignStart="@+id/login"
+        android:layout_below="@+id/login"
+        android:ems="10"
+        android:hint="@string/hint_password"
+        android:inputType="textPassword"
+        android:textSize="40sp" />
 
     <Button
-        android:textSize="40sp"
-        android:text="Войти"
+        android:id="@+id/aut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_alignLeft="@+id/password"
-        android:layout_alignStart="@+id/password"
-        android:layout_alignRight="@+id/password"
         android:layout_alignEnd="@+id/password"
+        android:layout_alignLeft="@+id/password"
+        android:layout_alignRight="@+id/password"
+        android:layout_alignStart="@+id/password"
+        android:layout_below="@+id/password"
         android:layout_marginTop="25dp"
-        android:id="@+id/aut"
+        android:text="@string/sign_in"
+        android:textSize="40sp"
 
         />
+
     <TextView
-        style="@style/Font"
         android:id="@+id/textViewVersion"
-        android:layout_alignLeft="@+id/aut"
-        android:layout_alignStart="@+id/aut"
-        android:layout_alignRight="@+id/aut"
-        android:layout_alignEnd="@+id/aut"
-        android:text="SDSDsds"
-        android:layout_below="@+id/aut"
-        android:layout_marginTop="25dp"
+        style="@style/Font"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/aut"
+        android:layout_alignLeft="@+id/aut"
+        android:layout_alignRight="@+id/aut"
+        android:layout_alignStart="@+id/aut"
+        android:layout_below="@+id/aut"
+        android:layout_marginTop="25dp"
+        android:text="@string/send"
         android:textAlignment="center" />
 </RelativeLayout>

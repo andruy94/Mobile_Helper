@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +42,10 @@ public class LoginActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login1);
+        /*if (getSupportActionBar() != null) {
+            getSupportActionBar().setLogo(R.drawable.logo);
+            getSupportActionBar().setDisplayUseLogoEnabled(true);
+        }*/
         if (!(new Date().after(License.getDateStartDate()) && new Date().before(License.getDateEndData())))//after=посел
             finish();
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_login);
@@ -51,7 +54,7 @@ public class LoginActivity1 extends AppCompatActivity {
                 tapeCount++;
             } else if (tapeCount == NEED_TAPE) {
                 License.noLimited = true;
-                Toast.makeText(LoginActivity1.this, "Супер-Убер режим включён!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity1.this, new String("Супер-Убер режим включён!"), Toast.LENGTH_SHORT).show();
             }
         });
         login = (TextView) findViewById(R.id.login);
@@ -70,7 +73,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
         });
 
-        if (!FileHelper.CreateOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+        if (!FileHelper.createOrGetFileDir(this).canWrite() || Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setCancelable(false);
             builder.setTitle(R.string.error);

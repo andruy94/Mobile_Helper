@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
@@ -34,7 +33,7 @@ import java.util.Date;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
 import static com.a1101studio.mobile_helper.models.Detail.CreateDetail;
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
+import static com.a1101studio.mobile_helper.utils.FileHelper.createOrGetFileDir;
 import static com.a1101studio.mobile_helper.utils.FileHelper.saveFile;
 import static com.a1101studio.mobile_helper.utils.FileHelper.saveFileWithColision;
 
@@ -73,14 +72,6 @@ public class MainListActivity extends AppCompatActivity {
         TextView tvDefect = (TextView) rowView.findViewById(R.id.tvDefect);
         ImageButton imageView = (ImageButton) rowView.findViewById(R.id.ibPhoto);
         imageView.setVisibility(View.INVISIBLE);
-        imageView.setOnClickListener(v -> {
-            if (etSeatNubmer.getText().toString().trim().equals("")) {
-                new AlertDialog.Builder(this).setMessage(getString(R.string.fill)).setPositiveButton("OK", (dialog, which) -> dialog.cancel()).show();
-            } else {
-                final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                MainListActivity.this.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        });
 
 
 
@@ -91,9 +82,6 @@ public class MainListActivity extends AppCompatActivity {
                 , "Отсутствие на опоре предупреждающих плакатов", "Погнуты уголки опоры", "Оторван уголок", "Гнездо в опоре", "Изогнута траверса", "Трещина в теле опоры"
                 , "Наклон опоры","Другое"};
         String[] s111 = {"Комментарий"};
-        String[] s1 = {"ololo1", "ololo12", "ololo13"};
-        String[] s2 = {"Нумерация"};
-        String[] s3 = {"Выбор:"};
         String[] s21 = {"Не заземлена перемычка. Выбор:"};
         String[] s20 = {"Гнездо в опоре:"};
         String[] nulled = {};
@@ -433,7 +421,7 @@ public class MainListActivity extends AppCompatActivity {
 
 
                         try {
-                            saveFile("tmp",new File(CreateOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                            saveFile("tmp",new File(createOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
                             //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -474,7 +462,9 @@ public class MainListActivity extends AppCompatActivity {
 
 
                                         try {
-                                            saveFile("tmp",new File(CreateOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                                            File file=new File(createOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt");
+                                            saveFile("tmp",file);
+                                            file.delete();
                                             //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
                                         } catch (IOException e) {
                                             e.printStackTrace();

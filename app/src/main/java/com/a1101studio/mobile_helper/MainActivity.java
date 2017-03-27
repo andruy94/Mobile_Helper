@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     void createPDF() {
         if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getText().toString().trim().length() > 0 && ETElectricLine.getText().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
                 ETTypeOfInspection.getText().toString().trim().length() > 0 && ETNumberStartInspectionSeat.getText().toString().trim().length() > 0 && ETNumberEndInspectioSeat.getText().toString().trim().length() > 0 && ETInspectorName.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
-            File htmlFolder = FileHelper.CreateOrGetFileDir(this);
+            File htmlFolder = FileHelper.createOrGetFileDir(this);
             if (!htmlFolder.exists()) {
                 htmlFolder.mkdir();
             }
@@ -133,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                     namerepot = "" + new Date().getTime();
                 }
                 namerepot = namerepot + ".html";
-                File myFile = new File(FileHelper.CreateOrGetFileDir(this), namerepot);
+                File myFile = new File(FileHelper.createOrGetFileDir(this), namerepot);
 
                 ArrayList<String> checkedItems = new ArrayList<>();
                 ArrayList<String> seatNames = new ArrayList<>();

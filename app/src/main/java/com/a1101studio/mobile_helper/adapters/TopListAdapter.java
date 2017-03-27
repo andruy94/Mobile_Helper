@@ -22,11 +22,11 @@ import com.a1101studio.mobile_helper.TilesActivity;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.a1101studio.mobile_helper.utils.FileHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
@@ -62,11 +62,21 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
 
         ImageButton ibPhoto = (ImageButton) rowView.findViewById(R.id.ibPhoto);
         ibPhoto.setEnabled(true);
-        ibPhoto.setOnClickListener(v -> dispatchTakePictureIntent(topListModels.get(position).getSeatNumber()));
+        ibPhoto.setOnClickListener(v -> {
+
+            File file = FileHelper.createImageFile(context, topListModels.get(position).getSeatNumber());
+            try {
+                file.createNewFile();
+                FileHelper.dispatchTakePictureIntent((Activity) context, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
         ibPhoto.setOnLongClickListener(v -> {
             String[] theNamesOfFiles;
             ArrayList<String> arrayList = new ArrayList<String>();
-            File dir = CreateOrGetFileDir("/" + topListModels.get(position).getSeatNumber() + "/", context);
+            File dir = FileHelper.createOrGetFileDir("/" + topListModels.get(position).getSeatNumber() + "/", context);
             File[] filelist = dir.listFiles((dir1, name) -> {
                 return name.contains(".jpg");
             });
@@ -165,7 +175,6 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                 if (flag)
                     s = s.substring(0, s.length() - context.getResources().getStringArray(R.array.types)[k].length() - 1);
                 else {
-                    //k = s.indexOf(';');
                     s = s.substring(0, s.length() - 1);
                 }
                 topListModels.get(position).setSeatNumber(s);

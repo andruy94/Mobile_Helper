@@ -27,12 +27,12 @@ import com.a1101studio.mobile_helper.models.CommentsModel;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
 import com.a1101studio.mobile_helper.singleton.WorkData;
+import com.a1101studio.mobile_helper.utils.FileHelper;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
-import static com.a1101studio.mobile_helper.utils.FileHelper.CreateOrGetFileDir;
 
 /**
  * Created by andruy94 on 12/18/2016.
@@ -160,7 +160,6 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
         v.setImageButton(imageButton);
 
 
-
         //чекбокс дефекта
         CheckBox defectCheckBox = (CheckBox) rowView.findViewById(R.id.chbHeader);
         v.setDefectCheckBox(defectCheckBox);
@@ -271,17 +270,20 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
                 linearLayout.addView(commentsEditTexts[i], new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             }
 
-        ImageButton imageButton=v.getImageButton();
+        ImageButton imageButton = v.getImageButton();
         imageButton.setOnClickListener(view ->
         {
-            currentTag = detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle();
-            final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            ((Activity) context).startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+            String detailName = detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle();
+
+            File dir = FileHelper.createOrGetFileDir("/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
+            File file=FileHelper.createImageFile(dir,detailName);
+            FileHelper.dispatchTakePictureIntent((Activity) context,file);
         });
 
         imageButton.setOnLongClickListener(v1 -> {
             String[] theNamesOfFiles;
-            File dir = CreateOrGetFileDir("/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
+            File dir = FileHelper.createOrGetFileDir("/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
             File[] filelist = dir.listFiles();
             if (filelist != null) {
                 theNamesOfFiles = new String[filelist.length];

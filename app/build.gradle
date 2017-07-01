@@ -8,8 +8,8 @@ android {
         applicationId "com.a1101studio.mobile_helper"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 7
-        versionName "2.2.3"
+        versionCode 14
+        versionName "2.2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

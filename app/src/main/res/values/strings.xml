@@ -22,7 +22,18 @@
     <string name="cancel">Закрыть</string>
     <string name="fill">Заполните поле</string>
     <string name="show_list">Показать список</string>
-
+    <string-array name="district">
+        <item>Чагинская РМС</item>
+        <item>Южная РМС</item>
+        <item>Филевская РМС</item>
+        <item>Бутырская РМС</item>
+        <item>Восточная РМС</item>
+    </string-array>
+    <string-array name="unom">
+        <item>35 кВ</item>
+        <item>110 кВ</item>
+        <item>220 кВ</item>
+    </string-array>
     <array name="bold_text_array1">
         <item>Опоры</item>
         <item>Фундамент</item>

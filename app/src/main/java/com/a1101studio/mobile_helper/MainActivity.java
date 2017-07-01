@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
@@ -32,8 +33,8 @@ import static com.a1101studio.mobile_helper.utils.FileHelper.saveFile;
 
 public class MainActivity extends AppCompatActivity {
     EditText ETCompanyName;
-    EditText ETArea;
-    EditText ETElectricLine;
+    Spinner ETArea;
+    Spinner ETElectricLine;
     EditText ETNomination;
     EditText ETTypeOfInspection;
     EditText ETNumberStartInspectionSeat;
@@ -71,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         documentModel.setCompanyName(ETCompanyName.getText().toString());
-        documentModel.setArea(ETArea.getText().toString());
-        documentModel.setElectricLine(ETElectricLine.getText().toString());
+        documentModel.setArea(ETArea.getSelectedItem().toString());
+        documentModel.setElectricLine(ETElectricLine.getSelectedItem().toString());
         documentModel.setNomination(ETNomination.getText().toString());
         documentModel.setTypeOfInspection(ETTypeOfInspection.getText().toString());
         documentModel.setNumberStartInspectionSeat(ETNumberStartInspectionSeat.getText().toString());
@@ -85,11 +86,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         documentModel=WorkData.getInstance().getDocumentModel();
 
         ETCompanyName = (EditText) findViewById(R.id.Predpriytie);
-        ETArea = (EditText) findViewById(R.id.Sector);
-        ETElectricLine = (EditText) findViewById(R.id.Unom);
+        ETArea = (Spinner) findViewById(R.id.Sector);
+
+        ETElectricLine = (Spinner) findViewById(R.id.Unom);
         ETNomination = (EditText) findViewById(R.id.Nazvanie);
         ETTypeOfInspection = (EditText) findViewById(R.id.VID);
         ETNumberStartInspectionSeat = (EditText) findViewById(R.id.OT);
@@ -100,8 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         ETCompanyName.setText(documentModel.getCompanyName());
-        ETArea.setText(documentModel.getArea());
-        ETElectricLine.setText(documentModel.getElectricLine());
+        setSpinText(ETArea,documentModel.getArea());
+        setSpinText(ETArea,documentModel.getElectricLine());
         ETNomination.setText(documentModel.getNomination());
         ETTypeOfInspection.setText(documentModel.getTypeOfInspection());
         ETNumberStartInspectionSeat.setText(documentModel.getNumberStartInspectionSeat());
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void createPDF() {
-        if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getText().toString().trim().length() > 0 && ETElectricLine.getText().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
+        if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getSelectedItem().toString().trim().length() > 0 && ETElectricLine.getSelectedItem().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
                 ETTypeOfInspection.getText().toString().trim().length() > 0 && ETNumberStartInspectionSeat.getText().toString().trim().length() > 0 && ETNumberEndInspectioSeat.getText().toString().trim().length() > 0 && ETInspectorName.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
             File htmlFolder = FileHelper.createOrGetFileDir(this);
             if (!htmlFolder.exists()) {
@@ -169,8 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
                 );*/
                 documentModel.setCompanyName(ETCompanyName.getText().toString());
-                documentModel.setArea(ETArea.getText().toString());
-                documentModel.setElectricLine(ETElectricLine.getText().toString());
+                documentModel.setArea(ETArea.getSelectedItem().toString());
+                documentModel.setElectricLine(ETElectricLine.getSelectedItem().toString());
                 documentModel.setNomination(ETNomination.getText().toString());
                 documentModel.setTypeOfInspection(ETTypeOfInspection.getText().toString());
                 documentModel.setNumberStartInspectionSeat(ETNumberStartInspectionSeat.getText().toString());
@@ -209,7 +212,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setSpinText(Spinner spin, String text)
+    {
+        for(int i= 0; i < spin.getAdapter().getCount(); i++)
+        {
+            if(spin.getAdapter().getItem(i).toString().contains(text))
+            {
+                spin.setSelection(i);
+            }
+        }
 
+    }
 
     /*void SendMail(String mailText) throws MessagingException {
         final String username = "";

@@ -444,7 +444,7 @@ public class MainListActivity extends AppCompatActivity {
                                         details.add(CreateDetail(detailName, defectsName, LowModelsCHeckboxesTitles, lowlowModelsCHeckboxesTitles, LowModelsCommentsTitles));
                                         details.add(CreateDetail("Фундамент", defectsName2, LowModelsCHeckboxesTitles2, lowlowModelsCHeckboxesTitles2, LowModelsCommentsTitles2));
                                         details.add(CreateDetail("Изоляторы", defectsName3, LowModelsCHeckboxesTitles3, lowlowModelsCHeckboxesTitles3, LowModelsCommentsTitles3));
-                                        details.add(CreateDetail("Линеная арматура", defectsName4, LowModelsCHeckboxesTitles4, lowlowModelsCHeckboxesTitles4, LowModelsCommentsTitles4));
+                                        details.add(CreateDetail("Линейная арматура", defectsName4, LowModelsCHeckboxesTitles4, lowlowModelsCHeckboxesTitles4, LowModelsCommentsTitles4));
                                         //---
                                         Detail[] detailArray = new Detail[details.size()];
                                         for (int i = 0; i < details.size(); i++) {

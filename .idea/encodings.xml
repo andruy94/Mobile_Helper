@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/app/build.gradle" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/MainActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/MainListActivity.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/adapters/NewListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/adapters/TopListAdapter.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/utils/FileHelper.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/a1101studio/mobile_helper/utils/HtmlHelper.java" charset="windows-1251" />

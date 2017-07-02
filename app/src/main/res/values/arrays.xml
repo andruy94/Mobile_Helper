@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="phases" >
+        <item>Ж</item>
+        <item>З</item>
+        <item>К</item>
+    </string-array>
+</resources>

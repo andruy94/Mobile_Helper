@@ -42,10 +42,6 @@ public class LoginActivity1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login1);
-        /*if (getSupportActionBar() != null) {
-            getSupportActionBar().setLogo(R.drawable.logo);
-            getSupportActionBar().setDisplayUseLogoEnabled(true);
-        }*/
         if (!(new Date().after(License.getDateStartDate()) && new Date().before(License.getDateEndData())))//after=посел
             finish();
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_login);
@@ -79,9 +75,9 @@ public class LoginActivity1 extends AppCompatActivity {
             builder.setTitle(R.string.error);
             builder.setMessage(R.string.device_no_services);
             builder.setPositiveButton(R.string.ok, (dialog, which) -> {
-                aut.setEnabled(false);
+                //aut.setEnabled(false);
+                //isServices = false;
                 dialog.cancel();
-                isServices = false;
             });
             builder.show();
         }

@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,9 @@ import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.FileHelper;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 
@@ -170,6 +174,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolderModel v, int pos) {
         LinearLayout linearLayout = v.getLinearLayout();
+        linearLayout.removeAllViews();
         int position = v.getAdapterPosition();
         //this.postion = position;
         CheckBox defectCheckBox = v.getDefectCheckBox();
@@ -235,26 +240,27 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
             for (int i = 0; i < commentsModels.length; i++) {
 
                 commentsTextViews[i] = new TextView(context);
+
                 commentsEditTexts[i] = new EditText(context);
 
                 commentsEditTexts[i].setFocusable(true);
                 commentsEditTexts[i].setEnabled(true);
+
                 // textView1.setTag(i,"eT"+i);
                 int finalI = i;
                 commentsEditTexts[i].addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start,
                                                   int count, int after) {
-
                     }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start,
                                               int before, int count) {
-                        if (s.toString().trim().length() != 0)
-                            commentsModels[finalI].setComment(s.toString());
-                        else
-                            commentsModels[finalI].setComment("");
+                        if (before > 0 || (before== 0 && count>0))
+                                commentsModels[finalI].setComment(s.toString());
+                        //else
+                        // commentsModels[finalI].setComment("");
                     }
 
                     @Override
@@ -262,8 +268,46 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
 
                     }
                 });
-                if (commentsModels[i].getCommentTitle() != null)
-                    commentsTextViews[i].setText(commentsModels[i].getCommentTitle());
+                String commentTitle = commentsModels[i].getCommentTitle();
+                if (commentTitle != null) {
+                    commentsTextViews[i].setText(commentTitle);
+                    boolean flag = false;
+                    boolean flag2 = false;
+                    String[] s = context.getResources().getStringArray(R.array.numeric_template);
+                    for (String s1 : s) {
+                        if ((commentTitle.contains(s1))) {
+                            flag = true;
+                            break;
+                        }
+                    }
+                    flag2 = commentTitle.toLowerCase().contains(context.getString(R.string.jaker228));
+
+                    if (flag) {
+                        commentsEditTexts[finalI].setInputType(InputType.TYPE_CLASS_NUMBER);
+                    } else
+                        commentsEditTexts[finalI].setInputType(InputType.TYPE_CLASS_TEXT);
+
+                    if (flag2) {
+                        commentsEditTexts[finalI].setInputType(InputType.TYPE_NULL);
+                        commentsEditTexts[finalI].setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                AlertDialog.Builder alertD = new AlertDialog.Builder(context);
+                                alertD.setTitle(R.string.choise_phasa);
+                                alertD.setSingleChoiceItems(R.array.phases, -1, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        commentsEditTexts[finalI].setText(context.getResources().getStringArray(R.array.phases)[which]);
+                                        dialog.cancel();
+                                    }
+                                });
+                                alertD.show();
+                            }
+                        });
+                    }
+
+
+                }
                 if (commentsModels[i].getComment() != null)
                     commentsEditTexts[i].setText(commentsModels[i].getComment());
                 linearLayout.addView(commentsTextViews[i]);
@@ -277,8 +321,8 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
             String detailName = detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle();
 
             File dir = FileHelper.createOrGetFileDir("/" + WorkData.getInstance().getTopListModels().get(k).getSeatNumber() + "/" + detail.getDefectCheckListItems()[position].getCheckBoxItem().getTitle() + "/", context);
-            File file=FileHelper.createImageFile(dir,detailName);
-            FileHelper.dispatchTakePictureIntent((Activity) context,file);
+            File file = FileHelper.createImageFile(dir, detailName);
+            FileHelper.dispatchTakePictureIntent((Activity) context, file);
         });
 
         imageButton.setOnLongClickListener(v1 -> {
@@ -296,27 +340,19 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, theNamesOfFiles);
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle(R.string.img_files);
-            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
-                    /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
-                            BuildConfig.APPLICATION_ID + ".provider",
-                            myFile), "text/html");
-                    else*/
-                    intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
-                    context.startActivity(intent);
-                    dialog.cancel();
-                }
+            builder.setAdapter(adapter, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
+                        BuildConfig.APPLICATION_ID + ".provider",
+                        myFile), "text/html");
+                else*/
+                intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
+                context.startActivity(intent);
+                dialog.cancel();
             });
-            builder.setPositiveButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
+            builder.setPositiveButton(R.string.cancel, (dialog, which) -> dialog.cancel());
             builder.show();
 
             return false;

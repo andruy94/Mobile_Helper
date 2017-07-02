@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * Created by andruy94 on 12/18/2016.
  */
 public class WorkData {
-    private static final int KILL_TIMER = 5000;
     private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
     private DocumentModel documentModel;

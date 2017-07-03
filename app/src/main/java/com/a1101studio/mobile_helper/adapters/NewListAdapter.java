@@ -258,6 +258,7 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
                     public void onTextChanged(CharSequence s, int start,
                                               int before, int count) {
                         if (before > 0 || (before== 0 && count>0))
+
                                 commentsModels[finalI].setComment(s.toString());
                         //else
                         // commentsModels[finalI].setComment("");

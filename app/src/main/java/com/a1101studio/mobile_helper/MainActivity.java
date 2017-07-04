@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
         Button btnShowListActivity = (Button) findViewById(R.id.btnShowList);
 
 
-        ETCompanyName.setText(documentModel.getCompanyName());
+        ETCompanyName.setText("Московские высоковольтные сети");
         setSpinText(ETArea,documentModel.getArea());
         setSpinText(ETArea,documentModel.getElectricLine());
         ETNomination.setText(documentModel.getNomination());
-        ETTypeOfInspection.setText(documentModel.getTypeOfInspection());
+        ETTypeOfInspection.setText("Плановый");
         ETNumberStartInspectionSeat.setText(documentModel.getNumberStartInspectionSeat());
         ETNumberEndInspectioSeat.setText(documentModel.getNumberEndInspectioSeat());
         ETInspectorName.setText(documentModel.getInspectorName());

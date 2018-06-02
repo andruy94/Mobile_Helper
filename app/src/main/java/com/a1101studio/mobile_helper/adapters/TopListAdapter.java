@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -102,7 +103,11 @@ public class TopListAdapter extends ArrayAdapter<TopListModel> {
                             BuildConfig.APPLICATION_ID + ".provider",
                             myFile), "text/html");
                     else*/
-                    intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
+                    Uri uriForFile = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), new File(dir, adapter.getItem(which)));
+                    // set flag to give temporary permission to external app to use your FileProvider
+                    context.grantUriPermission(context.getString(R.string.file_provider_authority),uriForFile,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.setDataAndType(uriForFile, "image/*");
                     context.startActivity(intent);
                     dialog.cancel();
                 }

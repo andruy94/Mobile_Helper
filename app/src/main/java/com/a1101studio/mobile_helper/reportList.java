@@ -3,6 +3,7 @@ package com.a1101studio.mobile_helper;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.a1101studio.mobile_helper.utils.FileHelper;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 public class reportList extends AppCompatActivity {
 
@@ -24,8 +26,11 @@ public class reportList extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
         String[] theNamesOfFiles;
         File dir= FileHelper.createOrGetFileDir(this);
-        File[] filelist = dir.listFiles((dir1, name) -> {
-            return name.contains(".html");
+        File[] filelist = dir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir1, String name) {
+                return name.contains(".html");
+            }
         });
         if(filelist!=null) {
 
@@ -44,11 +49,11 @@ public class reportList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(FileHelper.createOrGetFileDir(reportList.this) + "/" + adapter.getItem(position).toString())), "text/html");
-                //intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                // intent.setData(Uri.fromFile(myFile));
-                //intent.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
-                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                Uri uriForFile = FileProvider.getUriForFile(reportList.this, reportList.this.getString(R.string.file_provider_authority), new File(FileHelper.createOrGetFileDir(reportList.this) + "/" + adapter.getItem(position).toString()));
+                intent.setData(uriForFile);//, "application/html");
+                // set flag to give temporary permission to external app to use your FileProvider
+                reportList.this.grantUriPermission(reportList.this.getString(R.string.file_provider_authority),uriForFile,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent);
             }
         });

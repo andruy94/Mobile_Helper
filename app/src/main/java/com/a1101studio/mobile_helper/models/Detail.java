@@ -1,5 +1,6 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * массив списков checkBoxItems и его тайтла - lowCheckListItems
  * массив комментариев commentsModels
  */
-public class Detail {
+public class Detail implements Serializable {
 
 
     public static Detail CreateDetail(String title,//Тайтл плитки

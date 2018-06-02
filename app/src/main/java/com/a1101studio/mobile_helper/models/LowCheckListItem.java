@@ -1,7 +1,5 @@
 package com.a1101studio.mobile_helper.models;
 
-import java.util.ArrayList;
-
 /**
  * Created by andruy94 on 2/8/2017.
  */

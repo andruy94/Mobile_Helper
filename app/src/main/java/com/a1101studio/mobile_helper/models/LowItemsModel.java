@@ -1,10 +1,12 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.io.Serializable;
+
 /**
  * Created by andruy94 on 2/8/2017.
  */
 
-public class LowItemsModel {
+public class LowItemsModel implements Serializable {
     private LowCheckListItem[] lowCheckListItems;
     private CommentsModel[] commentsModels;
 

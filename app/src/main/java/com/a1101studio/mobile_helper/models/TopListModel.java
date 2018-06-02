@@ -1,10 +1,12 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.io.Serializable;
+
 /**
  * Created by andruy94 on 12/18/2016.
  */
 
-public class TopListModel {
+public class TopListModel implements Serializable {
     private String defect;
     private boolean isSeat;
     private String type;

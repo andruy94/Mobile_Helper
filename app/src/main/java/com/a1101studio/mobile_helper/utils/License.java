@@ -9,8 +9,8 @@ import java.util.Date;
  */
 
 public class License {
-    public static boolean noLimited = false;
-    private static final String startDate = "5/8/2017 00:00:00";
+    public static boolean noLimited = true;
+    private static final String startDate = "7/20/2017 00:00:00";
     public static Date getDateEndData(){
         Date dateEndData=null;
         try {
@@ -22,7 +22,7 @@ public class License {
         return dateEndData;
 
     }
-    private static final String endDate = "7/26/2017 00:00:00";
+    private static final String endDate = "12/15/2017 00:00:00";
     public static Date getDateStartDate(){
         Date dateEndData=null;
         try {

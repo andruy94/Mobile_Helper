@@ -12,17 +12,17 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:inputType="number"
-            android:background="@drawable/etborder"
-            android:textSize="20sp"
-            android:textColor="#000000"
-            android:text=""
-            android:textAlignment="center"
+            android:id="@+id/etSeatNumber"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/etborder"
+            android:inputType="text|number|numberSigned|numberDecimal"
             android:minHeight="60dp"
-            android:id="@+id/etSeatNumber"
-            android:layout_weight="1" />
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20sp" />
         <TextView
             android:textAlignment="center"
             android:layout_gravity="center"

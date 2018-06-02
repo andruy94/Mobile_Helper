@@ -10,10 +10,10 @@ import java.util.Calendar;
 
 
 public class HtmlHelper {
-    private String fileName;//имя файла/адресс
-    private String[] SeatNames;//номера опор/пролётов
-    private String[] Defects;//набор дефекто соотвествующие опорам
-    private String HtmlString;//набор дефекто соотвествующие опорам
+    private String fileName;//РёРјСЏ С„Р°Р№Р»Р°/Р°РґСЂРµСЃСЃ
+    private String[] SeatNames;//РЅРѕРјРµСЂР° РѕРїРѕСЂ/РїСЂРѕР»С‘С‚РѕРІ
+    private String[] Defects;//РЅР°Р±РѕСЂ РґРµС„РµРєС‚Рѕ СЃРѕРѕС‚РІРµСЃС‚РІСѓСЋС‰РёРµ РѕРїРѕСЂР°Рј
+    private String HtmlString;//РЅР°Р±РѕСЂ РґРµС„РµРєС‚Рѕ СЃРѕРѕС‚РІРµСЃС‚РІСѓСЋС‰РёРµ РѕРїРѕСЂР°Рј
     private DocumentModel documentModel;
     private Context context;
 
@@ -32,19 +32,19 @@ public class HtmlHelper {
                 "<html>\n" +
                 "    <head>\n" +
                 "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />" +
-                "        <title>Отчет</title>\n" +
+                "        <title>РћС‚С‡РµС‚</title>\n" +
                 "    </head>  <body>";
-        HtmlString = HtmlString+ "<p>"+"Предприятие:"+documentModel.getCompanyName()+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Район(участок):"+documentModel.getArea()+"</p>";
-        HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Листок осмотра</h2>";
-        HtmlString = HtmlString+ "<p>"+"Наименование:"+documentModel.getNomination()+" Воздушная линия Uном="+documentModel.getElectricLine()+"кВ </p>";
-        HtmlString = HtmlString+ "<p>"+"Вид осмотра:"+documentModel.getTypeOfInspection()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"РџСЂРµРґРїСЂРёСЏС‚РёРµ:"+documentModel.getCompanyName()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Р Р°Р№РѕРЅ(СѓС‡Р°СЃС‚РѕРє):"+documentModel.getArea()+"</p>";
+        HtmlString = HtmlString+ "<h2 style=\"text-align: center;\">&nbsp;Р›РёСЃС‚РѕРє РѕСЃРјРѕС‚СЂР°</h2>";
+        HtmlString = HtmlString+ "<p>"+"РќР°РёРјРµРЅРѕРІР°РЅРёРµ:"+documentModel.getNomination()+" UРЅРѕРј="+documentModel.getElectricLine()+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Р’РёРґ РѕСЃРјРѕС‚СЂР°:"+documentModel.getTypeOfInspection()+"</p>";
 
         HtmlString = HtmlString+ "<table border=\"1\" cellspacing=\"0\">\n" +
                 "        <tbody>\n" +
                 "        <tr>\n" +
-                "        <td style=\"text-align: center;\">Номер опоры,пролета</td>\n" +
-                "        <td style=\"text-align: center;\">Замеченные неисправности</td></tr>";
+                "        <td style=\"text-align: center;\">РќРѕРјРµСЂ РѕРїРѕСЂС‹,РїСЂРѕР»РµС‚Р°</td>\n" +
+                "        <td style=\"text-align: center;\">Р—Р°РјРµС‡РµРЅРЅС‹Рµ РЅРµРёСЃРїСЂР°РІРЅРѕСЃС‚Рё</td></tr>";
         for (int x = 0; x < SeatNames.length; x++) {
             if (!documentModel.getDefectNames()[x].trim().equals("")) {
                 HtmlString = HtmlString + "<tr><td  style=\"text-align: center;\">" + documentModel.getSeatNames()[x] + "</td>";
@@ -53,11 +53,11 @@ public class HtmlHelper {
         }
         Calendar c = Calendar.getInstance();
         HtmlString = HtmlString+ "</tbody>\n" +
-                "</table><p>"+"Осмотр проведен от опоры №"+documentModel.getNumberStartInspectionSeat()+" до опоры №"+documentModel.getNumberEndInspectioSeat()+"</p>";
+                "</table><p>"+"РћСЃРјРѕС‚СЂ РїСЂРѕРІРµРґРµРЅ РѕС‚ РѕРїРѕСЂС‹ в„–"+documentModel.getNumberStartInspectionSeat()+" РґРѕ РѕРїРѕСЂС‹ в„–"+documentModel.getNumberEndInspectioSeat()+"</p>";
         HtmlString = HtmlString+ "<p>"+c.get(Calendar.DAY_OF_MONTH)+"."+c.get(Calendar.MONTH)+"."+c.get(Calendar.YEAR)+"</p>";
 
-        HtmlString = HtmlString+ "<p>"+"Осмотр выполнил:"+documentModel.getInspectorName()+"  /________________/"+"</p>";
-        HtmlString = HtmlString+ "<p>"+"Листок осмотра принял:"+documentModel.getInspectionSheet()+"/________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"РћСЃРјРѕС‚СЂ РІС‹РїРѕР»РЅРёР»:"+documentModel.getInspectorName()+"  /________________/"+"</p>";
+        HtmlString = HtmlString+ "<p>"+"Р›РёСЃС‚РѕРє РѕСЃРјРѕС‚СЂР° РїСЂРёРЅСЏР»:"+documentModel.getInspectionSheet()+"/________________/"+"</p>";
         HtmlString = HtmlString+ "  </body>\n" +
                 "</html>";
         byte ptext[] = HtmlString.getBytes("UTF-8");

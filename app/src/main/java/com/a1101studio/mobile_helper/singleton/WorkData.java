@@ -4,16 +4,18 @@ import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.DocumentModel;
 import com.a1101studio.mobile_helper.models.TopListModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by andruy94 on 12/18/2016.
  */
-public class WorkData {
+public class WorkData implements Serializable{
     private  ArrayList<Detail[]> details;
     private ArrayList<TopListModel> topListModels;
     private DocumentModel documentModel;
     private static WorkData ourInstance = new WorkData();
+    private transient String userName;
     public static WorkData getInstance() {
         return ourInstance;
     }
@@ -55,6 +57,11 @@ public class WorkData {
     }
 
 
+    public String getUserName() {
+        return userName;
+    }
 
-
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

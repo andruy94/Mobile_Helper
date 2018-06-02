@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.RippleDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,9 +30,11 @@ public class TilesActivity extends AppCompatActivity {
             buttons[i].setVisibility(View.VISIBLE);
             checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
             if(checkListItemsTop[i].getCheckBoxItem().isChecked())
-                buttons[i].setBackgroundColor(Color.GREEN);
+                //buttons[i].setBackgroundColor(Color.GREEN);
+            buttons[i].setBackgroundColor(ContextCompat.getColor(this,/*Color.YELLOW*/ android.R.color.holo_green_light));
+
             else
-                buttons[i].setBackgroundColor(getResources().getColor(R.color.colorButton));
+                buttons[i].setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
             buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));
@@ -63,7 +66,7 @@ public class TilesActivity extends AppCompatActivity {
             buttons[i].setVisibility(View.VISIBLE);
             checkListItemsTop[i].getCheckBoxItem().setChecked(!checkListItemsTop[i].getCheckedItems().equals(""));
             if(checkListItemsTop[i].getCheckBoxItem().isChecked())
-                buttons[i].setBackgroundColor(Color.YELLOW);
+                buttons[i].setBackgroundColor(ContextCompat.getColor(this,/*Color.YELLOW*/ android.R.color.holo_green_light));
             buttons[i].setText(checkListItemsTop[i].getCheckBoxItem().getTitle());
             int finalI = i;
             buttons[i].setOnClickListener(v->showDefects(TilesActivity.this,finalI,k));

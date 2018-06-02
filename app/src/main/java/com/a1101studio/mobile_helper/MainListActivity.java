@@ -1,9 +1,12 @@
 package com.a1101studio.mobile_helper;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
@@ -24,12 +27,15 @@ import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.License;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.R.string.no;
+import static android.R.string.ok;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.REQUEST_IMAGE_CAPTURE;
 import static com.a1101studio.mobile_helper.adapters.TopListAdapter.jakers;
 import static com.a1101studio.mobile_helper.models.Detail.CreateDetail;
@@ -43,6 +49,8 @@ public class MainListActivity extends AppCompatActivity {
     private ArrayList<TopListModel> topListModels;
     ListView listView;
     TopListAdapter adapter;
+    private EditText etSeatNubmer;
+    private String seatNumber="";
 
     @Override
     protected void onResume() {
@@ -67,20 +75,21 @@ public class MainListActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         View rowView = ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.top_list_item, null, false);
-        EditText etSeatNubmer = (EditText) rowView.findViewById(R.id.etSeatNumber);
+        //EditText etSeatNubmer = (EditText) rowView.findViewById(R.id.etSeatNumber);
 
         TextView tvDefect = (TextView) rowView.findViewById(R.id.tvDefect);
         ImageButton imageView = (ImageButton) rowView.findViewById(R.id.ibPhoto);
         imageView.setVisibility(View.INVISIBLE);
 
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
 
         String detailName = "Опоры";
 
         String[] defectsName = {"Коррозия опоры", "Коррозия элементов опоры", "Не заземлена перемычка", "ДКР в теле опоры", "Дерево в теле опоры", "Нумерация"
                 , "Отсутствие на опоре предупреждающих плакатов", "Погнуты уголки опоры", "Оторван уголок", "Гнездо в опоре", "Изогнута траверса", "Трещина в теле опоры"
-                , "Наклон опоры","Другое"};
+                , "Наклон опоры", "Другое"};
         String[] s111 = {"Комментарий"};
         String[] s21 = {"Не заземлена перемычка. Выбор:"};
         String[] s20 = {"Гнездо в опоре:"};
@@ -124,14 +133,14 @@ public class MainListActivity extends AppCompatActivity {
         String[] s5 = {"Комментарий:"};//2
         String[] s6 = {"Комментарий:"};//3
         String[] s7 = {"Высота", "Комментарий:"};//4
-        String[] s8 = {"Количество деревьев:", "Высота:", "Комментарий:", "Расстояние до токоведущих частей:", "Комментарий:"};//5
+        String[] s8 = {"Количество деревьев:", "Высота:", "Расстояние до токоведущих частей:", "Комментарий:"};//5
         String[] s9 = {"Комментарий:"};//6
         String[] s10 = {"Комментарий:"};//7
-        String[] s11 = {"Количество уголков:","Комментарий:"};//8
-        String[] s12 = {"Количество уголков:","Комментарий:"};//9
+        String[] s11 = {"Количество уголков:", "Комментарий:"};//8
+        String[] s12 = {"Количество уголков:", "Комментарий:"};//9
         String[] s13 = {"Комментарий:"};//10
-        String[] s14 = {"Фаза:"};//11
-        String[] s15 = {"Глубина трещины:", "На какой высоте от земли:"};//12
+        String[] s14 = {"Фаза:", "Комментарий:"};//11
+        String[] s15 = {"Глубина трещины:", "На какой высоте от земли:", "Комментарий:"};//12
         String[] s16 = {"Комментарий:"};//13
         ArrayList<String[]> LowModelsCommentsTitles = new ArrayList<>();
         LowModelsCommentsTitles.add(s4);//1
@@ -177,34 +186,34 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles2.add(nulled2);//2
         lowlowModelsCHeckboxesTitles2.add(nulled2);//2
         ArrayList<String[]> LowModelsCommentsTitles2 = new ArrayList<>();
-        s = new String[]{"Номер фундамента:"};//1
+        s = new String[]{"Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//1
-        s = new String[]{"Номер фундамента:", "Степень разрушения:"};//1
+        s = new String[]{"Номер фундамента:", "Степень разрушения:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//2
-        s = new String[]{"Номер фундамента:"};//1
+        s = new String[]{"Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//3
-        s = new String[]{"Номер фундамента:"};//1
+        s = new String[]{"Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//4
-        s = new String[]{"Номер фундамента:"};//1
+        s = new String[]{"Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//5
-        s = new String[]{"Количество болтов:", "Номер фундамента:"};//1
+        s = new String[]{"Количество болтов:", "Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//6
-        s = new String[]{"Количество гаек:", "Номер фундамента:"};//1
+        s = new String[]{"Количество гаек:", "Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//7
-        s = new String[]{"Количество гаек:", "Номер фундамента:"};//1
+        s = new String[]{"Количество гаек:", "Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//8
-        s = new String[]{"Количество гаек:", "Номер фундамента:"};//1
+        s = new String[]{"Количество гаек:", "Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//9
-        s = new String[]{"Номер фундамента:"};//1
+        s = new String[]{"Номер фундамента:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s);//10
-        s = new String[]{"Номер фундамента:", "Расстояние от фундамента до пяты опоры:"};//1
+        s = new String[]{"Номер фундамента:", "Расстояние от фундамента до пяты опоры:", "Комментарий:"};//1
         LowModelsCommentsTitles2.add(s111);//12
         String[] defectsName2 = {"Фундаменты засыпаны", "Разрушение фундамента", "Отсутствие контура заземления", "Просевший грунт под фундаментом",
                 "Отсутствует болт крепления между пятой опоры и фундаментом", "Отсутствует контргайка на болту крепления пяты опоры к фундаменту"
                 , "Отсутствует гайка на болту крепления пяты опоры к фундаменту", "Не затянута гайка/контргайка на болту крепления пяты опоры к фундаменту",
-                "Забетонирован фундамент", "Необвалован фундамент", "Зазор между фундаментом и пятой опоры","Другое"};
+                "Забетонирован фундамент", "Необвалован фундамент", "Зазор между фундаментом и пятой опоры", "Другое"};
 //Третье
-        String[] defectsName3 = {"Бой изоляции цепи 1", "Загрязнение изоляции цепи 1", "Наброс на изоляторах цепи 1", "Бой изоляции цепи 2", "Загрязнение изоляции цепи 2", "Наброс на изоляторах цепи 2", "Бой изоляции цепи 3", "Загрязнение изоляции цепи 3", "Наброс на изоляторах цепи 3", "Бой изоляции цепи 4", "Загрязнение изоляции цепи 4", "Наброс на изоляторах цепи 4","Другое"};
+        String[] defectsName3 = {"Бой изоляции цепи 1", "Загрязнение изоляции цепи 1", "Наброс на изоляторах цепи 1", "Бой изоляции цепи 2", "Загрязнение изоляции цепи 2", "Наброс на изоляторах цепи 2", "Бой изоляции цепи 3", "Загрязнение изоляции цепи 3", "Наброс на изоляторах цепи 3", "Бой изоляции цепи 4", "Загрязнение изоляции цепи 4", "Наброс на изоляторах цепи 4", "Другое"};
         ArrayList<String[]> LowModelsCHeckboxesTitles3 = new ArrayList<>();
         ArrayList<String[]> LowModelsCommentsTitles3 = new ArrayList<>();
         ArrayList<String[][]> lowlowModelsCHeckboxesTitles3 = new ArrayList<>();
@@ -229,7 +238,7 @@ public class MainListActivity extends AppCompatActivity {
 
 //Четвертая
         //String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры"};
-        String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры", "Гаситель вибрации на тросу","Другое"};
+        String[] defectsName4 = {"Гнутая арматура", "Гаситель вибрации на проводе", "Повреждение арматуры", "Гаситель вибрации на тросу", "Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles4 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на проводе:"};//1
@@ -241,7 +250,7 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCHeckboxesTitles4.add(s);
 
         ArrayList<String[]> LowModelsCommentsTitles4 = new ArrayList<>();
-        s = new String[]{"Фаза:", "Сторона:","Комментарий:"};//1
+        s = new String[]{"Фаза:", "Сторона:", "Комментарий:"};//1
         LowModelsCommentsTitles4.add(s);//7
         s = new String[]{"Комментарий:"};//1
         LowModelsCommentsTitles4.add(s);//7
@@ -269,7 +278,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles4.add(ss3);
 
 //5
-        String[] defectsName5 = {"Распушен провод", "'Фонарь' на проводе", "Наброс на проводе", "Повреждение провода", "Соединитель на проводе", "Наброс на проводе","Другое"};
+        String[] defectsName5 = {"Распушен провод", "'Фонарь' на проводе", "Наброс на проводе", "Повреждение провода", "Соединитель на проводе", "Наброс на проводе", "Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles5 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на проводе:"};//1
@@ -296,7 +305,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles5.add(nulled2);
         lowlowModelsCHeckboxesTitles5.add(nulled2);
 //6
-        String[] defectsName6 = {"Отсутствие в пролете грозотроса", "Распушен грозотрос", "'Фонарь' на грозотросе", "Наброс на тросу", "Гаситель вибрации на тросу", "Повреждение грозотроса","Другое"};
+        String[] defectsName6 = {"Отсутствие в пролете грозотроса", "Распушен грозотрос", "'Фонарь' на грозотросе", "Наброс на тросу", "Гаситель вибрации на тросу", "Повреждение грозотроса", "Другое"};
         ArrayList<String[]> LowModelsCHeckboxesTitles6 = new ArrayList<>();
         s = new String[]{"Гаситель вибрации на тросу:"};//1
         LowModelsCHeckboxesTitles6.add(nulled);
@@ -324,7 +333,7 @@ public class MainListActivity extends AppCompatActivity {
         lowlowModelsCHeckboxesTitles6.add(ss3);
         lowlowModelsCHeckboxesTitles6.add(nulled2);
 
-        String[] defectsName7 = {"ДКР в пролете", "Боковые ДКР", "Дерево в пролете", "Боковые деревья", "В охранной зоне", "Пересечения в пролете","Другое"};
+        String[] defectsName7 = {"ДКР в пролете", "Боковые ДКР", "Дерево в пролете", "Боковые деревья", "В охранной зоне", "Пересечения в пролете", "Другое"};
 
         ArrayList<String[]> LowModelsCHeckboxesTitles7 = new ArrayList<>();
         s = new String[]{"В охранной зоне:"};//1
@@ -397,8 +406,8 @@ public class MainListActivity extends AppCompatActivity {
         LowModelsCommentsTitles6.add(s111);
         LowModelsCommentsTitles7.add(s111);
         //тут добавляется в лист всё состояние трассы
-        tvDefect.setOnClickListener(v -> {
-            if (!etSeatNubmer.getText().toString().trim().equals("")) {
+        View.OnClickListener onClickListener = v1 -> {
+            if (!seatNumber.trim().equals("")) {
                 if (WorkData.getInstance().getTopListModels().size() < MAX_DEFECTS || License.noLimited)
                     if (WorkData.getInstance().getTopListModels().size() % 2 != 0) {
                         ArrayList<Detail> details = new ArrayList<>();
@@ -413,23 +422,21 @@ public class MainListActivity extends AppCompatActivity {
                         for (int i = 0; i < details.size(); i++) {
                             detailArray[i] = details.get(i);
                         }
-                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", etSeatNubmer.getText().toString()));
+                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", seatNumber));
                         Intent intent = new Intent(MainListActivity.this, TilesActivity.class);
                         WorkData.getInstance().getDetails().add(detailArray);
                         intent.putExtra("k", WorkData.getInstance().getTopListModels().size() - 1);
 
 
-
                         try {
-                            saveFile("tmp",new File(createOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt"));
+                            saveFile("tmp", new File(createOrGetFileDir("/" + seatNumber + "/", MainListActivity.this), "tmp.txt"));
                             //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
 
 
-                        etSeatNubmer.setText("");
-                        tvDefect.setText("");
+
                         startActivity(intent);
                     } else {
 
@@ -453,17 +460,16 @@ public class MainListActivity extends AppCompatActivity {
                                         boolean isSeat = true;
 
 
-
-                                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which], etSeatNubmer.getText().toString()));
+                                        seatNumber = seatNumber;
+                                        WorkData.getInstance().getTopListModels().add(new TopListModel("...", isSeat, getResources().getStringArray(R.array.types)[which], seatNumber));
                                         Intent intent = new Intent(MainListActivity.this, TilesActivity.class);
                                         WorkData.getInstance().getDetails().add(detailArray);
                                         intent.putExtra("k", WorkData.getInstance().getTopListModels().size() - 1);
 
 
-
                                         try {
-                                            File file=new File(createOrGetFileDir("/"+etSeatNubmer.getText().toString()+"/",MainListActivity.this),"tmp.txt");
-                                            saveFile("tmp",file);
+                                            File file = new File(createOrGetFileDir("/" + seatNumber + "/", MainListActivity.this), "tmp.txt");
+                                            saveFile("tmp", file);
                                             file.delete();
                                             //saveFileWithColision("", "/mobile_helper/" + fileName + "/", fileName + "_" + new Date().getTime() + ".jpg", MainListActivity.this);
                                         } catch (IOException e) {
@@ -471,8 +477,7 @@ public class MainListActivity extends AppCompatActivity {
                                         }
 
 
-                                        etSeatNubmer.setText("");
-                                        tvDefect.setText("");
+
 
                                         startActivity(intent);
                                     }
@@ -485,12 +490,39 @@ public class MainListActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, R.string.fill, Toast.LENGTH_SHORT).show();
             }
-        });
+        };
 
-        listView.addFooterView(rowView);
+
+        //tvDefect.setOnClickListener(onClickListener);
+        fab.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Введите номер опоры");
+            View view1 = LayoutInflater.from(this).inflate(R.layout.add_column_dialog_layout, null, false);
+            builder.setView(view1);
+            etSeatNubmer = (EditText) view1.findViewById(R.id.etSeatNumber1);
+
+            builder.setPositiveButton(ok, (dialog, which) -> {
+                seatNumber=etSeatNubmer.getText().toString();
+                onClickListener.onClick(null);});
+            builder.setNegativeButton(no, (dialog, which) -> dialog.cancel());
+            builder.show();
+
+        });
+        //fab.setOnClickListener(onClickListener);
+        //listView.addFooterView(rowView);
         View viewHeader = ((LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header_top_list, null, false);
         listView.addHeaderView(viewHeader);
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences mPrefs = this.getSharedPreferences(getApplicationInfo().name, Context.MODE_PRIVATE);
+        SharedPreferences.Editor ed = mPrefs.edit();
+        Gson gson = new Gson();
+        ed.putString(WorkData.class.getSimpleName(), gson.toJson(WorkData.getInstance()));
+        ed.apply();
     }
 
     @Override

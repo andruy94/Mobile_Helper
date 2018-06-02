@@ -1,10 +1,12 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.io.Serializable;
+
 /**
  * Created by andruy94 on 2/8/2017.
  */
 
-public class DefectCheckListItem {
+public class DefectCheckListItem implements Serializable {
     private CheckBoxItem checkBoxItem;
     private LowItemsModel lowItemsModel;
 

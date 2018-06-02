@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -28,6 +29,7 @@ import com.a1101studio.mobile_helper.R;
 import com.a1101studio.mobile_helper.models.CommentsModel;
 import com.a1101studio.mobile_helper.models.Detail;
 import com.a1101studio.mobile_helper.models.LowCheckListItem;
+import com.a1101studio.mobile_helper.reportList;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.FileHelper;
 
@@ -343,13 +345,11 @@ public class NewListAdapter extends RecyclerView.Adapter<NewListAdapter.ViewHold
             builder.setTitle(R.string.img_files);
             builder.setAdapter(adapter, (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
-                /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
-                        BuildConfig.APPLICATION_ID + ".provider",
-                        myFile), "text/html");
-                else*/
-                intent.setDataAndType(Uri.fromFile(new File(dir, adapter.getItem(which))), "image/*");
+                Uri uriForFile = FileProvider.getUriForFile(context, context.getString(R.string.file_provider_authority), new File(dir, adapter.getItem(which)));
+                // set flag to give temporary permission to external app to use your FileProvider
+                context.grantUriPermission(context.getString(R.string.file_provider_authority),uriForFile,Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(uriForFile, "image/*");
                 context.startActivity(intent);
                 dialog.cancel();
             });

@@ -1,12 +1,17 @@
 package com.a1101studio.mobile_helper;
 
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,18 +22,22 @@ import com.a1101studio.mobile_helper.models.TopListModel;
 import com.a1101studio.mobile_helper.singleton.WorkData;
 import com.a1101studio.mobile_helper.utils.FileHelper;
 import com.a1101studio.mobile_helper.utils.License;
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.Callable;
 
 import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.a1101studio.mobile_helper.BuildConfig.DEBUG;
 
 
 public class LoginActivity1 extends AppCompatActivity {
-
+    java.util.List<Pair<String, String>> loginAndUser;
     TextView password;
     TextView login;
     Button aut;
@@ -36,13 +45,13 @@ public class LoginActivity1 extends AppCompatActivity {
     boolean isServices = true;
     private int tapeCount = 0;
     private final int NEED_TAPE = 5;
+    private CheckBox cbLoadLastSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login1);
-        if (!(new Date().after(License.getDateStartDate()) && new Date().before(License.getDateEndData())))//after=посел
+        if (!(new Date().after(License.getDateStartDate()) && new Date().before(License.getDateEndData()))  && false)//after=посел
             finish();
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.activity_login);
         relativeLayout.setOnClickListener(v -> {
@@ -58,6 +67,7 @@ public class LoginActivity1 extends AppCompatActivity {
         aut = (Button) findViewById(R.id.aut);
         tvVersion = (TextView) findViewById(R.id.textViewVersion);
         tvVersion.setText(getString(R.string.version_number, BuildConfig.VERSION_NAME));
+        cbLoadLastSession = (CheckBox) findViewById(R.id.checkBox);
 
         tvVersion.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity1.this);
@@ -81,16 +91,50 @@ public class LoginActivity1 extends AppCompatActivity {
             });
             builder.show();
         }
+        aut.setEnabled(false);
+        Observable.fromCallable(new Callable<Object>() {
+            @Override
+            public Object call() throws Exception {
+                loginAndUser = FileHelper.loadUserList(LoginActivity1.this);
+                return new Object();
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<Object>() {
+            @Override
+            public void onCompleted() {
+                iniLoginAndPasswordObservable();
+            }
 
-        loginAndPassword();
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Object o) {
+
+            }
+        });
+
         View.OnClickListener oclaut = v -> {
-            if (login.getText().toString().trim().equals("AVTI") && password.getText().toString().trim().equals("AVTI")) {
-                Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
-                WorkData.getInstance();
-                startActivity(intent);
-            } else {
-                AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity1.this);
-                alert.setMessage(R.string.auth_error).setPositiveButton(R.string.ok, (dialog, which) -> dialog.cancel()).show();
+
+            boolean flag = false;
+            for (Pair<String, String> pair : loginAndUser) {
+                String login1 = pair.first;
+                String password1 = pair.second;
+                if (login.getText().toString().trim().equals(login1) && password.getText().toString().trim().equals(password1)) {
+                    Intent intent = new Intent(LoginActivity1.this, MainActivity.class);
+                    WorkData.getInstance();
+                    loadLastData(login1);
+                    startActivity(intent);
+                    flag = true;
+                    WorkData.getInstance().setUserName(login1);
+                    break;
+                }
+
+            }
+            if (!flag) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity1.this, R.style.AppTheme);
+                builder.setMessage(R.string.auth_error).setPositiveButton(R.string.ok, (dialog, which) -> dialog.cancel()).show();
             }
         };
 
@@ -107,7 +151,7 @@ public class LoginActivity1 extends AppCompatActivity {
 
     }
 
-    void loginAndPassword() {
+    void iniLoginAndPasswordObservable() {
         Observable.combineLatest(
                 RxTextView.textChanges(login),
                 RxTextView.textChanges(password),
@@ -179,12 +223,35 @@ public class LoginActivity1 extends AppCompatActivity {
         */
 
 
+    }
+
+    private void initVoidData() {
         ArrayList<Detail[]> checkListItems2 = new ArrayList<>();
         WorkData.getInstance().setDetails(checkListItems2);//пишем всё в озу
         ArrayList<TopListModel> topListModel = new ArrayList<>();
         WorkData.getInstance().setTopListModels(topListModel);// создадим список неисправностей
         DocumentModel documentModel = new DocumentModel();
         WorkData.getInstance().setDocumentModel(documentModel);
+    }
+
+    private void loadLastData(String userName) {
+        SharedPreferences mPrefs = this.getSharedPreferences(getApplicationInfo().name, Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String user = mPrefs.getString("USER", "");
+        String myObjectKey = mPrefs.getString(WorkData.class.getSimpleName(), "");
+        if (user.equals(userName) && !myObjectKey.equals("") && cbLoadLastSession.isChecked()) {//если последний юезр Вас\ Пупин и у него что-то было, то грузим, иначе пустотой забиваем всё
+            WorkData workData = gson.fromJson(myObjectKey, WorkData.class);
+            WorkData.getInstance().setDetails(workData.getDetails());//пишем всё в озу
+            WorkData.getInstance().setTopListModels(workData.getTopListModels());// создадим список неисправностей
+            WorkData.getInstance().setDocumentModel(workData.getDocumentModel());
+        } else {
+            initVoidData();
+            SharedPreferences.Editor ed = mPrefs.edit();
+            ed.putString("USER", userName);
+            ed.apply();
+        }
+
     }
 
     static Detail[] addCheckListItem(String title,//Тайтл плитки

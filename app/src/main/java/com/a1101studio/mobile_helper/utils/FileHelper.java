@@ -6,13 +6,23 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+import android.support.v4.util.Pair;
 import android.util.Log;
+import android.widget.EditText;
 
+import com.a1101studio.mobile_helper.R;
+import com.a1101studio.mobile_helper.reportList;
+
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * Created by andruy94 on 3/8/2017.
@@ -32,26 +42,26 @@ public class FileHelper {
         return context.getExternalFilesDir(null);
     }
 
-    public static File createImageFile(Context context,String imageName){
+    public static File createImageFile(Context context, String imageName) {//1
         String path = File.separator + imageName + File.separator;
         File file = FileHelper.createOrGetFileDir(path, context);
-        return createImageFile(file,imageName);
+        return createImageFile(file, imageName);
     }
 
-    public static File createImageFile(File file, String imageName){
-        String realImageName= String.format("%s_%s.jpg", imageName, String.valueOf(new Date().getTime()));
-        File file1=new File(file.getPath(),realImageName);
+    public static File createImageFile(File file, String imageName) {//2
+        String realImageName = String.format("%s_%s.jpg", imageName, String.valueOf(new Date().getTime()));
+        File file1 = new File(file.getPath(), realImageName);
         try {
             file1.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
-            file1=null;
+            file1 = null;
         }
         return file1;
     }
 
 
-    public static void saveFileWithColision(Bitmap bitmap, String dirName, String nameImg, Context context) {
+    public static void saveFileWithColision(Bitmap bitmap, String dirName, String nameImg, Context context) {//4
         //File outputDir = getCacheDir();
         try {
             File dir = createOrGetFileDir(dirName, context);
@@ -70,7 +80,7 @@ public class FileHelper {
         }
     }
 
-    public static void saveFile(String s, File file) throws IOException {
+    public static void saveFile(String s, File file) throws IOException {//5
 
         if (file.exists())
             file.delete();
@@ -83,9 +93,43 @@ public class FileHelper {
     }
 
 
+    public static List<Pair<String, String>> loadUserList(Context context) {
+        List<Pair<String, String>> pairs = new ArrayList<>();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(
+                    new InputStreamReader(context.getAssets().open("userList"), "UTF-8"));
+
+            // do reading, usually loop until end of file reading
+            String mLine;
+            while ((mLine = reader.readLine()) != null) {
+                //process line
+                String[] split = mLine.split(",");
+                Pair<String, String> pair = new Pair<>(split[0], split[1]);
+                pairs.add(pair);
+            }
+        } catch (Exception e) {
+            //log the exception
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (Exception e) {
+                    //log the exception
+                }
+            }
+        }
+
+        return pairs;
+    }
+
     public static void dispatchTakePictureIntent(Activity activity, File file) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+
+        Uri uriForFile = FileProvider.getUriForFile(activity, activity.getString(R.string.file_provider_authority), file);
+
+
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriForFile);
         activity.startActivityForResult(takePictureIntent, ACTION_TAKE_PHOTO);
     }
 }

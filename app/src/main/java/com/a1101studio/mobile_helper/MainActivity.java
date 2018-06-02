@@ -2,11 +2,15 @@ package com.a1101studio.mobile_helper;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -27,11 +31,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.Callable;
 
+import rx.Observable;
+import rx.Observer;
+import rx.functions.Func1;
+
+import static android.R.string.no;
+import static android.R.string.yes;
+import static com.a1101studio.mobile_helper.R.string.ok;
 import static com.a1101studio.mobile_helper.utils.FileHelper.saveFile;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final int IDM_CLEAR_ALL = 103;
     EditText ETCompanyName;
     Spinner ETArea;
     Spinner ETElectricLine;
@@ -50,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(Menu.NONE, IDM_OPEN, Menu.NONE, R.string.report_list);
         menu.add(Menu.NONE, IDM_LOGOUT, Menu.NONE, R.string.logout);
+        menu.add(Menu.NONE, IDM_CLEAR_ALL,Menu.NONE,"Удалить фотоданные");
         return true;
     }
 
@@ -61,11 +75,43 @@ public class MainActivity extends AppCompatActivity {
         } else if (item.getItemId() == IDM_LOGOUT) {
             finish();
         }
+        else if(item.getItemId()== IDM_CLEAR_ALL){
+            android.support.v7.app.AlertDialog.Builder bulder=new android.support.v7.app.AlertDialog.Builder(this);
+            bulder.setMessage("Вы действительно хотите удалить все фотоданные?");
+            bulder.setPositiveButton(yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Observable.just(FileHelper.createOrGetFileDir(getApplicationContext())).map(file1 -> {
+                        for (File file : file1.listFiles()) {
+                            if(!file.getName().contains(".html")){
+                                file.delete();
+                            }
+                        }
+                        return new Object();
+                    }).subscribe(new Observer<Object>() {
+                        @Override
+                        public void onCompleted() {
+                            new android.support.v7.app.AlertDialog.Builder(MainActivity.this).setMessage("Данные успешно удалены!").setPositiveButton(ok,null).show();
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onNext(Object o) {
+
+                        }
+                    });
+                }
+            });
+            bulder.setNegativeButton(no,null);
+            bulder.show();
+        }
 
         return false;
     }
-
-
 
 
     @Override
@@ -87,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        documentModel=WorkData.getInstance().getDocumentModel();
+        documentModel = WorkData.getInstance().getDocumentModel();
 
         ETCompanyName = (EditText) findViewById(R.id.Predpriytie);
         ETArea = (Spinner) findViewById(R.id.Sector);
@@ -103,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         ETCompanyName.setText("Московские высоковольтные сети");
-        setSpinText(ETArea,documentModel.getArea());
-        setSpinText(ETArea,documentModel.getElectricLine());
+        setSpinText(ETArea, documentModel.getArea());
+        setSpinText(ETArea, documentModel.getElectricLine());
         ETNomination.setText(documentModel.getNomination());
         ETTypeOfInspection.setText("Плановый");
         ETNumberStartInspectionSeat.setText(documentModel.getNumberStartInspectionSeat());
@@ -117,11 +163,18 @@ public class MainActivity extends AppCompatActivity {
         Button btnSend = (Button) findViewById(R.id.btnSend);
 
 
-        View.OnClickListener oclBtnOk = v -> createPDF();
+        View.OnClickListener oclBtnOk = v -> {
+            createPDF();
+            SharedPreferences mPrefs = this.getSharedPreferences(getApplicationInfo().name, Context.MODE_PRIVATE);
+            SharedPreferences.Editor ed = mPrefs.edit();
+            ed.putString(WorkData.class.getSimpleName(), "");
+            ed.apply();
+
+        };
         btnSend.setOnClickListener(oclBtnOk);
     }
 
-    void createPDF() {
+    void createPDF() {//тут заодно перекидываем всё папку в нужное место
         if (ETCompanyName.getText().toString().trim().length() > 0 && ETArea.getSelectedItem().toString().trim().length() > 0 && ETElectricLine.getSelectedItem().toString().trim().length() > 0 && ETNomination.getText().toString().trim().length() > 0 &&
                 ETTypeOfInspection.getText().toString().trim().length() > 0 && ETNumberStartInspectionSeat.getText().toString().trim().length() > 0 && ETNumberEndInspectioSeat.getText().toString().trim().length() > 0 && ETInspectorName.getText().toString().trim().length() > 0 && Prinal.getText().toString().trim().length() > 0) {
             File htmlFolder = FileHelper.createOrGetFileDir(this);
@@ -184,40 +237,35 @@ public class MainActivity extends AppCompatActivity {
                 documentModel.setDefectNames(checkedItems.toArray(new String[0]));
 
 
-                HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel,this);
+                HtmlHelper htmlHelper = new HtmlHelper(myFile.getPath(), documentModel, this);
                 saveFile(htmlHelper.getHtmlString(), myFile);
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                //intent.setDataAndType(Uri.fromFile(myFile), "text/html");
-                /*if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                    intent.setDataAndType(FileProvider.getUriForFile(MainActivity.this,
-                            BuildConfig.APPLICATION_ID + ".provider",
-                            myFile), "text/html");
-                else*/
-                    intent.setDataAndType(Uri.fromFile(myFile), "text/html");
+                Uri uriForFile = FileProvider.getUriForFile(this, this.getString(R.string.file_provider_authority), myFile);
+                intent.setData(uriForFile);//, "application/html");
+                // set flag to give temporary permission to external app to use your FileProvider
+                this.grantUriPermission(this.getString(R.string.file_provider_authority), uriForFile, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(intent);
 
 
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.e("TAG", "ex="+e.toString());
+                Log.e("TAG", "ex=" + e.toString());
             }
         } else {
             AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
             dlgAlert.setMessage(R.string.fill_all_field);
             dlgAlert.setTitle(R.string.error);
-            dlgAlert.setPositiveButton(R.string.ok, null);
+            dlgAlert.setPositiveButton(ok, null);
             dlgAlert.setCancelable(true);
             dlgAlert.create().show();
         }
     }
 
-    public void setSpinText(Spinner spin, String text)
-    {
-        for(int i= 0; i < spin.getAdapter().getCount(); i++)
-        {
-            if(spin.getAdapter().getItem(i).toString().contains(text))
-            {
+    public void setSpinText(Spinner spin, String text) {
+        for (int i = 0; i < spin.getAdapter().getCount(); i++) {
+            if (spin.getAdapter().getItem(i).toString().contains(text)) {
                 spin.setSelection(i);
             }
         }

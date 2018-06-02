@@ -1,10 +1,12 @@
 package com.a1101studio.mobile_helper.models;
 
+import java.io.Serializable;
+
 /**
  * Created by andru on 22.12.2016.
  */
 
-public class DocumentModel {
+public class DocumentModel implements Serializable {
     private String[] seatNames;//номера опор/пролётов
     private String[] defectNames;
     private String companyName;

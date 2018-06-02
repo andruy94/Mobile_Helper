@@ -16,7 +16,7 @@
             style="@style/Font"
             android:background="@drawable/etborder"
             android:textColor="#000000"
-            android:text="Номер опоры, пролёта"
+            android:text="@string/title_column_number"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="40dp"

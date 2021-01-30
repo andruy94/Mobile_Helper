@@ -9,10 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.a1101studio.mobile_helper.LoginActivity1">
+    tools:context="com.a1101studio.mobile_helper_open.LoginActivity1">
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tillogn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,12 +33,12 @@
             android:text=""
             android:textColor="@color/white"
             android:textColorHint="@color/white"
-            android:textSize="40sp" />
+            android:textSize="20sp" />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilpassword"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
             android:hint="@string/hint_password"
             android:inputType="textPassword"
             android:textColor="@color/white"
-            android:textSize="40sp" />
-    </android.support.design.widget.TextInputLayout>
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/aut"
@@ -73,7 +73,7 @@
         android:layout_marginTop="25dp"
         android:text="@string/sign_in"
         android:textColor="@color/white"
-        android:textSize="40sp"
+        android:textSize="20sp"
 
         />
 

@@ -10,6 +10,6 @@
         android:layout_gravity="center"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:srcCompat="@mipmap/ic_launcher"
+        app:srcCompat="@drawable/ic_icon_energy"
         android:id="@+id/imageView" />
 </LinearLayout>

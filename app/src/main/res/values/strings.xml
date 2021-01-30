@@ -23,6 +23,7 @@
     <string name="fill">Заполните поле</string>
     <string name="show_list">Показать список</string>
     <string-array name="district">
+        <item>_________________</item>
         <item>Чагинская РМС</item>
         <item>Южная РМС</item>
         <item>Филевская РМС</item>
@@ -141,7 +142,7 @@
     <string name="choise_phasa">Выберите фазу</string>
     <string name="VIDstrign">плановый</string>
     <string name="NameFirm">Московские высоковольтные сети</string>
-    <string name="file_provider_authority" translatable="false">com.a1101studio.mobile_helper.fileprovider</string>
+    <string name="file_provider_authority" translatable="false">com.a1101studio.mobile_helper_open.fileprovider</string>
     <string name="title_column_number">Номер опоры, пролёта</string>
 
 
